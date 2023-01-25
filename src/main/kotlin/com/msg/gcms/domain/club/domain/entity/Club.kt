@@ -24,9 +24,9 @@ class Club(
     @Column(columnDefinition="TEXT")
     val notionLink: String,
 
-    val teacher: String,
+    val teacher: String?,
 
-    val phone: String,
+    val contact: String,
 
     val type: ClubType,
 
