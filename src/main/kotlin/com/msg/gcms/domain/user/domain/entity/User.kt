@@ -30,11 +30,11 @@ class User(
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    val club: List<Club>?,
+    val club: List<Club>,
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    val joinStatus: List<JoinStatus>?,
+    val joinStatus: List<JoinStatus>,
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
