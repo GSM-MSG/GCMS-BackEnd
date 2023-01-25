@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.joinStatus.domain.entity.JoinStatus
-import java.util.UUID
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -25,7 +25,7 @@ class User(
 
     val number: Int,
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     val profileImg: String,
 
     @JsonIgnore
@@ -38,6 +38,6 @@ class User(
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    val clubMember: List<ClubMember>?
-    ) {
+    val clubMember: List<ClubMember>
+) {
 }
