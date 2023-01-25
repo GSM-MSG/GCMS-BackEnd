@@ -37,10 +37,10 @@ class Club(
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
-    val activityImg: List<ActivityImg>?,
+    val activityImg: List<ActivityImg>,
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
-    val joinStatus: List<JoinStatus>?,
+    val joinStatus: List<JoinStatus>,
 ) {
 }
