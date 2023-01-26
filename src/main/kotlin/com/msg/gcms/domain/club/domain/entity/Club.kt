@@ -14,13 +14,13 @@ class Club(
 
     val name: String,
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     val bannerImg: String,
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     val content: String,
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     val notionLink: String,
 
     val teacher: String?,
