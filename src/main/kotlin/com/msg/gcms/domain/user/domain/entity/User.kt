@@ -1,9 +1,9 @@
 package com.msg.gcms.domain.user.domain.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
-import com.msg.gcms.domain.joinStatus.domain.entity.JoinStatus
 import java.util.*
 import javax.persistence.*
 
@@ -33,7 +33,7 @@ class User(
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    val joinStatus: List<JoinStatus>,
+    val applicant: List<Applicant>,
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
