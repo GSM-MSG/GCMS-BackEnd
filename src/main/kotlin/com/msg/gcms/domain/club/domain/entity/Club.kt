@@ -3,6 +3,7 @@ package com.msg.gcms.domain.club.domain.entity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
@@ -43,5 +44,9 @@ class Club(
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
     val applicant: List<Applicant>,
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
+    val clubMember: List<ClubMember>,
 ) {
 }
