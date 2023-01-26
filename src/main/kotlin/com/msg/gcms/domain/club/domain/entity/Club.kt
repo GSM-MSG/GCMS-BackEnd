@@ -1,8 +1,8 @@
 package com.msg.gcms.domain.club.domain.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.joinStatus.domain.entity.JoinStatus
 import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
@@ -29,6 +29,8 @@ class Club(
 
     val type: ClubType,
 
+    val isOpened: Boolean,
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -40,6 +42,6 @@ class Club(
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
-    val joinStatus: List<JoinStatus>,
+    val applicant: List<Applicant>,
 ) {
 }
