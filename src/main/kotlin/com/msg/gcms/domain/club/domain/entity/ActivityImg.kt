@@ -10,7 +10,7 @@ class ActivityImg(
     var id: Long = 0,
 
     @Column(columnDefinition="TEXT")
-    val Image: String,
+    val image: String,
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
