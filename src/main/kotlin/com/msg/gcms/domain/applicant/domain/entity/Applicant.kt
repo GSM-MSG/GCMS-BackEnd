@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.joinStatus.domain.entity
+package com.msg.gcms.domain.applicant.domain.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.club.domain.entity.Club
@@ -6,7 +6,7 @@ import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
 @Entity
-class JoinStatus(
+class Applicant(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
