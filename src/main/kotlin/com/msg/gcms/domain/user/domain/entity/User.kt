@@ -8,7 +8,6 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table
 class User(
     @Id
     var id: UUID,

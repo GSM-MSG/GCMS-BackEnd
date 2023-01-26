@@ -6,7 +6,6 @@ import com.msg.gcms.domain.joinStatus.domain.entity.JoinStatus
 import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
-@Table
 @Entity
 class Club(
     @Id

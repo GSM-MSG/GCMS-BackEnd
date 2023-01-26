@@ -3,7 +3,6 @@ package com.msg.gcms.domain.club.domain.entity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
-@Table
 @Entity
 class ActivityImg(
     @Id

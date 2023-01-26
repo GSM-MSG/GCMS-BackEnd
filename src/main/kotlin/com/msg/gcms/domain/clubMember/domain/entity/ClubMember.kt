@@ -5,7 +5,6 @@ import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
-@Table
 @Entity
 class ClubMember(
     @Id
