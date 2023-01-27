@@ -1,6 +1,8 @@
 package com.msg.gcms.global.security
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gcms.global.security.filter.ExceptionFilter
+import com.msg.gcms.global.security.handler.CustomAccessDeniedHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -15,6 +17,7 @@ import org.springframework.web.cors.CorsUtils
 @EnableWebSecurity
 class SecurityConfig(
     private val exceptionFilter: ExceptionFilter,
+    private val objectMapper: ObjectMapper,
 ) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -53,6 +56,7 @@ class SecurityConfig(
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
+            .accessDeniedHandler(CustomAccessDeniedHandler(objectMapper))
 
             .and()
             .addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter::class.java)
