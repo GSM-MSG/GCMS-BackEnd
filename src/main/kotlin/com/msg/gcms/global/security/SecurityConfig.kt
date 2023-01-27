@@ -1,22 +1,23 @@
 package com.msg.gcms.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.msg.gcms.global.security.filter.ExceptionFilter
-import com.msg.gcms.global.security.handler.CustomAccessDeniedHandler
+import com.msg.gcms.global.config.FilterConfig
+import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.web.cors.CorsUtils
+
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val exceptionFilter: ExceptionFilter,
+    private val jwtTokenProvider: JwtTokenProvider,
     private val objectMapper: ObjectMapper,
 ) {
     @Bean
@@ -35,32 +36,19 @@ class SecurityConfig(
                 CorsUtils.isPreFlightRequest(request)
             }).permitAll()
 
-            // Auth
-            .antMatchers("/auth/**").permitAll()
-
-            // Club
-            .antMatchers("/club/**").authenticated()
-
-            // Club Member
-            .antMatchers("/club-member/**").authenticated()
-
-            // Applicant
-            .antMatchers("/applicant/**").authenticated()
-
-            //User
-            .antMatchers("/user/**").authenticated()
-
-            // Image
-            .antMatchers("/image/**").authenticated()
+            .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
-            .accessDeniedHandler(CustomAccessDeniedHandler(objectMapper))
+            .authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
 
             .and()
-            .addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter::class.java)
-
+            .apply(FilterConfig(jwtTokenProvider, objectMapper))
+            .and()
             .build()
     }
+
 }
