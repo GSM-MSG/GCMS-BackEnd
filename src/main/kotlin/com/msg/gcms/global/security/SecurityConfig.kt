@@ -48,7 +48,7 @@ class SecurityConfig(
             .antMatchers("/user/**").authenticated()
 
             // Image
-            .antMatchers("/image/**").permitAll()
+            .antMatchers("/image/**").authenticated()
 
             .anyRequest().denyAll()
             .and()
