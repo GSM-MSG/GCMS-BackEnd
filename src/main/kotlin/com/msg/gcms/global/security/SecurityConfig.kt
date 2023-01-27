@@ -1,10 +1,8 @@
 package com.msg.gcms.global.security
 
 import com.msg.gcms.global.security.filter.ExceptionFilter
-import com.msg.gcms.global.security.handler.CustomAccessDeniedHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
