@@ -22,7 +22,7 @@ class CustomAccessDeniedHandler(
         accessDeniedException: org.springframework.security.access.AccessDeniedException?
     ) {
         log.error("==========Access Denied==========")
-        val errorCode = ErrorCode.UN_AUTHORIZED
+        val errorCode = ErrorCode.UNAUTHORIZED
         val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
         response.characterEncoding = "UTF-8"
         response.status = errorCode.status
