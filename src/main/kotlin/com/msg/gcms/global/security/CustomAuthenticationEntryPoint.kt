@@ -1,26 +1,27 @@
-package com.msg.gcms.global.security.handler
+package com.msg.gcms.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gcms.global.exception.ErrorCode
 import com.msg.gcms.global.exception.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
-import org.springframework.security.web.access.AccessDeniedHandler
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import org.springframework.security.access.AccessDeniedException
 
 @Component
-class CustomAccessDeniedHandler(
-    private val objectMapper: ObjectMapper,
-) : AccessDeniedHandler {
+class CustomAuthenticationEntryPoint(
+    private val objectMapper: ObjectMapper
+): AuthenticationEntryPoint {
+
     private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
 
-    override fun handle(
+    override fun commence(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        accessDeniedException: AccessDeniedException
+        authException: AuthenticationException
     ) {
         log.error("==========Access Denied==========")
         val errorCode = ErrorCode.UNAUTHORIZED
