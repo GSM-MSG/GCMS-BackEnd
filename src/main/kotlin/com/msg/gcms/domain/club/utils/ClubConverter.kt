@@ -8,5 +8,5 @@ import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 interface ClubConverter {
     fun toDto(type: String): ClubTypeDto
     fun toDto(club: Club): ClubListDto
-    fun toResponseDto(clubListDto: ClubListDto): ClubListResponseDto
+    fun toResponseDto(dto: ClubListDto): ClubListResponseDto
 }

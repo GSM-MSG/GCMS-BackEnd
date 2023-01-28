@@ -5,6 +5,6 @@ import com.msg.gcms.domain.club.enums.ClubType
 data class ClubListResponseDto(
     val id: Long,
     val type: ClubType,
-    val title: String,
+    val name: String,
     val bannerUrl: String
 )
