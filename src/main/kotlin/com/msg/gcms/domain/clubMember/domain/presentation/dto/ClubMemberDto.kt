@@ -12,6 +12,7 @@ class ClubMemberDto(
     private val number: Int,
     private val profileImg: String,
     private val scope: MemberScope
+    val profileImg: String?,
 ) {
 
 }
