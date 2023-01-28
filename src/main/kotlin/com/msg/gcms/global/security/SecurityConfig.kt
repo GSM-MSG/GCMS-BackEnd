@@ -40,7 +40,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
-            .antMatchers(HttpMethod.GET, "/club").permitAll()
+            .antMatchers(HttpMethod.GET, "/club").authenticated()
 
             .anyRequest().denyAll()
             .and()
