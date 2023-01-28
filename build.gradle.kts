@@ -35,9 +35,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
-	testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-	testImplementation("io.mockk:mockk:1.13.2")
+	testImplementation("org.mockito:mockito-inline:2.13.0")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
