@@ -18,3 +18,9 @@ class ClubMemberConverterImpl : ClubMemberConverter {
         profileImg = entity.user.profileImg,
         scope = entity.scope
     )
+
+    override fun toListDto(scope: MemberScope, dto: List<ClubMemberDto>): ClubMemberListDto = ClubMemberListDto(
+        scope = scope,
+        clubMember = dto
+    )
+}
