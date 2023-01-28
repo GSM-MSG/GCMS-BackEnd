@@ -2,10 +2,9 @@ package com.msg.gcms.global.util
 
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
-import com.msg.gcms.domain.user.exception.UserNotFindException
+import com.msg.gcms.domain.user.exception.UserNotFoundException
 import com.msg.gcms.global.security.auth.AuthDetails
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 
 @Component
@@ -14,8 +13,8 @@ class UserUtil(
 ) {
     fun fetchCurrentUser(): User {
         val principal = SecurityContextHolder.getContext().authentication.principal
-        val email = if (principal is UserDetails) {
-            (principal as AuthDetails).username
+        val email = if (principal is AuthDetails) {
+            principal.username
         } else {
             principal.toString()
         }
@@ -23,5 +22,5 @@ class UserUtil(
     }
 
     fun fetchUserByEmail(email: String): User =
-        userRepository.findByEmail(email) ?: throw UserNotFindException()
+        userRepository.findByEmail(email) ?: throw UserNotFoundException()
 }

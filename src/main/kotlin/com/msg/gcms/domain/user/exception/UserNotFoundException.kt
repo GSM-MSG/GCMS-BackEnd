@@ -3,4 +3,4 @@ package com.msg.gcms.domain.user.exception
 import com.msg.gcms.global.exception.ErrorCode
 import com.msg.gcms.global.exception.exceptions.BasicException
 
-class UserNotFindException: BasicException(ErrorCode.USER_NOT_FIND)
+class UserNotFoundException: BasicException(ErrorCode.USER_NOT_FOUND)
