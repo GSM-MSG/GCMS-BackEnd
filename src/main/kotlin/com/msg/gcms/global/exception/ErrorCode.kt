@@ -4,6 +4,7 @@ enum class ErrorCode(
     val message: String,
     val status: Int
 ) {
+    CLUB_MEMBER_NON_EXISTENT("동아리 구성원이 아닌 경우", 400),
     UNAUTHORIZED("권한이 없음", 401),
     EXPIRED_TOKEN("만료된 토큰", 401),
 
