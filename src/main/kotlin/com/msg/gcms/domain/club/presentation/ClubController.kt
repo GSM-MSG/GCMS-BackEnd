@@ -16,7 +16,10 @@ class ClubController(
     private val findClubListService: FindClubListService,
 ) {
     @GetMapping
-    fun findClubListByClubType(@RequestParam type: String): ResponseEntity<ClubListResponseDto> {
+    fun findClubListByClubType(@RequestParam type: String): ResponseEntity<List<ClubListResponseDto>> =
+        clubConverter.toDto(type)
+            .let { findClubListService.execute(it) }
+            .map { clubConverter.toResponseDto(it) }
+            .let { ResponseEntity.ok().body(it) }
 
-    }
 }
