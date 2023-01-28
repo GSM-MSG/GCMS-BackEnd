@@ -29,14 +29,14 @@ class User(
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    val club: List<Club>,
+    val club: List<Club> = listOf(),
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    val applicant: List<Applicant>,
+    val applicant: List<Applicant> = listOf(),
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    val clubMember: List<ClubMember>
+    val clubMember: List<ClubMember> = listOf()
 ) {
 }

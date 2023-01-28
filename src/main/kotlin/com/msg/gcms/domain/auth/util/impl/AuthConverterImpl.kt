@@ -40,9 +40,6 @@ class AuthConverterImpl : AuthConverter {
             classNum = gAuthUserInfo.classNum,
             number = gAuthUserInfo.num,
             profileImg = gAuthUserInfo.profileUrl,
-            club = listOf(),
-            applicant = listOf(),
-            clubMember = listOf()
         )
 
     override fun toEntity(userInfo: User, refreshToken: String): RefreshToken =
