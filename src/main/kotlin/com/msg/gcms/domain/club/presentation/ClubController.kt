@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.club.presentation
 
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.FindClubListService
 import com.msg.gcms.domain.club.utils.ClubConverter
@@ -16,7 +17,7 @@ class ClubController(
     private val findClubListService: FindClubListService,
 ) {
     @GetMapping
-    fun findClubListByClubType(@RequestParam type: String): ResponseEntity<List<ClubListResponseDto>> =
+    fun findClubListByClubType(@RequestParam("type") type: ClubType): ResponseEntity<List<ClubListResponseDto>> =
         clubConverter.toDto(type)
             .let { findClubListService.execute(it) }
             .map { clubConverter.toResponseDto(it) }

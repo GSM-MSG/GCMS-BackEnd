@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class ClubConverterImpl: ClubConverter {
-    override fun toDto(type: String): ClubTypeDto =
-        ClubTypeDto(clubType = ClubType.valueOf(type))
+    override fun toDto(type: ClubType): ClubTypeDto =
+        ClubTypeDto(clubType = type)
 
     override fun toDto(club: Club): ClubListDto =
         ClubListDto(id = club.id, type = club.type, name = club.name, bannerUrl = club.bannerImg )
