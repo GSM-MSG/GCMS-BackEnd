@@ -25,7 +25,7 @@ class User(
     val number: Int,
 
     @Column(columnDefinition = "TEXT")
-    val profileImg: String,
+    val profileImg: String? = "",
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
