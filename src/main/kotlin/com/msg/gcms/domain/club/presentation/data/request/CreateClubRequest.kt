@@ -18,8 +18,7 @@ data class CreateClubRequest(
     val contact: String,
     @field:NotBlank
     val notionLink: String,
-    @field:NotNull
-    val teacher: String?,
+    val teacher: String? = null,
     @field:NotNull
     val activityImgs: List<String>,
     @field:NotNull
