@@ -1,6 +1,6 @@
-package com.msg.gcms.domain.clubMember.domain.presentation.dto
+package com.msg.gcms.domain.clubMember.presentation.data.dto
 
-import com.msg.gcms.domain.clubMember.enums.MemberScope
+import com.msg.gcms.domain.clubMember.domain.entity.enums.MemberScope
 import java.util.UUID
 
 class ClubMemberDto(

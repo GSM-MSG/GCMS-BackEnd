@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.club.enums
+package com.msg.gcms.domain.club.domain.entity.enums
 
 enum class ClubType(description: String) {
     MAJOR("전공동아리"),
