@@ -5,6 +5,7 @@ import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.CreateClubService
+import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.clubMember.enums.MemberScope
@@ -22,10 +23,11 @@ class CreateClubServiceImpl(
     private val userRepository: UserRepository,
     private val activityImgRepository: ActivityImgRepository,
     private val clubMemberRepository: ClubMemberRepository,
+    private val clubConverter: ClubConverter,
 ) : CreateClubService {
     override fun execute(clubDto: ClubDto) {
         val currentUser = userUtil.fetchCurrentUser()
-        val club = clubDto.toEntity(currentUser)
+        val club = clubConverter.toEntity(clubDto, currentUser)
         clubDto.activityImgs.forEach { activityImgRepository.save(ActivityImg(0, it, club)) }
         val users = clubDto.member
             .map {
