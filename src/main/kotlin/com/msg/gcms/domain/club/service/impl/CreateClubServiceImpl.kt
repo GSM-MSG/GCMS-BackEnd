@@ -28,13 +28,18 @@ class CreateClubServiceImpl(
     override fun execute(clubDto: ClubDto) {
         val currentUser = userUtil.fetchCurrentUser()
         val club = clubConverter.toEntity(clubDto, currentUser)
-        clubDto.activityImgs.forEach { activityImgRepository.save(ActivityImg(0, it, club)) }
+        clubRepository.save(club)
+        clubDto.activityImgs
+            .forEach {
+                activityImgRepository.save(ActivityImg(0, it, club))
+            }
         val users = clubDto.member
             .map {
                 userRepository.findById(it)
                     .orElseThrow { throw UserNotFoundException() }
             }
-        users.forEach { clubMemberRepository.save(ClubMember(0, MemberScope.MEMBER, club, it)) }
-        clubRepository.save(club)
+        users.forEach {
+            clubMemberRepository.save(ClubMember(0, MemberScope.MEMBER, club, it))
+        }
     }
 }

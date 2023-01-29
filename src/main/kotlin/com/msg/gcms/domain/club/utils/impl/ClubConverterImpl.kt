@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component
 class ClubConverterImpl : ClubConverter {
     override fun toDto(createClubRequest: CreateClubRequest): ClubDto =
         ClubDto(
-            id = 0,
             type = createClubRequest.type,
             name = createClubRequest.name,
             content = createClubRequest.content,
@@ -25,7 +24,7 @@ class ClubConverterImpl : ClubConverter {
 
     override fun toEntity(clubDto: ClubDto, user: User): Club =
         Club(
-            id = clubDto.id,
+            id = 0,
             type = clubDto.type,
             name = clubDto.name,
             content = clubDto.content,

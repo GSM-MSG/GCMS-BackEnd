@@ -4,7 +4,6 @@ import com.msg.gcms.domain.club.enums.ClubType
 import java.util.UUID
 
 data class ClubDto(
-    val id: Long,
     val type: ClubType,
     val name: String,
     val content: String,
@@ -13,5 +12,5 @@ data class ClubDto(
     val notionLink: String,
     val teacher: String?,
     val activityImgs: List<String>,
-    val member: List<UUID>,
+    val member: List<UUID>
 )

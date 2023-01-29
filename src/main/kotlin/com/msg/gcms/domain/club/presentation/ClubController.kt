@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/club")
@@ -17,7 +18,7 @@ class ClubController(
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
-    fun createClub(@RequestBody createClubRequest: CreateClubRequest): ResponseEntity<Void> =
+    fun createClub(@Valid @RequestBody createClubRequest: CreateClubRequest): ResponseEntity<Void> =
         clubConverter.toDto(createClubRequest)
             .let { createClubService.execute(it) }
             .let { ResponseEntity(HttpStatus.CREATED) }
