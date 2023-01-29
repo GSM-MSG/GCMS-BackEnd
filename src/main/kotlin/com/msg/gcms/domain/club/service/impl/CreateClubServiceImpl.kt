@@ -1,0 +1,38 @@
+package com.msg.gcms.domain.club.service.impl
+
+import com.msg.gcms.domain.club.domain.entity.ActivityImg
+import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
+import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
+import com.msg.gcms.domain.club.service.CreateClubService
+import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
+import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
+import com.msg.gcms.domain.clubMember.enums.MemberScope
+import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.domain.user.exception.UserNotFoundException
+import com.msg.gcms.global.util.UserUtil
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+@Service
+@Transactional(rollbackFor = [Exception::class])
+class CreateClubServiceImpl(
+    private val clubRepository: ClubRepository,
+    private val userUtil: UserUtil,
+    private val userRepository: UserRepository,
+    private val activityImgRepository: ActivityImgRepository,
+    private val clubMemberRepository: ClubMemberRepository,
+) : CreateClubService {
+    override fun execute(clubDto: ClubDto) {
+        val currentUser = userUtil.fetchCurrentUser()
+        val club = clubDto.toEntity(currentUser)
+        clubDto.activityImgs.forEach { activityImgRepository.save(ActivityImg(0, it, club)) }
+        val users = clubDto.member
+            .map {
+                userRepository.findById(it)
+                    .orElseThrow { throw UserNotFoundException() }
+            }
+        users.forEach { clubMemberRepository.save(ClubMember(0, MemberScope.MEMBER, club, it)) }
+        clubRepository.save(club)
+    }
+}
