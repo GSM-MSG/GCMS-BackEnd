@@ -17,8 +17,7 @@ class ClubMemberController(
 ) {
 
     @GetMapping("/{club-id}")
-    fun findAllMemberFromClubId(@PathVariable("club-id") clubId: ClubIdRequestDto): ResponseEntity<ClubMemberListResponse> =
-        clubConverter.toDto(clubId)
-            .let { findClubMemberListService.execute(it) }
+    fun findAllMemberFromClubId(@PathVariable("club-id") clubId: Long): ResponseEntity<ClubMemberListResponse> =
+        findClubMemberListService.execute(clubId)
             .let { ResponseEntity.ok(clubMemberConverter.toResponse(it)) }
 }

@@ -23,9 +23,9 @@ class FindClubMemberListService(
     private val userUtil: UserUtil
 ) {
 
-    fun execute(clubIdDto: ClubIdDto): ClubMemberListDto {
+    fun execute(clubId: Long): ClubMemberListDto {
         val user = userUtil.fetchCurrentUser()
-        val club: Club = clubRepository.findById(clubIdDto.clubId)
+        val club: Club = clubRepository.findById(clubId)
             .orElseThrow { ClubNotFoundException() }
         val clubMemberList: List<ClubMemberDto> = clubMemberRepository.findAllByClub(club)
                 .map { clubMemberConverter.toDto(it) }
