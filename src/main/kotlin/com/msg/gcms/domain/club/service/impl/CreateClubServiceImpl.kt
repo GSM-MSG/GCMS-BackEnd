@@ -31,7 +31,7 @@ class CreateClubServiceImpl(
         clubRepository.save(club)
         val activityImgs = clubDto.activityImgs
             .map {
-                ActivityImg(0, it, club)
+                ActivityImg(image = it, club =  club)
             }
         activityImgRepository.saveAll(activityImgs)
         val users = clubDto.member
@@ -40,7 +40,7 @@ class CreateClubServiceImpl(
                     .orElseThrow { throw UserNotFoundException() }
             }
             .map {
-                ClubMember(0, MemberScope.MEMBER, club, it)
+                ClubMember(scope = MemberScope.MEMBER, club = club, user = it)
             }
         clubMemberRepository.saveAll(users)
     }
