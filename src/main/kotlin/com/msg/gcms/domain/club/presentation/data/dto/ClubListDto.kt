@@ -6,5 +6,5 @@ data class ClubListDto(
     val id: Long,
     val type: ClubType,
     val name: String,
-    val bannerUrl: String
+    val bannerImg: String
 )

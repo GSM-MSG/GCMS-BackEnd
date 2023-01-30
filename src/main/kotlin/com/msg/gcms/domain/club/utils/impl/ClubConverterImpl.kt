@@ -14,8 +14,8 @@ class ClubConverterImpl: ClubConverter {
         ClubTypeDto(clubType = type)
 
     override fun toDto(club: Club): ClubListDto =
-        ClubListDto(id = club.id, type = club.type, name = club.name, bannerUrl = club.bannerImg )
+        ClubListDto(id = club.id, type = club.type, name = club.name, bannerImg = club.bannerImg )
 
     override fun toResponseDto(dto: ClubListDto): ClubListResponseDto =
-        ClubListResponseDto(id = dto.id, type = dto.type, name = dto.name, bannerUrl = dto.bannerUrl)
+        ClubListResponseDto(id = dto.id, type = dto.type, name = dto.name, bannerImg = dto.bannerImg)
 }
