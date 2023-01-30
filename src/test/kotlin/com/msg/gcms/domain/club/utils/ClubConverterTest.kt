@@ -41,4 +41,20 @@ class ClubConverterTest : BehaviorSpec({
             }
         }
     }
+
+    given("convert toClubListDto request") {
+        val type = ClubType.values().random()
+        val club = (1..5).map {
+            TestUtils.data().club().entity(type)
+        }
+        val clubListDto = club
+            .map { ClubListDto(it.id, type, it.name, it.bannerImg) }
+
+        `when`("is converting clubListDto") {
+            val convertedDto = club.map { clubConverter().toDto(it) }
+            then("convertedDto should be as same responseDto") {
+                convertedDto shouldBe clubListDto
+            }
+        }
+    }
 })
