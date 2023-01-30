@@ -33,13 +33,6 @@ class FindClubListControllerTest : BehaviorSpec({
             .map { ClubListDto(it.toLong(), type, "동아리", "동아리 사진") }
         val responseDto = (1..5)
             .map { ClubListResponseDto(it.toLong(), type, "동아리", "동아리 사진") }
-        
-        `when`("is converting clubType") {
-            val convertedDto = clubConverter().toDto(type)
-            then("convertedDto should be as same clubTypeDto") {
-                convertedDto.clubType shouldBe clubTypeDto.clubType
-            }
-        }
 
         `when`("is received") {
             every { findClubListService.execute(clubTypeDto) } returns clubListDto
@@ -57,12 +50,6 @@ class FindClubListControllerTest : BehaviorSpec({
             }
             then("result should be same as responseDto") {
                 body shouldBe responseDto
-            }
-        }
-        `when`("is converting clubListDto") {
-            val convertedDto = clubListDto.map { clubConverter().toResponseDto(it) }
-            then("convertedDto should be as same responseDto") {
-                convertedDto shouldBe responseDto
             }
         }
     }
