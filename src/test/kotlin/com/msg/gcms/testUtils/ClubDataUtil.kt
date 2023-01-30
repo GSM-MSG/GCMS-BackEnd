@@ -2,6 +2,9 @@ package com.msg.gcms.testUtils
 
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
+import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
+import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextBoolean
 
@@ -27,5 +30,20 @@ object ClubDataUtil {
         activityImg = listOf(),
         applicant = listOf(),
         clubMember = listOf()
+    )
+    fun clubListDto(type: ClubType) = ClubListDto (
+        id = Random.nextLong(),
+        type = type,
+        name = name(),
+        bannerImg = bannerImg()
+    )
+    fun clubTypeDto(type: ClubType) = ClubTypeDto(
+        clubType = type
+    )
+    fun clubListResponseDto(type: ClubType) = ClubListResponseDto(
+        id = Random.nextLong(),
+        type = type,
+        name = name(),
+        bannerImg = bannerImg()
     )
 }
