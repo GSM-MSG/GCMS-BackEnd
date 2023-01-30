@@ -16,7 +16,7 @@ object ClubDataUtil {
     private fun teacher() = listOf("선생", "선생1", "선생2").random()
     private fun contact() = listOf("연락쳐", "연락쳐1", "연락처2").random()
 
-    fun entity(type: ClubType) = Club (
+    fun entity(type: ClubType) = Club(
         id = Random.nextLong(),
         name = name(),
         bannerImg = bannerImg(),

@@ -1,9 +1,9 @@
 package com.msg.gcms.testUtils
 
 object TestUtils {
-    fun data() = TestDaTaUtil
+    fun data() = TestDataUtil
 
-    object TestDaTaUtil {
+    object TestDataUtil {
         fun user() = UserDataUtil
         fun club() = ClubDataUtil
     }
