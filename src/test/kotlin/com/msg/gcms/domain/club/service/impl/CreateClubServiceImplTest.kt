@@ -8,6 +8,7 @@ import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.core.context.SecurityContextHolder
@@ -24,6 +25,7 @@ class CreateClubServiceImplTest(
     val userRepository: UserRepository,
     val createClubService: CreateClubServiceImpl
 ) : BehaviorSpec({
+    extension(SpringExtension)
     given("유저와 clubDto가 주어질때"){
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         userRepository.save(user)
@@ -51,7 +53,7 @@ class CreateClubServiceImplTest(
                 clubRepository.existsById(1) shouldBe true
                 userRepository.findByEmail(user.email)?:throw RuntimeException()
                 val club = clubRepository.findById(1).orElseThrow { throw RuntimeException() }
-                assertSoftly(club){
+                assertSoftly(club) {
                     name shouldBe clubRequest.name
                     content shouldBe clubRequest.content
                     type shouldBe clubRequest.type
