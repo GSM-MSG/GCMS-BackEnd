@@ -6,10 +6,9 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
-import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
+import io.kotest.assertions.assertSoftly
+import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.matchers.shouldBe
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.ActiveProfiles
@@ -20,27 +19,17 @@ import java.util.*
 @Transactional
 @ActiveProfiles("dev")
 class CreateClubServiceImplTest(
-    @Autowired
-    val createClubService: CreateClubServiceImpl,
-    @Autowired
     val clubRepository: ClubRepository,
-    @Autowired
     val tokenProvider: JwtTokenProvider,
-    @Autowired
     val userRepository: UserRepository,
-) {
-    @BeforeEach
-    fun generateToken(){
+    val createClubService: CreateClubServiceImpl
+) : BehaviorSpec({
+    given("유저와 clubDto가 주어질때"){
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         userRepository.save(user)
         val token = tokenProvider.generateAccessToken("s21053@gsm.hs.kr")
         val authentication = tokenProvider.authentication(token)
         SecurityContextHolder.getContext().authentication = authentication
-    }
-
-    @Test
-    fun createClubTest() {
-        //given
         val clubRequest = ClubDto(
             type = ClubType.FREEDOM,
             name = "test",
@@ -56,20 +45,23 @@ class CreateClubServiceImplTest(
             ),
             member = listOf()
         )
+        `when`("동아리를 생성하면"){
+            createClubService.execute(clubRequest)
+            then("id가 1인 동아리가 존재해야하고 해당 동아리의 내용은 clubRequest와 같아야한다"){
+                clubRepository.existsById(1) shouldBe true
+                userRepository.findByEmail(user.email)?:throw RuntimeException()
+                val club = clubRepository.findById(1).orElseThrow { throw RuntimeException() }
+                assertSoftly(club){
+                    name shouldBe clubRequest.name
+                    content shouldBe clubRequest.content
+                    type shouldBe clubRequest.type
+                    bannerImg shouldBe clubRequest.bannerImg
+                    contact shouldBe clubRequest.contact
+                    notionLink shouldBe clubRequest.notionLink
+                    teacher shouldBe clubRequest.teacher
+                }
+            }
+        }
 
-        //when
-        createClubService.execute(clubRequest)
-        println("clubRepository.existsById(1) = ${clubRepository.existsById(1)}")
-
-        //then
-        Assertions.assertThat(clubRepository.existsById(1)).isTrue()
-        val club = clubRepository.findById(1).orElseThrow { throw RuntimeException() }
-        Assertions.assertThat(club.name).isEqualTo(clubRequest.name)
-        Assertions.assertThat(club.content).isEqualTo(clubRequest.content)
-        Assertions.assertThat(club.type).isEqualTo(clubRequest.type)
-        Assertions.assertThat(club.bannerImg).isEqualTo(clubRequest.bannerImg)
-        Assertions.assertThat(club.contact).isEqualTo(clubRequest.contact)
-        Assertions.assertThat(club.notionLink).isEqualTo(clubRequest.notionLink)
-        Assertions.assertThat(club.teacher).isEqualTo(clubRequest.teacher)
     }
-}
+})

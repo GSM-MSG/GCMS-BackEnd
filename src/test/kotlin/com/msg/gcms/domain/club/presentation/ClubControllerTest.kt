@@ -15,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.event.annotation.BeforeTestExecution
+import org.springframework.test.context.event.annotation.BeforeTestMethod
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -34,14 +36,14 @@ class ClubControllerTest(
     val tokenProvider: JwtTokenProvider,
 ) {
     var token: String = ""
-    @BeforeEach
-    fun generateToken(){
+    init {
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         userRepository.save(user)
         token = tokenProvider.generateAccessToken("s21053@gsm.hs.kr")
         val authentication = tokenProvider.authentication(token)
         SecurityContextHolder.getContext().authentication = authentication
     }
+
     @Test
     fun createClubTest(){
         val request = CreateClubRequest(
