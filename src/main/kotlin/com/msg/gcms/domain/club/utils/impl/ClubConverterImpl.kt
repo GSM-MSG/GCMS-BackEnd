@@ -9,7 +9,7 @@ import com.msg.gcms.domain.club.utils.ClubConverter
 import org.springframework.stereotype.Component
 
 @Component
-class ClubConverterImpl: ClubConverter {
+class ClubConverterImpl : ClubConverter {
     override fun toDto(type: ClubType): ClubTypeDto =
         ClubTypeDto(clubType = type)
 

@@ -18,7 +18,7 @@ import io.mockk.verify
 import org.springframework.context.annotation.Bean
 import java.util.UUID
 
-class FindClubListServiceTest: BehaviorSpec({
+class FindClubListServiceTest : BehaviorSpec({
     @Bean
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()

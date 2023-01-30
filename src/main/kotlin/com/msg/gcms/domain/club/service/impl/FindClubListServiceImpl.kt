@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class FindClubListServiceImpl(
     private val clubRepository: ClubRepository,
     private val clubConverter: ClubConverter
-): FindClubListService {
+) : FindClubListService {
     override fun execute(clubTypeDto: ClubTypeDto): List<ClubListDto> =
         clubRepository.findByType(clubTypeDto.clubType)
             .map { clubConverter.toDto(it) }

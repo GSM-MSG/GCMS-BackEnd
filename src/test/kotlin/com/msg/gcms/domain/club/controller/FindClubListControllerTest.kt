@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
 
 
-class FindClubListControllerTest: BehaviorSpec({
+class FindClubListControllerTest : BehaviorSpec({
     @Bean
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
