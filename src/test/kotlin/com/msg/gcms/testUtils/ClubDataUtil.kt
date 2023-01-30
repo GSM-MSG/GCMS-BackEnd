@@ -31,7 +31,7 @@ object ClubDataUtil {
         applicant = listOf(),
         clubMember = listOf()
     )
-    fun clubListDto(type: ClubType) = ClubListDto (
+    fun clubListDto(type: ClubType) = ClubListDto(
         id = Random.nextLong(),
         type = type,
         name = name(),
