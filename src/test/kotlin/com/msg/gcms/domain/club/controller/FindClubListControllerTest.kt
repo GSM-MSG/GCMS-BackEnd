@@ -29,8 +29,8 @@ class FindClubListControllerTest: BehaviorSpec({
     given("find club list request") {
         val type = ClubType.values().random()
         val clubTypeDto = ClubTypeDto(type)
-        val clubListDto = (1..5).map { ClubListDto(it.toLong(), type,"동아리","동아리 사진") }
-        val responseDto = (1..5).map { ClubListResponseDto(it.toLong(), type,"동아리","동아리 사진") }
+        val clubListDto = (1..5).map { ClubListDto(it.toLong(), type, "동아리", "동아리 사진") }
+        val responseDto = (1..5).map { ClubListResponseDto(it.toLong(), type, "동아리", "동아리 사진") }
         `when`("is converting clubType") {
             val convertedDto = clubConverter().toDto(type)
             then("convertedDto should be as same clubTypeDto") {
