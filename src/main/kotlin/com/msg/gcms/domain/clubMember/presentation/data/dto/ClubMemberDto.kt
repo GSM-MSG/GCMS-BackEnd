@@ -3,7 +3,7 @@ package com.msg.gcms.domain.clubMember.presentation.data.dto
 import com.msg.gcms.domain.clubMember.domain.entity.enums.MemberScope
 import java.util.UUID
 
-class ClubMemberDto(
+data class ClubMemberDto(
     val uuid: UUID,
     val email: String,
     val name: String,
@@ -12,6 +12,4 @@ class ClubMemberDto(
     val number: Int,
     val profileImg: String?,
     val scope: MemberScope
-) {
-
-}
+)
