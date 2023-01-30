@@ -3,15 +3,12 @@ package com.msg.gcms.domain.club.service
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
-import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.impl.FindClubListServiceImpl
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import com.msg.gcms.domain.user.domain.entity.User
-import io.kotest.assertions.any
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -19,7 +16,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.springframework.context.annotation.Bean
-import org.springframework.http.HttpStatus
 import java.util.UUID
 
 class FindClubListServiceTest: BehaviorSpec({
