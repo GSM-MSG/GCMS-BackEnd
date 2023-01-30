@@ -6,13 +6,10 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.FindClubListService
-import com.msg.gcms.domain.club.service.impl.FindClubListServiceImpl
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import io.kotest.core.spec.style.BehaviorSpec
-import io.kotest.matchers.ints.exactly
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNot
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import io.mockk.mockk
@@ -55,7 +52,7 @@ class FindClubListControllerTest: BehaviorSpec({
             then("response status should be ok") {
                 response.statusCode shouldBe HttpStatus.OK
             }
-            then("result should be same ad responseDto") {
+            then("result should be same as responseDto") {
                 body shouldBe responseDto
             }
         }
