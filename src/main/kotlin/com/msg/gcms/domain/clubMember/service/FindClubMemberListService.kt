@@ -30,11 +30,11 @@ class FindClubMemberListService(
             .orElseThrow { ClubNotFoundException() }
         val clubMemberList: List<ClubMemberDto> = clubMemberRepository.findAllByClub(club)
             .map { clubMemberConverter.toDto(it) }
-        val scope: MemberScope = checkClubMemberScope(user, club)
+        val scope: MemberScope = getScopeFromClubMember(user, club)
         return clubMemberConverter.toListDto(scope, clubMemberList)
     }
 
-    private fun checkClubMemberScope(user: User, club: Club): MemberScope {
+    private fun getScopeFromClubMember(user: User, club: Club): MemberScope {
         val existsClub: ClubMember? = club.clubMember
             .find { it.user.id == user.id }
         return existsClub?.scope ?: throw ClubMemberNonExistentException()
