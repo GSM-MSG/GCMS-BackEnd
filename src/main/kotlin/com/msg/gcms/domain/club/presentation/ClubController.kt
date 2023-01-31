@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.FindClubListService
+import com.msg.gcms.domain.club.service.UpdateClubService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 
 
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam
 class ClubController(
     private val createClubService: CreateClubService,
     private val findClubListService: FindClubListService,
+    private val updateClubService: UpdateClubService,
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
@@ -35,4 +40,10 @@ class ClubController(
             .let { findClubListService.execute(it) }
             .map { clubConverter.toResponseDto(it) }
             .let { ResponseEntity.ok().body(it) }
+
+    @PatchMapping("/{clubId}")
+    fun updateClubById(@PathVariable clubId: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
+        clubConverter.toDto(updateClubRequest)
+            .let { updateClubService.execute(clubId, it) }
+            .let { ResponseEntity.noContent().build() }
 }

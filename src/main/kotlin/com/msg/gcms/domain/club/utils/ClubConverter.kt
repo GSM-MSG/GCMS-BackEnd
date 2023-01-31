@@ -7,6 +7,7 @@ import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
+import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 
 interface ClubConverter {
@@ -15,4 +16,5 @@ interface ClubConverter {
     fun toDto(type: ClubType): ClubTypeDto
     fun toDto(club: Club): ClubListDto
     fun toResponseDto(dto: ClubListDto): ClubListResponseDto
+    fun toDto(updateClubRequest: UpdateClubRequest): ClubDto
 }
