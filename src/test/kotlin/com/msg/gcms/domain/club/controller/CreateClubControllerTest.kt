@@ -1,7 +1,7 @@
 package com.msg.gcms.domain.club.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.domain.entity.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
