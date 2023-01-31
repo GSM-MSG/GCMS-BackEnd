@@ -6,8 +6,7 @@ on:
   pull_request:
     branches: [ "develop" ]
 
-permissions:
-  contents: read
+permissions: write-all
 
 jobs:
   build:
