@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.club.presentation
+package com.msg.gcms.domain.club.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gcms.domain.club.enums.ClubType

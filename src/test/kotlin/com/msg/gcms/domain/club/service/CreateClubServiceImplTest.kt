@@ -1,8 +1,9 @@
-package com.msg.gcms.domain.club.service.impl
+package com.msg.gcms.domain.club.service
 
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
+import com.msg.gcms.domain.club.service.impl.CreateClubServiceImpl
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
