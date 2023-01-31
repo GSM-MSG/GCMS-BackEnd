@@ -6,6 +6,8 @@ import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
+import io.mockk.MockK
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,15 +26,12 @@ import java.util.*
 @AutoConfigureMockMvc
 class CreateClubControllerTest(
     @Autowired
-    val mvc: MockMvc,
-    @Autowired
-    val objectMapper: ObjectMapper,
-    @Autowired
-    val userRepository: UserRepository,
-    @Autowired
-    val tokenProvider: JwtTokenProvider,
+    val mvc: MockMvc
 ) {
     var token: String = ""
+    val userRepository = mockk<UserRepository>()
+    val objectMapper = mockk<ObjectMapper>()
+    val tokenProvider = mockk<JwtTokenProvider>()
     init {
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         userRepository.save(user)
