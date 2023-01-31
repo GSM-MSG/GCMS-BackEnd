@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.presentation.data.response
 
-import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.domain.entity.enums.ClubType
 
 data class ClubListResponseDto(
     val id: Long,

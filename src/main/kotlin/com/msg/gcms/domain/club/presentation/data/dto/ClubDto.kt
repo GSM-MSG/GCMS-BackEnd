@@ -1,7 +1,7 @@
 package com.msg.gcms.domain.club.presentation.data.dto
 
-import com.msg.gcms.domain.club.enums.ClubType
-import java.util.UUID
+import com.msg.gcms.domain.club.domain.entity.enums.ClubType
+import java.util.*
 
 data class ClubDto(
     val type: ClubType,

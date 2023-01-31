@@ -7,8 +7,8 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
+import com.msg.gcms.domain.clubMember.domain.entity.enums.MemberScope
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
-import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException

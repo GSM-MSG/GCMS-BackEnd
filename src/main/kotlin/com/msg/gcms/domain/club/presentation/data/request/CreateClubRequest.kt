@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.presentation.data.request
 
-import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.domain.entity.enums.ClubType
 import java.util.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull

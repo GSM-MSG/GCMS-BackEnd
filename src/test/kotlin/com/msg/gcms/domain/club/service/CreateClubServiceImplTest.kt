@@ -1,7 +1,7 @@
 package com.msg.gcms.domain.club.service
 
+import com.msg.gcms.domain.club.domain.entity.enums.ClubType
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.impl.CreateClubServiceImpl
 import com.msg.gcms.domain.user.domain.entity.User
@@ -27,7 +27,7 @@ class CreateClubServiceImplTest(
     val createClubService: CreateClubServiceImpl
 ) : BehaviorSpec({
     extension(SpringExtension)
-    given("유저와 clubDto가 주어질때"){
+    given("유저와 clubDto가 주어질때") {
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         userRepository.save(user)
         val token = tokenProvider.generateAccessToken("s21053@gsm.hs.kr")
@@ -48,11 +48,11 @@ class CreateClubServiceImplTest(
             ),
             member = listOf()
         )
-        `when`("동아리를 생성하면"){
+        `when`("동아리를 생성하면") {
             createClubService.execute(clubRequest)
-            then("id가 1인 동아리가 존재해야하고 해당 동아리의 내용은 clubRequest와 같아야한다"){
+            then("id가 1인 동아리가 존재해야하고 해당 동아리의 내용은 clubRequest와 같아야한다") {
                 clubRepository.existsById(1) shouldBe true
-                userRepository.findByEmail(user.email)?:throw RuntimeException()
+                userRepository.findByEmail(user.email) ?: throw RuntimeException()
                 val club = clubRepository.findById(1).orElseThrow { throw RuntimeException() }
                 assertSoftly(club) {
                     name shouldBe clubRequest.name
