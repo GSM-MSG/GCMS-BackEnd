@@ -7,5 +7,4 @@ import org.springframework.data.repository.CrudRepository
 
 interface ClubRepository: CrudRepository<Club, Long> {
     fun findByType(type: ClubType): List<Club>
-
 }
