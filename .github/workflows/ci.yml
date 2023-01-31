@@ -20,13 +20,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Setup MySQL
-      uses: samin/mysql-action@v1
-      with:
-         character set server: 'utf8'
-         mysql database: 'gcms'
-         mysql user: 'root'
-         mysql password: 1234
 
     - name: Start Redis
       uses: supercharge/redis-github-action@1.4.0
@@ -45,8 +38,8 @@ jobs:
       shell: bash
 
     - name: Build with Gradle
-      run: ./gradlew clean build
-      
+      run: ./gradlew clean build -x test
+
     - name: Test with Gradle
       run: ./gradlew test
 
