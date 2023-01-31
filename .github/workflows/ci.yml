@@ -26,11 +26,13 @@ jobs:
          character set server: 'utf8'
          mysql database: 'gcms'
          mysql user: 'root'
-         mysql password: ${{ secrets.MYSQL_PASSWORD }}
+         mysql password: 1234
+
     - name: Start Redis
-      uses: supercharge/redis-github-action@1.1.0
+      uses: supercharge/redis-github-action@1.4.0
       with:
-        redis-version: 7
+          redis-version: 7
+          redis-port: 6379
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
