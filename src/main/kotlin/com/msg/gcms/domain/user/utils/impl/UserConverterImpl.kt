@@ -22,7 +22,15 @@ class UserConverterImpl : UserConverter {
             clubs = dto
         )
 
-    override fun toResponseDto(dto: UserDto, responseDto: List<ClubListResponseDto>): UserResponseDto {
-        TODO("Not yet implemented")
-    }
+    override fun toResponseDto(dto: UserDto, responseDto: List<ClubListResponseDto>): UserResponseDto =
+        UserResponseDto(
+            uuid = dto.uuid,
+            email = dto.email,
+            name = dto.name,
+            grade = dto.grade,
+            classNum = dto.classNum,
+            number = dto.number,
+            profileImg = dto.profileImg,
+            clubs = responseDto
+        )
 }
