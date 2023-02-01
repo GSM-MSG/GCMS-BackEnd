@@ -7,7 +7,6 @@ import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
-import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
@@ -28,7 +27,7 @@ class SaveClubUtil(
         activityImgRepository.saveAll(activityImgs)
         val users = clubDto.member
             .map { findById(it) }
-            .map { ClubMember(scope = MemberScope.MEMBER, club = club, user = it) }
+            .map { ClubMember(club = club, user = it) }
         clubMemberRepository.saveAll(users)
     }
 
