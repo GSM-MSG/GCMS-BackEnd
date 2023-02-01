@@ -3,7 +3,7 @@ package com.msg.gcms.domain.club.controller
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
-import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
+import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.service.FindClubListService
 import com.msg.gcms.domain.club.service.UpdateClubService
@@ -14,18 +14,10 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.*
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
-import org.springframework.test.context.ActiveProfiles
-import java.util.*
 
-@SpringBootTest
-@ActiveProfiles("dev")
-@AutoConfigureMockMvc
-class CreateClubControllerTest : BehaviorSpec({
+class UpdateClubControllerTest : BehaviorSpec({
     @Bean
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
@@ -33,7 +25,8 @@ class CreateClubControllerTest : BehaviorSpec({
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()
-    val clubController = ClubController(createClubService, findClubListService, updateClubService, clubConverter())
+    val clubConverter = clubConverter()
+    val clubController = ClubController(createClubService, findClubListService, updateClubService, clubConverter)
 
     given("요청이 들어오면") {
         val dto = ClubDto(
@@ -51,7 +44,7 @@ class CreateClubControllerTest : BehaviorSpec({
             ),
             member = listOf()
         )
-        val request = CreateClubRequest(
+        val request = UpdateClubRequest(
             type = ClubType.FREEDOM,
             name = "test",
             content = "test",
@@ -67,14 +60,14 @@ class CreateClubControllerTest : BehaviorSpec({
             member = listOf()
         )
         `when`("is received") {
-            every { createClubService.execute(dto) } returns Unit
-            val response = clubController.createClub(request)
+            every { updateClubService.execute(1, dto) } returns Unit
+            val response = clubController.updateClubById(1, request)
 
             then("서비스가 한번은 실행되어야 함") {
-                verify(exactly = 1) { createClubService.execute(dto) }
+                verify(exactly = 1) { updateClubService.execute(1, dto) }
             }
-            then("response status should be created") {
-                response.statusCode shouldBe HttpStatus.CREATED
+            then("response status should be no content") {
+                response.statusCode shouldBe HttpStatus.NO_CONTENT
             }
         }
     }
