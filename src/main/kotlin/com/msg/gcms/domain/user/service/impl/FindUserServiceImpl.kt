@@ -27,7 +27,8 @@ class FindUserServiceImpl(
     }
     private fun getClubListWithUser(user: User): List<Club> {
         val clubList = clubRepository.findByUser(user)
-        val memberClubList = clubMemberRepository.findByUser(user).map { it.club }
+        val memberClubList = clubMemberRepository.findByUser(user)
+            .map { it.club }
         return clubList + memberClubList
     }
 
