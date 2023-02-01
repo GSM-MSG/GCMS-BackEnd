@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.club.service
 
+import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
@@ -11,6 +12,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
@@ -43,10 +45,10 @@ class CreateClubServiceImplTest : BehaviorSpec({
         )
         `when`("동아리를 생성하면"){
             createClubService.execute(clubRequest)
-            every { clubRepository.findById(1) } returns mockk(relaxed = true)
-            val club = clubRepository.findById(1).orElseThrow { throw RuntimeException() }
+            every { clubRepository.findByIdOrNull(1) } returns Club(type = ClubType.FREEDOM, name = "test", content = "test", bannerImg = "https://avatars.githubusercontent.com/u/80161826?v=4", contact = "010-0000-0000", notionLink = "https://www.notion.so/matsogeum/MSG-afaa5bbf22464d1285ff4209da97e631", teacher = "", activityImg = listOf(), user = user, applicant = listOf(), clubMember = listOf(), isOpened = true)
+            val club = clubRepository.findByIdOrNull(1)
             then("id가 1인 동아리가 존재해야하고 해당 동아리의 내용은 clubRequest와 같아야한다"){
-                assertSoftly(club) {
+                assertSoftly(club!!) {
                     name shouldBe clubRequest.name
                     content shouldBe clubRequest.content
                     type shouldBe clubRequest.type

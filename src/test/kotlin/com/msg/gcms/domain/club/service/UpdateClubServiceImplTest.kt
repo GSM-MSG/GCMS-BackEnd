@@ -13,6 +13,7 @@ import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
@@ -64,9 +65,9 @@ class UpdateClubServiceImplTest: BehaviorSpec({
             )
             updateClubService.execute(club.id, updateRequest)
             then("업데이트된 동아리는 updateRequest의 내용과 같아야한다"){
-                every { clubRepository.findById(club.id) } returns Optional.of(club)
-                val club = clubRepository.findById(club.id).orElseThrow { throw RuntimeException() }
-                assertSoftly(club) {
+                every { clubRepository.findByIdOrNull(club.id) } returns club
+                val club = clubRepository.findByIdOrNull(club.id)
+                assertSoftly(club!!) {
                     name shouldBe updateRequest.name
                     content shouldBe updateRequest.content
                     type shouldBe updateRequest.type
