@@ -41,9 +41,9 @@ class ClubController(
             .map { clubConverter.toResponseDto(it) }
             .let { ResponseEntity.ok().body(it) }
 
-    @PatchMapping("/{clubId}")
-    fun updateClubById(@PathVariable clubId: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
+    @PatchMapping("/{club_id}")
+    fun updateClubById(@PathVariable club_id: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
         clubConverter.toDto(updateClubRequest)
-            .let { updateClubService.execute(clubId, it) }
+            .let { updateClubService.execute(club_id, it) }
             .let { ResponseEntity.noContent().build() }
 }
