@@ -3,7 +3,7 @@ package com.msg.gcms.domain.club.service.impl
 import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
-import com.msg.gcms.domain.club.exception.DirectorNotSameException
+import com.msg.gcms.domain.club.exception.HeadNotSameException
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.UpdateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
@@ -28,7 +28,7 @@ class UpdateClubServiceImpl(
             .orElseThrow { throw ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
         if (foundClub.user != user)
-            throw DirectorNotSameException()
+            throw HeadNotSameException()
         val club = clubConverter.toEntity(clubDto, user)
         club.id = id
         activityImgRepository.deleteByClub(club)
