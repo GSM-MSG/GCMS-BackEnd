@@ -11,6 +11,7 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
+import io.mockk.mockk
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.ActiveProfiles
@@ -20,12 +21,12 @@ import java.util.*
 @SpringBootTest
 @Transactional
 @ActiveProfiles("dev")
-class CreateClubServiceImplTest(
-    val clubRepository: ClubRepository,
-    val tokenProvider: JwtTokenProvider,
-    val userRepository: UserRepository,
-    val createClubService: CreateClubServiceImpl
-) : BehaviorSpec({
+class CreateClubServiceImplTest : BehaviorSpec({
+    val clubRepository = mockk<ClubRepository>()
+    val tokenProvider = mockk<JwtTokenProvider>()
+    val userRepository = mockk<UserRepository>()
+    val createClubService = mockk<CreateClubService>()
+
     extension(SpringExtension)
     given("유저와 clubDto가 주어질때") {
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
