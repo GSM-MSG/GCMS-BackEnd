@@ -43,6 +43,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/club").authenticated()
             .antMatchers(HttpMethod.GET, "/club").permitAll()
 
+            .antMatchers(HttpMethod.GET,"/user").authenticated()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
