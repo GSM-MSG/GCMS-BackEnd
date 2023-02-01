@@ -1,6 +1,8 @@
 package com.msg.gcms.testUtils
 
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
+import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
 import java.util.*
 
 object UserDataUtil {
@@ -19,5 +21,25 @@ object UserDataUtil {
         club = listOf(),
         clubMember = listOf(),
         applicant = listOf()
+    )
+    fun userDto() = UserDto(
+        uuid = UUID.randomUUID(),
+        email = email(),
+        name = nickName(),
+        grade =  (1..3).random(),
+        classNum = (1..3).random(),
+        number = (1..3).random(),
+        profileImg = profileImg(),
+        clubs = listOf()
+    )
+    fun userResponseDto(userDto: UserDto) = UserResponseDto(
+        uuid = userDto.uuid,
+        email = userDto.email,
+        name = userDto.name,
+        grade =  userDto.grade,
+        classNum = userDto.classNum,
+        number = userDto.number,
+        profileImg = userDto.profileImg,
+        clubs = listOf()
     )
 }
