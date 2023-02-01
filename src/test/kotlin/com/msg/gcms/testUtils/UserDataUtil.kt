@@ -32,6 +32,16 @@ object UserDataUtil {
         profileImg = profileImg(),
         clubs = listOf()
     )
+    fun userDto(user: User) = UserDto(
+        uuid = user.id,
+        email = user.email,
+        name = user.nickname,
+        grade =  user.grade,
+        classNum = user.classNum,
+        number = user.number,
+        profileImg = user.profileImg,
+        clubs = listOf()
+    )
     fun userResponseDto(userDto: UserDto) = UserResponseDto(
         uuid = userDto.uuid,
         email = userDto.email,
