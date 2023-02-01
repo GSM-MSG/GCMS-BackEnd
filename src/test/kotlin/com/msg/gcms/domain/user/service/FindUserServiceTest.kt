@@ -1,8 +1,6 @@
 package com.msg.gcms.domain.user.service
 
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
-import com.msg.gcms.domain.club.utils.ClubConverter
-import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.service.impl.FindUserServiceImpl
 import com.msg.gcms.domain.user.utils.UserConverter
@@ -19,17 +17,13 @@ import org.springframework.context.annotation.Bean
 
 class FindUserServiceTest : BehaviorSpec({
     @Bean
-    fun clubConverter(): ClubConverter {
-        return ClubConverterImpl()
-    }
-    @Bean
     fun userConverter(): UserConverter {
         return UserConverterImpl()
     }
     val clubRepository = mockk<ClubRepository>()
     val clubMemberRepository = mockk<ClubMemberRepository>()
     val userUtils = mockk<UserUtil>()
-    val findUserServiceImpl = FindUserServiceImpl(userUtils, clubRepository, clubMemberRepository, clubConverter(), userConverter())
+    val findUserServiceImpl = FindUserServiceImpl(userUtils, clubRepository, clubMemberRepository, userConverter())
 
     given("find user") {
         val user = TestUtils.data().user().entity()

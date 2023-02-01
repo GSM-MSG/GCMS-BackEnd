@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.user.presentaion.data.response
 
-import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
+import com.msg.gcms.domain.club.enums.ClubType
 import java.util.*
 
 data class UserResponseDto(
@@ -11,5 +11,12 @@ data class UserResponseDto(
     val classNum: Int,
     val number: Int,
     val profileImg: String?,
-    val clubs: List<ClubListResponseDto>
-)
+    val clubs: List<ClubResponseDto>
+) {
+  data class ClubResponseDto(
+      val id: Long,
+      val type: ClubType,
+      val name: String,
+      val bannerImg: String
+  )
+}

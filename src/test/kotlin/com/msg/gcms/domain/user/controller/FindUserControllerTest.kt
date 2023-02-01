@@ -1,9 +1,6 @@
 package com.msg.gcms.domain.user.controller
 
-import com.msg.gcms.domain.club.utils.ClubConverter
-import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import com.msg.gcms.domain.user.presentaion.UserController
-import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
 import com.msg.gcms.domain.user.service.FindUserService
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.domain.user.utils.impl.UserConverterImpl
@@ -19,15 +16,11 @@ import org.springframework.http.HttpStatus
 
 class FindUserControllerTest : BehaviorSpec({
     @Bean
-    fun clubConverter(): ClubConverter {
-        return ClubConverterImpl()
-    }
-    @Bean
     fun userConverter(): UserConverter {
         return UserConverterImpl()
     }
     val findUserService = mockk<FindUserService>()
-    val clubController = UserController(clubConverter(),userConverter(),findUserService)
+    val clubController = UserController(userConverter(),findUserService)
 
     given("find user request") {
         val userDto = TestUtils.data().user().userDto()

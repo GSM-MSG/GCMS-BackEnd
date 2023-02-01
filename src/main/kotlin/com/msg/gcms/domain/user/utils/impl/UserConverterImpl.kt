@@ -1,7 +1,6 @@
 package com.msg.gcms.domain.user.utils.impl
 
 import com.msg.gcms.domain.club.domain.entity.Club
-import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
 import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
@@ -30,7 +29,14 @@ class UserConverterImpl : UserConverter {
             bannerImg = club.bannerImg
         )
 
-    override fun toResponseDto(dto: UserDto, responseDto: List<ClubListResponseDto>): UserResponseDto =
+    override fun toResponseDto(dto: UserDto.ClubDto): UserResponseDto.ClubResponseDto =
+        UserResponseDto.ClubResponseDto(
+            id = dto.id,
+            type = dto.type,
+            name = dto.name,
+            bannerImg = dto.name
+        )
+    override fun toResponseDto(dto: UserDto, responseDto: List<UserResponseDto.ClubResponseDto>): UserResponseDto =
         UserResponseDto(
             uuid = dto.uuid,
             email = dto.email,
