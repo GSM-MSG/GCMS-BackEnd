@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.user.presentaion.data.dto
 
-import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
+import com.msg.gcms.domain.club.enums.ClubType
 import java.util.UUID
 
 data class UserDto (
@@ -11,5 +11,12 @@ data class UserDto (
     val classNum: Int,
     val number: Int,
     val profileImg: String?,
-    val clubs: List<ClubListDto>
-)
+    val clubs: List<ClubDto>
+) {
+    data class  ClubDto(
+        val id: Long,
+        val type: ClubType,
+        val name: String,
+        val bannerImg: String
+    )
+}

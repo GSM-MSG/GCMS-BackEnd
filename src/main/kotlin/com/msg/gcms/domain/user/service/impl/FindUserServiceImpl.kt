@@ -25,7 +25,7 @@ class FindUserServiceImpl(
     override fun execute(): UserDto {
         val user = userUtil.fetchCurrentUser()
         val clubListDto = getClubListWithUser(user)
-            .map { clubConverter.toDto(it) }
+            .map { userConverter.toDto(it) }
         return userConverter.toDto(user,clubListDto)
     }
     private fun getClubListWithUser(user: User): List<Club> {
