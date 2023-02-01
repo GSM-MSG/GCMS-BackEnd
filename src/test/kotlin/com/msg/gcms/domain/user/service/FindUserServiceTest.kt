@@ -52,7 +52,7 @@ class FindUserServiceTest : BehaviorSpec({
             then("clubMemberRepository should be called") {
                 verify(exactly = 1) { clubMemberRepository.findByUser(user) }
             }
-            then("result should be same as clubListDto") {
+            then("result should be same as userDto") {
                 result shouldBe userDto
             }
         }
