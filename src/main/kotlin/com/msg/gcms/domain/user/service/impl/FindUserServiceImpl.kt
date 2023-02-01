@@ -10,6 +10,7 @@ import com.msg.gcms.domain.user.service.FindUserService
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -20,6 +21,7 @@ class FindUserServiceImpl(
     private val clubConverter: ClubConverter,
     private val userConverter: UserConverter
 ) : FindUserService {
+    @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(): UserDto {
         val user = userUtil.fetchCurrentUser()
         val clubListDto = getClubListWithUser(user)
