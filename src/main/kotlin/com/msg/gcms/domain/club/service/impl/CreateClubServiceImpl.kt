@@ -36,7 +36,7 @@ class CreateClubServiceImpl(
         activityImgRepository.saveAll(activityImgs)
         val users = clubDto.member
             .map { findById(it) }
-            .map { ClubMember(scope = MemberScope.MEMBER, club = club, user = it) }
+            .map { ClubMember(club = club, user = it) }
         clubMemberRepository.saveAll(users)
     }
 
