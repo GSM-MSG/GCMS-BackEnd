@@ -31,7 +31,7 @@ class SaveClubUtil(
         clubMemberRepository.saveAll(users)
     }
 
-    private fun findById(it: UUID): User =
-        userRepository.findById(it)
+    private fun findById(id: UUID): User =
+        userRepository.findById(id)
             .orElseThrow { throw UserNotFoundException() }
 }
