@@ -14,8 +14,8 @@ class ClubMemberController(
     private val clubMemberConverter: ClubMemberConverter,
 ) {
 
-    @GetMapping("/{club-id}")
-    fun findClubMemberList(@PathVariable("club-id") clubId: Long): ResponseEntity<ClubMemberListResponse> =
+    @GetMapping("/{club_id}")
+    fun findClubMemberList(@PathVariable("club_id") clubId: Long): ResponseEntity<ClubMemberListResponse> =
         findClubMemberListService.execute(clubId)
             .let { ResponseEntity.ok(clubMemberConverter.toResponse(it)) }
 }

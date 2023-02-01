@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.clubMember.util.impl
 
+import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.entity.enums.MemberScope
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberDto
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ClubMemberConverterImpl : ClubMemberConverter {
-    override fun toDto(entity: ClubMember): ClubMemberDto =
+    override fun toDto(entity: ClubMember, scope: MemberScope): ClubMemberDto =
         ClubMemberDto(
             uuid = entity.user.id,
             email = entity.user.email,
@@ -19,7 +20,19 @@ class ClubMemberConverterImpl : ClubMemberConverter {
             classNum = entity.user.classNum,
             number = entity.user.number,
             profileImg = entity.user.profileImg,
-            scope = entity.scope
+            scope = scope
+        )
+
+    override fun toDto(entity: Club): ClubMemberDto =
+        ClubMemberDto(
+            uuid = entity.user.id,
+            email = entity.user.email,
+            name = entity.user.nickname,
+            grade = entity.user.grade,
+            classNum = entity.user.classNum,
+            number = entity.user.number,
+            profileImg = entity.user.profileImg,
+            scope = MemberScope.HEAD
         )
 
     override fun toListDto(scope: MemberScope, dto: List<ClubMemberDto>): ClubMemberListDto =

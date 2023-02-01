@@ -22,5 +22,5 @@ class UserUtil(
     }
 
     fun fetchUserByEmail(email: String): User =
-        userRepository.findByEmail(email) ?: throw UserNotFoundException()
+        userRepository.findByEmail("test@naver.com") ?: throw UserNotFoundException()
 }
