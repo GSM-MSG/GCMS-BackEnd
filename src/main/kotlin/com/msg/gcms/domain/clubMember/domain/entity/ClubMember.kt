@@ -2,7 +2,6 @@ package com.msg.gcms.domain.clubMember.domain.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.club.domain.entity.Club
-import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
@@ -11,8 +10,6 @@ class ClubMember(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
-
-    val scope: MemberScope,
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
