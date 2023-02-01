@@ -6,8 +6,7 @@ on:
   pull_request:
     branches: [ "develop" ]
 
-permissions:
-  contents: read
+permissions: write-all
 
 jobs:
   build:
@@ -21,7 +20,23 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.4.0
       with:
-        arguments: clean build
+          redis-version: 7
+          redis-port: 6379
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Create application.yml
+      run: |
+        rm ./src/main/resources/application.yml
+        touch ./src/main/resources/application.yml
+        echo "${{ secrets.APPLICATION_YML }}" >> ./src/main/resources/application.yml
+      shell: bash
+
+    - name: Build with Gradle
+      run: ./gradlew clean build
+
