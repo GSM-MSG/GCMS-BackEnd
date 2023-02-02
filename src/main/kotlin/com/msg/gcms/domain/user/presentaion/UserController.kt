@@ -19,7 +19,7 @@ class UserController(
         val result = findUserService.execute()
         val clubListResponse = result.clubs
             .map { userConverter.toResponseDto(it) }
-        val response = userConverter.toResponseDto(dto = result, clubListResponse)
+        val response = userConverter.toResponseDto(dto = result, responseDto =  clubListResponse)
         return ResponseEntity.ok().body(response)
     }
 }
