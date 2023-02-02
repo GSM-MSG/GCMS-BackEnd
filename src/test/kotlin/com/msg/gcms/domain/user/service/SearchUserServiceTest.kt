@@ -43,7 +43,7 @@ class SearchUserServiceTest : BehaviorSpec({
             then("result should not be null") {
                 result shouldNotBe null
             }
-            then("userUtil should be called") {
+            then("findUserNotJoin in userRepository should be called") {
                 verify(exactly = 1) { userRepository.findUserNotJoin(type, name) }
             }
             then("result should be same as userDto") {
@@ -68,7 +68,7 @@ class SearchUserServiceTest : BehaviorSpec({
             then("result should not be null") {
                 result shouldNotBe null
             }
-            then("userUtil should be called") {
+            then("findByNicknameContaining in userRepository should be called") {
                 verify(exactly = 1) { userRepository.findByNicknameContaining(name) }
             }
             then("result should be same as userDto") {
