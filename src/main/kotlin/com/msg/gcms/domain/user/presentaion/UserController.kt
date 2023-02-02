@@ -29,7 +29,9 @@ class UserController(
     }
 
     @GetMapping("/search")
-    fun searchUser(@RequestParam type: ClubType, @RequestParam("name") name: String): ResponseEntity<List<SearchUserResponseDto>> {
-        
-    }
+    fun searchUser(@RequestParam type: ClubType, @RequestParam("name") name: String): ResponseEntity<List<SearchUserResponseDto>> =
+        userConverter.toDto(type,name)
+            .let { searchUserService.execute(it) }
+            .map { userConverter.toResponseDto(it) }
+            .let { ResponseEntity.ok().body(it) }
 }
