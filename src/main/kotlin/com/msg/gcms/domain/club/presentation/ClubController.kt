@@ -13,6 +13,7 @@ import javax.validation.Valid
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
+import com.msg.gcms.domain.club.service.CloseClubService
 import com.msg.gcms.domain.club.service.FindClubListService
 import com.msg.gcms.domain.club.service.UpdateClubService
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,6 +28,7 @@ class ClubController(
     private val createClubService: CreateClubService,
     private val findClubListService: FindClubListService,
     private val updateClubService: UpdateClubService,
+    private val closeClubService: CloseClubService,
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
@@ -45,5 +47,10 @@ class ClubController(
     fun updateClubById(@PathVariable club_id: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
         clubConverter.toDto(updateClubRequest)
             .let { updateClubService.execute(club_id, it) }
+            .let { ResponseEntity.noContent().build() }
+
+    @PatchMapping("/{club_id}/close")
+    fun closeClub(@PathVariable club_id: Long): ResponseEntity<Void> =
+        closeClubService.execute(club_id)
             .let { ResponseEntity.noContent().build() }
 }
