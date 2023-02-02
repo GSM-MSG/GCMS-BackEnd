@@ -4,6 +4,7 @@ import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
+import com.msg.gcms.domain.club.service.CloseClubService
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.service.FindClubListService
 import com.msg.gcms.domain.club.service.UpdateClubService
@@ -26,7 +27,8 @@ class UpdateClubControllerTest : BehaviorSpec({
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()
     val clubConverter = clubConverter()
-    val clubController = ClubController(createClubService, findClubListService, updateClubService, clubConverter)
+    val closeClubService = mockk<CloseClubService>()
+    val clubController = ClubController(createClubService, findClubListService, updateClubService, closeClubService,clubConverter())
 
     given("요청이 들어오면") {
         val dto = ClubDto(
