@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.user.service.impl
 
-import com.msg.gcms.domain.club.utils.SearchPolicyValidator
+import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchUserDto
@@ -12,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class SearchUserServiceImpl(
     val userRepository: UserRepository,
+    val clubRepository: ClubRepository,
     val userConverter: UserConverter,
-    val searchPolicyValidator: SearchPolicyValidator
 ) : SearchUserService {
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(dto: SearchRequirementDto): List<SearchUserDto> =
@@ -22,7 +23,9 @@ class SearchUserServiceImpl(
                 .map { userConverter.toDto(it) }
         } else {
             userRepository.findUserNotJoin(dto.clubType, dto.name)
-                .filter { searchPolicyValidator.validate(it) }
+                .filter { verifyUserIsHead(it) }
                 .map { userConverter.toDto(it) }
         }
+    private fun verifyUserIsHead(user: User): Boolean =
+        clubRepository.existsByUser(user)
 }

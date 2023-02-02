@@ -53,6 +53,17 @@ object UserDataUtil {
         number = (1..3).random(),
         profileImg = profileImg()
     )
+    fun searchUserDto(user: User) = SearchUserDto(
+        uuid = user.id,
+        email = user.email,
+        name = user.nickname,
+        grade =  user.grade,
+        classNum = user.classNum,
+        number = user.number,
+        profileImg = user.profileImg
+    )
+
+
     fun userResponseDto(userDto: UserDto) = UserResponseDto(
         uuid = userDto.uuid,
         email = userDto.email,
