@@ -13,6 +13,7 @@ interface UserConverter {
     fun toDto(user: User, dto: List<UserDto.ClubDto>): UserDto
     fun toDto(club: Club): UserDto.ClubDto
     fun toDto(type: ClubType, name: String): SearchRequirementDto
+    fun toDto(user: User): SearchUserDto
     fun toResponseDto(dto: SearchUserDto): SearchUserResponseDto
     fun toResponseDto(dto: UserDto.ClubDto): UserResponseDto.ClubResponseDto
     fun toResponseDto(dto: UserDto, responseDto: List<UserResponseDto.ClubResponseDto>): UserResponseDto

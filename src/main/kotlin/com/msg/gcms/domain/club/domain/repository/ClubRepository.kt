@@ -8,4 +8,5 @@ import com.msg.gcms.domain.user.domain.entity.User
 interface ClubRepository : CrudRepository<Club, Long> {
     fun findByType(type: ClubType): List<Club>
     fun findByUser(user: User): List<Club>
+    fun existsByUser(user: User): Boolean
 }

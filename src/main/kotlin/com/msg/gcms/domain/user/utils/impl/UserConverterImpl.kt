@@ -39,6 +39,17 @@ class UserConverterImpl : UserConverter {
             name = name
         )
 
+    override fun toDto(user: User): SearchUserDto =
+        SearchUserDto(
+            uuid = user.id,
+            email = user.email,
+            name= user.nickname,
+            grade = user.grade,
+            classNum = user.classNum,
+            number = user.number,
+            profileImg = user.profileImg
+        )
+
     override fun toResponseDto(dto: SearchUserDto): SearchUserResponseDto =
         SearchUserResponseDto(
             uuid = dto.uuid,
