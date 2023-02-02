@@ -2,6 +2,7 @@ package com.msg.gcms.domain.user.controller
 
 import com.msg.gcms.domain.user.presentaion.UserController
 import com.msg.gcms.domain.user.service.FindUserService
+import com.msg.gcms.domain.user.service.SearchUserService
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.domain.user.utils.impl.UserConverterImpl
 import com.msg.gcms.testUtils.TestUtils
@@ -19,8 +20,9 @@ class FindUserControllerTest : BehaviorSpec({
     fun userConverter(): UserConverter {
         return UserConverterImpl()
     }
+    val searchUserService = mockk<SearchUserService>()
     val findUserService = mockk<FindUserService>()
-    val clubController = UserController(userConverter(),findUserService)
+    val clubController = UserController(userConverter(), findUserService, searchUserService)
 
     given("find user request") {
         val userDto = TestUtils.data().user().userDto()
