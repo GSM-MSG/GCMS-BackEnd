@@ -23,7 +23,7 @@ class SearchUserServiceImpl(
                 .map { userConverter.toDto(it) }
         } else {
             userRepository.findUserNotJoin(dto.clubType, dto.name)
-                .filter { verifyUserIsHead(it) }
+                .filter { !verifyUserIsHead(it) }
                 .map { userConverter.toDto(it) }
         }
     private fun verifyUserIsHead(user: User): Boolean =
