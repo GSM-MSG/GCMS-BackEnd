@@ -16,8 +16,11 @@ class UserRepositoryCustomImpl(
 ) : UserRepositoryCustom {
     override fun findUserNotJoin(type: ClubType, name: String): List<User> =
         queryFactory.selectFrom(user)
-            .where(JPAExpressions.selectFrom(club).innerJoin(clubMember).on(club.type.eq(type).and(club.eq(clubMember.club))).where(user.id.eq(
-                clubMember.user.id)).notExists().and(user.nickname.contains(name)))
+            .where(JPAExpressions.selectFrom(club)
+                .innerJoin(clubMember)
+                .on(club.type.eq(type)
+                    .and(club.eq(clubMember.club)))
+                .where(user.id.eq(clubMember.user.id)).notExists()
+                .and(user.nickname.contains(name)))
             .fetch()
-
 }
