@@ -47,7 +47,7 @@ class FindClubMemberListControllerTest : BehaviorSpec({
             then("응답 상태코드가 OK여야 한다.") {
                 response.statusCode shouldBe HttpStatus.OK
             }
-            then("body값이랑 responseDto값이 같아야 한다.") {
+            then("body값이랑 responseDto값이 같게 해야 한다.") {
                 body shouldBe responseDto
             }
         }
