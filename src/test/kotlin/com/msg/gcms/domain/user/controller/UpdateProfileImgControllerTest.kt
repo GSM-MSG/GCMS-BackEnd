@@ -36,7 +36,7 @@ class UpdateProfileImgControllerTest : BehaviorSpec({
         val requestDto = UpdateProfileImgRequestDto(profileImg)
 
         `when`("is received") {
-            every { updateProfileImgService.execute(dto) }
+            every { updateProfileImgService.execute(dto) } returns Unit
             val response = clubController.updateProfileImg(requestDto)
 
             then("business logic in updateProfileImgService should be called") {
