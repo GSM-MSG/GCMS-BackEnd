@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.user.presentaion.data.response
 
-import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.domain.entity.enums.ClubType
 import java.util.*
 
 data class UserResponseDto(
