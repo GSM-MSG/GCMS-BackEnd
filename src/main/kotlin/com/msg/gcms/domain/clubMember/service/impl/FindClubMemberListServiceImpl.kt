@@ -12,6 +12,7 @@ import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.global.util.UserUtil
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -26,13 +27,12 @@ class FindClubMemberListServiceImpl(
 
     override fun execute(clubId: Long): ClubMemberListDto {
         val user = userUtil.fetchCurrentUser()
-        val club: Club = clubRepository.findById(clubId)
-            .orElseThrow { ClubNotFoundException() }
+        val club: Club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
         val clubMemberList: MutableList<ClubMemberDto> = clubMemberRepository.findAllByClub(club)
             .map { getScopeFromClubMember(it.user, club) to it }
             .map { clubMemberConverter.toDto(it.second, it.first) }.toMutableList()
         val scope: MemberScope = getScopeFromClubMember(user, club)
-        getClubHeadInfo(club, scope)
+        getClubHeadInfo(club)
             ?.let { clubMemberList.add(it) }
         return clubMemberConverter.toListDto(scope, clubMemberList)
     }
@@ -48,7 +48,7 @@ class FindClubMemberListServiceImpl(
         }
     }
 
-    private fun getClubHeadInfo(club: Club, scope: MemberScope): ClubMemberDto =
+    private fun getClubHeadInfo(club: Club): ClubMemberDto =
         clubMemberConverter.toDto(club)
 
     private fun existsClubMember(club: Club, user: User): Boolean =
