@@ -26,7 +26,7 @@ class User(
     val number: Int,
 
     @Column(columnDefinition = "TEXT")
-    val profileImg: String? = "",
+    var profileImg: String? = "",
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -40,4 +40,7 @@ class User(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     val clubMember: List<ClubMember> = listOf()
 ) {
+    fun updateProfileImg(profileImg: String) {
+        this.profileImg = profileImg
+    }
 }
