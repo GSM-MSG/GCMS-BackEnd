@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile
 
 interface ImageConverter {
     fun toDto(files: List<MultipartFile>): UploadImagesDto
-    fun toResponse(images: List<String>): ImagesResponseDto
+    fun toResponse(images: ImagesDto): ImagesResponseDto
 }
