@@ -6,6 +6,7 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
+import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.user.domain.entity.User
@@ -51,4 +52,17 @@ class ClubConverterImpl : ClubConverter {
 
     override fun toResponseDto(dto: ClubListDto): ClubListResponseDto =
         ClubListResponseDto(id = dto.id, type = dto.type, name = dto.name, bannerImg = dto.bannerImg)
+
+    override fun toDto(updateClubRequest: UpdateClubRequest): ClubDto =
+        ClubDto(
+            type = updateClubRequest.type,
+            name = updateClubRequest.name,
+            content = updateClubRequest.content,
+            bannerImg = updateClubRequest.bannerImg,
+            contact = updateClubRequest.contact,
+            notionLink = updateClubRequest.notionLink,
+            teacher = updateClubRequest.teacher,
+            activityImgs = updateClubRequest.activityImgs,
+            member = updateClubRequest.member
+        )
 }

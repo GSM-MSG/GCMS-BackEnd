@@ -31,6 +31,21 @@ object ClubDataUtil {
         applicant = listOf(),
         clubMember = listOf()
     )
+    fun entity() = Club(
+        id = Random.nextLong(),
+        name = name(),
+        bannerImg = bannerImg(),
+        content = content(),
+        notionLink = notionLink(),
+        teacher = teacher(),
+        contact = contact(),
+        type = ClubType.values().random(),
+        isOpened = nextBoolean(),
+        user = TestUtils.data().user().entity(),
+        activityImg = listOf(),
+        applicant = listOf(),
+        clubMember = listOf()
+    )
     fun clubListDto(type: ClubType) = ClubListDto(
         id = Random.nextLong(),
         type = type,

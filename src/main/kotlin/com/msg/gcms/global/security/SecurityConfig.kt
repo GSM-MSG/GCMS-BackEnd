@@ -43,6 +43,9 @@ class SecurityConfig(
 
             .antMatchers(HttpMethod.POST, "/club").authenticated()
             .antMatchers(HttpMethod.GET, "/club").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/club/{clubId}").authenticated()
+
+            .antMatchers(HttpMethod.GET,"/user").authenticated()
 
             .anyRequest().denyAll()
             .and()
