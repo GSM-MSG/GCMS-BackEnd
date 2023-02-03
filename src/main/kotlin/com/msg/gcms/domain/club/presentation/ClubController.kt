@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/club")
-private class ClubController(
+class ClubController(
     private val createClubService: CreateClubService,
     private val findClubListService: FindClubListService,
     private val updateClubService: UpdateClubService,
