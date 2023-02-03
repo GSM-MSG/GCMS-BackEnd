@@ -9,11 +9,10 @@ import com.msg.gcms.domain.user.domain.entity.User
 import kotlin.random.Random
 
 object ClubMemberDataUtil {
-    fun entity(scope: MemberScope, club: Club) = ClubMember(
+    fun entity(club: Club, user: User) = ClubMember(
         id = Random.nextLong(),
-        scope = scope,
         club = club,
-        user = TestUtils.data().user().entity()
+        user = user
     )
 
     fun clubMemberDto(user: User, scope: MemberScope) = ClubMemberDto(
