@@ -37,7 +37,7 @@ class SearchUserServiceTest : BehaviorSpec({
 
         `when`("is invoked") {
             every { userRepository.findUserNotJoin(type, name) } returns user
-            every { clubRepository.existsByUser(any()) } returns true
+            every { clubRepository.existsByUserAndType(any(), type) } returns true
             val result = searchUserServiceImpl.execute(dto)
 
             then("result should not be null") {
