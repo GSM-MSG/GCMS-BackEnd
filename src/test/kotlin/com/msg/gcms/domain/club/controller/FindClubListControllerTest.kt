@@ -5,6 +5,7 @@ import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
+import com.msg.gcms.domain.club.service.CloseClubService
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.service.FindClubListService
 import com.msg.gcms.domain.club.service.impl.UpdateClubServiceImpl
@@ -28,7 +29,8 @@ class FindClubListControllerTest : BehaviorSpec({
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubServiceImpl>()
-    val clubController = ClubController(createClubService, findClubListService, updateClubService, clubConverter())
+    val closeClubService = mockk<CloseClubService>()
+    val clubController = ClubController(createClubService, findClubListService, updateClubService, closeClubService,clubConverter())
 
     given("find club list request") {
         val type = ClubType.values().random()

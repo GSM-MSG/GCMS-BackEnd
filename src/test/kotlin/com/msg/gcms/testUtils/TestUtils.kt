@@ -7,5 +7,6 @@ object TestUtils {
         fun user() = UserDataUtil
         fun club() = ClubDataUtil
         fun clubMember() = ClubMemberDataUtil
+        fun auth() = AuthDataUtil
     }
 }

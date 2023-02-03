@@ -39,14 +39,14 @@ class Club(
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
-    val activityImg: List<ActivityImg>,
+    val activityImg: List<ActivityImg> = listOf(),
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
-    val applicant: List<Applicant>,
+    val applicant: List<Applicant> = listOf(),
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club")
-    val clubMember: List<ClubMember>,
+    val clubMember: List<ClubMember> = listOf()
 ) {
 }
