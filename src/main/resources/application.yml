@@ -24,3 +24,14 @@ gauth:
   clientId: ${GAUTH_CLIENTID}
   clientSecret: ${CLIENT_SECRET}
   redirectUri: ${REDIRECT_URI}
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    s3:
+      bucket: ${S3_BUCKET}
+      url: ${S3_URL}
+    region:
+      static: ${S3_REGION}
+      auto: false
