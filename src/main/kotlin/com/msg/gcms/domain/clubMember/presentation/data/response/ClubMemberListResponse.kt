@@ -1,9 +1,9 @@
 package com.msg.gcms.domain.clubMember.presentation.data.response
 
-import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberDto
 import com.msg.gcms.domain.clubMember.enums.MemberScope
+import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberListDto
 
 data class ClubMemberListResponse(
     val scope: MemberScope,
-    val clubMember: List<ClubMemberDto>
+    val clubMember: List<ClubMemberListDto.SingleClubMemberDto>
 )

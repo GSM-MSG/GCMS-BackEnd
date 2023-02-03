@@ -3,10 +3,9 @@ package com.msg.gcms.domain.clubMember.service.impl
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
-import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
+import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.exception.ClubMemberNonExistentException
-import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberDto
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberListDto
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
@@ -28,9 +27,10 @@ class FindClubMemberListServiceImpl(
     override fun execute(clubId: Long): ClubMemberListDto {
         val user = userUtil.fetchCurrentUser()
         val club: Club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
-        val clubMemberList: MutableList<ClubMemberDto> = clubMemberRepository.findAllByClub(club)
-            .map { getScopeFromClubMember(it.user, club) to it }
-            .map { clubMemberConverter.toDto(it.second, it.first) }.toMutableList()
+        val clubMemberList: MutableList<ClubMemberListDto.SingleClubMemberDto> =
+            clubMemberRepository.findAllByClub(club)
+                .map { getScopeFromClubMember(it.user, club) to it }
+                .map { clubMemberConverter.toDto(it.second, it.first) }.toMutableList()
         val scope: MemberScope = getScopeFromClubMember(user, club)
         getClubHeadInfo(club)
             ?.let { clubMemberList.add(it) }
@@ -38,17 +38,17 @@ class FindClubMemberListServiceImpl(
     }
 
     private fun getScopeFromClubMember(user: User, club: Club): MemberScope {
-        if(club.user.id == user.id) {
+        if (club.user.id == user.id) {
             return MemberScope.HEAD
         } else {
-            if(!existsClubMember(club, user)) {
+            if (!existsClubMember(club, user)) {
                 throw ClubMemberNonExistentException()
             }
             return MemberScope.MEMBER
         }
     }
 
-    private fun getClubHeadInfo(club: Club): ClubMemberDto =
+    private fun getClubHeadInfo(club: Club): ClubMemberListDto.SingleClubMemberDto =
         clubMemberConverter.toDto(club)
 
     private fun existsClubMember(club: Club, user: User): Boolean =

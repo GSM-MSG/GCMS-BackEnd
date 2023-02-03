@@ -2,9 +2,8 @@ package com.msg.gcms.domain.clubmember.service
 
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
-import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
-import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberDto
+import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberListDto
 import com.msg.gcms.domain.clubMember.service.impl.FindClubMemberListServiceImpl
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
@@ -36,7 +35,7 @@ class FindClubMemberListTest : BehaviorSpec({
         val clubMember: List<ClubMember> = (1..2)
             .map { TestUtils.data().clubMember().entity(club, user) }
         val clubEntity = TestUtils.data().club().entity(club, clubMember)
-        val clubMemberDto: MutableList<ClubMemberDto> = clubMember
+        val clubMemberDto: MutableList<ClubMemberListDto.SingleClubMemberDto> = clubMember
             .map { clubMemberConverter().toDto(it, MemberScope.MEMBER) }.toMutableList()
         val clubHeadDto = clubMemberConverter().toDto(club)
         clubMemberDto.add(clubHeadDto)
