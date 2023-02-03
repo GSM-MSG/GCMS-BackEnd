@@ -48,6 +48,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET,"/user").authenticated()
             .antMatchers(HttpMethod.GET,"/user/search").permitAll()
 
+            .antMatchers(HttpMethod.POST, "/image").permitAll()
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()

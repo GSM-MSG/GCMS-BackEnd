@@ -35,3 +35,6 @@ cloud:
     region:
       static: ${S3_REGION}
       auto: false
+    credentials:
+      access-Key: ${S3_ACCESS_KEY}
+      secret-Key: ${S3_SECRET_KEY}

@@ -17,7 +17,7 @@ import java.util.*
 class UploadImageServiceImpl(
     private val amazonS3: AmazonS3
 ) : UploadImageService {
-    @Value("\${cloud.s3.}")
+    @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucket: String
 
     @Value("\${cloud.aws.s3.url}")

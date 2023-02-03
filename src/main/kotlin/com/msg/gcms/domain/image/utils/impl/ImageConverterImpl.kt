@@ -12,6 +12,6 @@ class ImageConverterImpl : ImageConverter {
     override fun toDto(files: List<MultipartFile>): UploadImagesDto =
         UploadImagesDto(images = files)
 
-    override fun toResponse(images: List<String>): ImagesResponseDto =
-        ImagesResponseDto(images = images)
+    override fun toResponse(dto: ImagesDto): ImagesResponseDto =
+        ImagesResponseDto(images = dto.images)
 }
