@@ -6,7 +6,7 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.exception.ClubMemberNonExistentException
-import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberListDto
+import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListDto
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
 import com.msg.gcms.domain.user.domain.entity.User

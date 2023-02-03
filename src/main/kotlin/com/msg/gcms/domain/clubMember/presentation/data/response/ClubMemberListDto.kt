@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.clubMember.presentation.data.dto
+package com.msg.gcms.domain.clubMember.presentation.data.response
 
 import com.msg.gcms.domain.clubMember.enums.MemberScope
 import java.util.*

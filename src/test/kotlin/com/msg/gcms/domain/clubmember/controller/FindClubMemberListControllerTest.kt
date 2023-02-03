@@ -2,7 +2,7 @@ package com.msg.gcms.domain.clubmember.controller
 
 import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.presentation.ClubMemberController
-import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberListDto
+import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListDto
 import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListResponse
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
