@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.clubMember.domain.entity.enums
+package com.msg.gcms.domain.clubMember.enums
 
 enum class MemberScope(description: String) {
     HEAD("부장"),

@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.clubMember.presentation.data.dto
 
-import com.msg.gcms.domain.clubMember.domain.entity.enums.MemberScope
+import com.msg.gcms.domain.clubMember.enums.MemberScope
 
 data class ClubMemberListDto(
     val scope: MemberScope,

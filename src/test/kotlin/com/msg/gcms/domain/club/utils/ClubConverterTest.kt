@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.utils
 
-import com.msg.gcms.domain.club.domain.entity.enums.ClubType
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl

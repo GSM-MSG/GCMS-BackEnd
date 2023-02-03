@@ -3,7 +3,7 @@ package com.msg.gcms.domain.clubMember.service.impl
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
-import com.msg.gcms.domain.clubMember.domain.entity.enums.MemberScope
+import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.clubMember.exception.ClubMemberNonExistentException
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberDto

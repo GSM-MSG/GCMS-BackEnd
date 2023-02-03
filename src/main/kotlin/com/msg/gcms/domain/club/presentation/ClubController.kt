@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.presentation
 
-import com.msg.gcms.domain.club.domain.enums.ClubType
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
