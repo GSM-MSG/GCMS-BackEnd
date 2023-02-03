@@ -15,7 +15,7 @@ class UpdateProfileImgServiceTest : BehaviorSpec({
     val userUtil = mockk<UserUtil>()
     val updateProfileImgServiceImpl = UpdateProfileImgServiceImpl(userUtil, userRepository)
 
-    given("sex") {
+    given("edit user profile") {
         val user = TestUtils.data().user().entity()
         val profileImg = TestUtils.data().user().profileImg()
         val dto = ProfileImgDto(profileImg)
