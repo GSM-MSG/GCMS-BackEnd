@@ -3,9 +3,11 @@ package com.msg.gcms.domain.user.utils.impl
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.domain.user.presentaion.data.dto.ProfileImgDto
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchUserDto
 import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
+import com.msg.gcms.domain.user.presentaion.data.request.UpdateProfileImgRequestDto
 import com.msg.gcms.domain.user.presentaion.data.response.SearchUserResponseDto
 import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
 import com.msg.gcms.domain.user.utils.UserConverter
@@ -48,6 +50,11 @@ class UserConverterImpl : UserConverter {
             classNum = user.classNum,
             number = user.number,
             profileImg = user.profileImg
+        )
+
+    override fun toDto(requestDto: UpdateProfileImgRequestDto): ProfileImgDto =
+        ProfileImgDto(
+            profileImg = requestDto.profileImg
         )
 
     override fun toResponseDto(dto: SearchUserDto): SearchUserResponseDto =
