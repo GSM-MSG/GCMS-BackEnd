@@ -19,8 +19,8 @@ class SearchUserServiceImpl(
 ) : SearchUserService {
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(dto: SearchRequirementDto): List<SearchUserDto> =
-        if (dto.clubType.name != "MAJOR"
-            && dto.clubType.name != "FREEDOM") {
+        if (dto.clubType != ClubType.MAJOR
+            && dto.clubType != ClubType.FREEDOM) {
             userRepository.findByNicknameContaining(dto.name)
                 .map { userConverter.toDto(it) }
         } else {
