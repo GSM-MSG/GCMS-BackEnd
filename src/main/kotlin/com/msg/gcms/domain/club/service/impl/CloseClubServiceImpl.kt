@@ -24,6 +24,11 @@ class CloseClubServiceImpl(
         val user = userUtil.fetchCurrentUser()
         if (club.user != user)
             throw HeadNotSameException()
+        closeClub(club)
+        return clubConverter.toStatusDto(club)
+    }
+
+    private fun closeClub(club: Club) {
         val newClub = Club(
             id = club.id,
             activityImg = club.activityImg,
@@ -40,7 +45,6 @@ class CloseClubServiceImpl(
             isOpened = false
         )
         clubRepository.save(newClub)
-        return clubConverter.toStatusDto(club)
     }
 
 }
