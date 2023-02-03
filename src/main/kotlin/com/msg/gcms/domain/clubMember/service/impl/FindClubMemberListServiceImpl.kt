@@ -29,15 +29,15 @@ class FindClubMemberListServiceImpl(
         val club: Club = clubRepository.findById(clubId)
             .orElseThrow { ClubNotFoundException() }
         val clubMemberList: MutableList<ClubMemberDto> = clubMemberRepository.findAllByClub(club)
-            .map { getHeadScopeFromClubMember(it.user, club) to it }
+            .map { getScopeFromClubMember(it.user, club) to it }
             .map { clubMemberConverter.toDto(it.second, it.first) }.toMutableList()
-        val scope: MemberScope = getHeadScopeFromClubMember(user, club)
+        val scope: MemberScope = getScopeFromClubMember(user, club)
         getClubHeadInfo(club, scope)
             ?.let { clubMemberList.add(it) }
         return clubMemberConverter.toListDto(scope, clubMemberList)
     }
 
-    private fun getHeadScopeFromClubMember(user: User, club: Club): MemberScope {
+    private fun getScopeFromClubMember(user: User, club: Club): MemberScope {
         if(club.user.id == user.id) {
             return MemberScope.HEAD
         } else {
