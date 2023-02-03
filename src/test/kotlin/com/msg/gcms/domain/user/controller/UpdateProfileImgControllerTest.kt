@@ -1,6 +1,10 @@
 package com.msg.gcms.domain.user.controller
 
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.presentaion.UserController
+import com.msg.gcms.domain.user.presentaion.data.dto.ProfileImgDto
+import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
+import com.msg.gcms.domain.user.presentaion.data.request.UpdateProfileImgRequestDto
 import com.msg.gcms.domain.user.service.FindUserService
 import com.msg.gcms.domain.user.service.SearchUserService
 import com.msg.gcms.domain.user.service.UpdateProfileImgService
@@ -16,7 +20,7 @@ import io.mockk.verify
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
 
-class FindUserControllerTest : BehaviorSpec({
+class UpdateProfileImgControllerTest : BehaviorSpec({
     @Bean
     fun userConverter(): UserConverter {
         return UserConverterImpl()
@@ -26,27 +30,20 @@ class FindUserControllerTest : BehaviorSpec({
     val updateProfileImgService = mockk<UpdateProfileImgService>()
     val clubController = UserController(userConverter(), findUserService, searchUserService, updateProfileImgService)
 
-    given("find user request") {
-        val userDto = TestUtils.data().user().userDto()
-        val responseDto = TestUtils.data().user().userResponseDto(userDto)
+    given("update profileImg request") {
+        val profileImg = TestUtils.data().user().profileImg()
+        val dto = ProfileImgDto(profileImg = profileImg)
+        val requestDto = UpdateProfileImgRequestDto(profileImg)
 
         `when`("is received") {
-            every { findUserService.execute() } returns userDto
-            val response = clubController.findUser()
-            val body = response.body
+            every { updateProfileImgService.execute(dto) }
+            val response = clubController.updateProfileImg(requestDto)
 
-            then("response body should not be null") {
-                response.body shouldNotBe null
+            then("business logic in updateProfileImgService should be called") {
+                verify(exactly = 1) { updateProfileImgService.execute(dto) }
             }
-
-            then("business logic in findUserService should be called") {
-                verify(exactly = 1) { findUserService.execute() }
-            }
-            then("response status should be ok") {
-                response.statusCode shouldBe HttpStatus.OK
-            }
-            then("result should be same as responseDto") {
-                body shouldBe responseDto
+            then("response status should be no_content") {
+                response.statusCode shouldBe HttpStatus.NO_CONTENT
             }
         }
     }
