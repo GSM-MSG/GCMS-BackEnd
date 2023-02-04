@@ -12,7 +12,7 @@ class UpdateProfileImgServiceImpl(
     private val userUtil: UserUtil,
     private val userRepository: UserRepository
 ) : UpdateProfileImgService {
-    @Transactional(readOnly = true, rollbackFor = [Exception::class])
+    @Transactional(rollbackFor = [Exception::class])
     override fun execute(dto: ProfileImgDto) {
         val user = userUtil.fetchCurrentUser()
         user.updateProfileImg(dto.profileImg)
