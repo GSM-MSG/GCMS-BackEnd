@@ -24,12 +24,19 @@ class UserRepositoryCustomImpl(
                 .and(user.nickname.contains(name)))
             .fetch()
 
-    override fun findUserNotJoin(type: ClubType, checkUser: User): User =
-        queryFactory.selectFrom(user)
-            .where(JPAExpressions.selectFrom(club)
-                .innerJoin(clubMember)
-                .on(club.type.eq(type)
-                    .and(club.eq(clubMember.club)))
-                .where(clubMember.user.id.eq(checkUser.id)).exists())
-            .fetchFirst()
+    override fun findUserJoin(type: ClubType, checkUser: User): Boolean {
+        val fetchOne = queryFactory.selectOne()
+            .from(user)
+            .where(
+                JPAExpressions.selectFrom(club)
+                    .innerJoin(clubMember)
+                    .on(
+                        club.type.eq(type)
+                            .and(club.eq(clubMember.club))
+                    )
+                    .where(clubMember.user.id.eq(checkUser.id)).exists()
+            )
+            .fetchOne()
+        return fetchOne != null
+    }
 }

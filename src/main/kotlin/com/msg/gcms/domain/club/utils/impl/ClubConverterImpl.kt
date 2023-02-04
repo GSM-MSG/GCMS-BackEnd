@@ -2,6 +2,7 @@ package com.msg.gcms.domain.club.utils.impl
 
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.enums.Scope
 import com.msg.gcms.domain.club.presentation.data.dto.*
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
@@ -48,6 +49,42 @@ class ClubConverterImpl : ClubConverter {
 
     override fun toDto(club: Club): ClubListDto =
         ClubListDto(id = club.id, type = club.type, name = club.name, bannerImg = club.bannerImg )
+
+    override fun toDto(user: User): DetailClubDto.UserDto =
+        DetailClubDto.UserDto(
+            uuid = user.id,
+            email = user.email,
+            name = user.nickname,
+            grade = user.grade,
+            classNum = user.classNum,
+            number = user.number,
+            profileImg = user.profileImg
+        )
+
+    override fun toDto(
+        club: Club,
+        clubMemberDto: List<DetailClubDto.UserDto>,
+        clubImages: List<String>,
+        scope: Scope,
+        isApplied: Boolean,
+    ): DetailClubDto =
+        DetailClubDto(
+            id = club.id,
+            type = club.type,
+            bannerImg = club.bannerImg,
+            name = club.name,
+            content = club.content,
+            contact = club.contact,
+            notionLink = club.notionLink,
+            teacher = club.teacher,
+            isOpened = club.isOpened,
+            activityImgs = clubImages,
+            head = toDto(club.user),
+            member = clubMemberDto,
+            scope = scope,
+            isApplied = isApplied
+        )
+
 
     override fun toResponseDto(dto: ClubListDto): ClubListResponseDto =
         ClubListResponseDto(id = dto.id, type = dto.type, name = dto.name, bannerImg = dto.bannerImg)

@@ -37,9 +37,9 @@ class DetailClubServiceImpl(
         val activityImgs = activityImgRepository.findAllByClub(club)
             .map { it.image }
         val scope = getScope(user, club)
-        val isApplicant = applicantRepository.existsByUserAndClub(user, club)
+        val isApplied = applicantRepository.existsByUserAndClub(user, club)
 
-        return clubConverter.toDto(club, clubMember, activityImgs, scope, isApplicant)
+        return clubConverter.toDto(club, clubMember, activityImgs, scope, isApplied)
 
     }
     private fun getScope(user: User, club: Club): Scope {
@@ -53,7 +53,14 @@ class DetailClubServiceImpl(
             Scope.USER
         }
     }
-    private fun checkScopeIsOther(user: User, type: ClubType): Boolean =
-        userRepository.findUserNotJoin(type, user)
-            .let { clubRepository.existsByUserAndType(it, type) }
+    private fun checkScopeIsOther(user: User, type: ClubType): Boolean {
+        val result = userRepository.findUserJoin(type, user)
+        print(result)
+        return if(!result) {
+            clubRepository.existsByUserAndType(user, type)
+        } else {
+            true
+        }
+    }
+
 }
