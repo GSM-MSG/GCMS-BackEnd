@@ -53,9 +53,4 @@ class UploadImageServiceImpl(
     private fun createFileName(): String {
         return UUID.randomUUID().toString()
     }
-    private fun checkImagesSize(size: Int) {
-        if(size > 4) {
-            throw FileSizeOverException()
-        }
-    }
 }
