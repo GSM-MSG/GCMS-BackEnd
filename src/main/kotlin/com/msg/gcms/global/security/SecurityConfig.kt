@@ -52,6 +52,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET,"/user/search").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user").authenticated()
 
+            .antMatchers(HttpMethod.POST, "/image").authenticated()
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
