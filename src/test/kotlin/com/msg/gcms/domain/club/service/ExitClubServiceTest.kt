@@ -10,7 +10,6 @@ import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.spring.SpringExtension
-import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -22,7 +21,7 @@ class ExitClubServiceTest : BehaviorSpec({
     val clubMemberRepository = mockk<ClubMemberRepository>()
     val exitClubServiceImpl = ExitClubServiceImpl(clubRepository, clubMemberRepository, userUtil)
     extension(SpringExtension)
-    given("유저, 동아리, 동아리 부장, 동아리 구성원이 주어질때"){
+    given("유저, 동아리, 동아리 부장, 동아리 구성원이 주어질때") {
         val user = TestUtils.data().user().entity()
         val applicant = TestUtils.data().user().entity()
         val otherUser = TestUtils.data().user().entity()
@@ -62,9 +61,9 @@ class ExitClubServiceTest : BehaviorSpec({
         clubRepository.save(club)
         every { clubRepository.findByIdOrNull(club.id) } returns club
         every { clubMemberRepository.delete(clubMember) } returns Unit
-        `when`("서비스를 실행하면"){
+        `when`("서비스를 실행하면") {
             exitClubServiceImpl.execute(club.id)
-            then("신청자가 존재하지 않아야한다."){
+            then("신청자가 존재하지 않아야한다.") {
                 verify(exactly = 1) { clubMemberRepository.delete(clubMember) }
             }
         }

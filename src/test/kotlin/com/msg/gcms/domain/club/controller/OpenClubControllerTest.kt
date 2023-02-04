@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.club.controller
 
 import com.msg.gcms.domain.club.presentation.ClubController
+import com.msg.gcms.domain.club.presentation.data.dto.ClubStatusDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
@@ -12,7 +13,8 @@ import io.mockk.verify
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
 
-class ExitClubControllerTest : BehaviorSpec({
+class OpenClubControllerTest : BehaviorSpec({
+
     @Bean
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
@@ -24,6 +26,7 @@ class ExitClubControllerTest : BehaviorSpec({
     val closeClubService = mockk<CloseClubService>()
     val openClubService = mockk<OpenClubService>()
     val exitClubService = mockk<ExitClubService>()
+
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -33,16 +36,15 @@ class ExitClubControllerTest : BehaviorSpec({
         exitClubService,
         clubConverter()
     )
+    Given("요청이 들어오면") {
+        When("is received") {
+            every { openClubService.execute(1) } returns ClubStatusDto(true)
+            val response = clubController.openClub(1)
 
-    given("요청이 들어오면") {
-        `when`("is received") {
-            every { exitClubService.execute(1) } returns Unit
-            val response = clubController.exitClub(1)
-
-            then("서비스가 한번은 실행되어야 함") {
-                verify(exactly = 1) { exitClubService.execute(1) }
+            Then("서비스가 한번은 실행되어야 함") {
+                verify(exactly = 1) { openClubService.execute(1) }
             }
-            then("response status should be no content") {
+            Then("응답 상태코드가 NO_CONTENT여야 한다.") {
                 response.statusCode shouldBe HttpStatus.NO_CONTENT
             }
         }
