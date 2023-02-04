@@ -1,7 +1,6 @@
 package com.msg.gcms.domain.club.presentation
 
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
-import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,9 +12,8 @@ import javax.validation.Valid
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
-import com.msg.gcms.domain.club.service.CloseClubService
-import com.msg.gcms.domain.club.service.FindClubListService
-import com.msg.gcms.domain.club.service.UpdateClubService
+import com.msg.gcms.domain.club.service.*
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -29,6 +27,7 @@ class ClubController(
     private val findClubListService: FindClubListService,
     private val updateClubService: UpdateClubService,
     private val closeClubService: CloseClubService,
+    private val exitClubService: ExitClubService,
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
@@ -52,5 +51,10 @@ class ClubController(
     @PatchMapping("/{club_id}/close")
     fun closeClub(@PathVariable club_id: Long): ResponseEntity<Void> =
         closeClubService.execute(club_id)
+            .let { ResponseEntity.noContent().build() }
+
+    @DeleteMapping("/{club_id}/exit")
+    fun exitClub(@PathVariable club_id: Long): ResponseEntity<Void> =
+        exitClubService.execute(club_id)
             .let { ResponseEntity.noContent().build() }
 }
