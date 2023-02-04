@@ -2,13 +2,11 @@ package com.msg.gcms.domain.club.utils.impl
 
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
-import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
-import com.msg.gcms.domain.club.presentation.data.dto.ClubStatusDto
-import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
+import com.msg.gcms.domain.club.presentation.data.dto.*
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
+import com.msg.gcms.domain.club.presentation.data.response.DetailClubResponseDto
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
@@ -53,6 +51,38 @@ class ClubConverterImpl : ClubConverter {
 
     override fun toResponseDto(dto: ClubListDto): ClubListResponseDto =
         ClubListResponseDto(id = dto.id, type = dto.type, name = dto.name, bannerImg = dto.bannerImg)
+
+    override fun toResponseDto(dto: DetailClubDto.UserDto): DetailClubResponseDto.UserResponseDto =
+        DetailClubResponseDto.UserResponseDto(
+            uuid = dto.uuid,
+            email = dto.email,
+            name = dto.name,
+            grade = dto.grade,
+            classNum = dto.classNum,
+            number = dto.number,
+            profileImg = dto.profileImg
+        )
+
+    override fun toResponseDto(
+        dto: DetailClubDto,
+        memberResponseDto: List<DetailClubResponseDto.UserResponseDto>,
+    ): DetailClubResponseDto =
+        DetailClubResponseDto(
+            id = dto.id,
+            type = dto.type,
+            bannerImg = dto.bannerImg,
+            name = dto.name,
+            content = dto.content,
+            contact = dto.contact,
+            teacher = dto.teacher,
+            isOpened = dto.isOpened,
+            notionLink = dto.notionLink,
+            activityImgs = dto.activityImgs,
+            head = toResponseDto(dto.head),
+            member = memberResponseDto,
+            scope = dto.scope,
+            isApplied = dto.isApplied
+        )
 
     override fun toStatusDto(club: Club): ClubStatusDto =
         ClubStatusDto(club.isOpened)

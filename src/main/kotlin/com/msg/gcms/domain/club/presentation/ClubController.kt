@@ -4,6 +4,7 @@ import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
+import com.msg.gcms.domain.club.presentation.data.response.DetailClubResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
 import org.springframework.http.HttpStatus
@@ -20,6 +21,7 @@ class ClubController(
     private val closeClubService: CloseClubService,
     private val openClubService: OpenClubService,
     private val exitClubService: ExitClubService,
+    private val detailClubService: DetailClubService,
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
@@ -34,6 +36,14 @@ class ClubController(
             .let { findClubListService.execute(it) }
             .map { clubConverter.toResponseDto(it) }
             .let { ResponseEntity.ok().body(it) }
+    @GetMapping("/{club_id}")
+    fun detailClub(@PathVariable("club_id") clubId: Long): ResponseEntity<DetailClubResponseDto> {
+        val result = detailClubService.execute(clubId)
+        val memberResponseDto = result.member
+            .map { clubConverter.toResponseDto(it) }
+        val responseDto = clubConverter.toResponseDto(result, memberResponseDto)
+        return ResponseEntity.ok().body(responseDto)
+    }
 
     @PatchMapping("/{club_id}")
     fun updateClubById(@PathVariable club_id: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
