@@ -8,8 +8,6 @@ import com.msg.gcms.domain.club.utils.ClubConverter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import javax.validation.Valid
-import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
-import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.*
 import org.springframework.web.bind.annotation.*
 
