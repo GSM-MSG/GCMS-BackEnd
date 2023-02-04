@@ -26,6 +26,8 @@ class ImageUploadServiceTest : BehaviorSpec({
         val images = (1..size)
             .map { MockMultipartFile("adfa.jpg", InputStream.nullInputStream()) }
         val dto = UploadImagesDto(images)
+        val response = ImagesDto(listOf())
+
         `when`("is invoked") {
             every { imageValidator.validatorFileSize(size) } returns Unit
             val result = uploadImagesServiceImpl.execute(dto)
@@ -37,7 +39,7 @@ class ImageUploadServiceTest : BehaviorSpec({
                 verify(exactly = 1) {imageValidator.validatorFileSize(size)}
             }
             then("result should be same as userDto") {
-                result shouldBe result
+                result shouldBe response
             }
         }
     }
