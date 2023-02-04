@@ -1,7 +1,7 @@
 package com.msg.gcms.domain.club.service
 
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.service.impl.FindClubListServiceImpl
