@@ -29,7 +29,7 @@ class UploadImageServiceImpl(
     override fun execute(dto: UploadImagesDto): ImagesDto {
         val result = mutableListOf<String>()
         dto.images.forEach {
-            val fileName = createFileName()
+            val fileName = createFileName(it.originalFilename.toString())
             val objectMetadata = ObjectMetadata()
             objectMetadata.contentLength = it.size
             objectMetadata.contentType = it.contentType
@@ -50,7 +50,7 @@ class UploadImageServiceImpl(
         return ImagesDto(images = result)
     }
 
-    private fun createFileName(): String {
-        return UUID.randomUUID().toString()
+    private fun createFileName(fileName: String): String {
+        return UUID.randomUUID().toString() + fileName
     }
 }
