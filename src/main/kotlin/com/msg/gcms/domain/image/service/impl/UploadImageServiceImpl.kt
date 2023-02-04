@@ -5,9 +5,11 @@ import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.g3c1.aidboss.domain.image.exception.FailUploadImageException
+import com.msg.gcms.domain.image.exception.FileSizeOverException
 import com.msg.gcms.domain.image.presentation.data.dto.ImagesDto
 import com.msg.gcms.domain.image.presentation.data.dto.UploadImagesDto
 import com.msg.gcms.domain.image.service.UploadImageService
+import com.msg.gcms.domain.image.utils.ImageValidator
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.IOException
@@ -15,7 +17,8 @@ import java.util.*
 
 @Service
 class UploadImageServiceImpl(
-    private val amazonS3: AmazonS3
+    private val amazonS3: AmazonS3,
+    private val imageValidator: ImageValidator
 ) : UploadImageService {
     @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucket: String
@@ -43,10 +46,16 @@ class UploadImageServiceImpl(
             }
             result.add(url+fileName)
         }
+        imageValidator.validatorFileSize(result.size)
         return ImagesDto(images = result)
     }
 
     private fun createFileName(): String {
         return UUID.randomUUID().toString()
+    }
+    private fun checkImagesSize(size: Int) {
+        if(size > 4) {
+            throw FileSizeOverException()
+        }
     }
 }

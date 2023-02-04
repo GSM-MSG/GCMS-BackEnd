@@ -6,6 +6,7 @@ import com.msg.gcms.domain.image.presentation.data.dto.UploadImagesDto
 import com.msg.gcms.domain.image.presentation.data.response.ImagesResponseDto
 import com.msg.gcms.domain.image.service.UploadImageService
 import com.msg.gcms.domain.image.utils.ImageConverter
+import com.msg.gcms.domain.image.utils.ImageValidator
 import com.msg.gcms.domain.image.utils.impl.ImageConverterImpl
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -24,7 +25,8 @@ class UploadImagesControllerTest : BehaviorSpec({
         return ImageConverterImpl()
     }
     val uploadImageService = mockk<UploadImageService>()
-    val imageController = ImageController(imageConverter(), uploadImageService)
+    val imageValidator = mockk<ImageValidator>()
+    val imageController = ImageController(imageConverter(), imageValidator, uploadImageService)
 
     given("upload image request") {
         val size = (1..4).random()
@@ -35,12 +37,17 @@ class UploadImagesControllerTest : BehaviorSpec({
         val responseDto = ImagesResponseDto(listOf())
 
         `when`("is received") {
+            every { imageValidator.validatorFileSize(size) } returns Unit
             every { uploadImageService.execute(dto) } returns serviceResponseDto
             val response = imageController.uploadFile(images)
             val body = response.body
 
             then("response body should not be null") {
                 response.body shouldNotBe null
+            }
+
+            then("validatorFileSize in imageValidator must be called") {
+                verify(exactly = 1) {imageValidator.validatorFileSize(size)}
             }
 
             then("business logic in findUserService should be called") {

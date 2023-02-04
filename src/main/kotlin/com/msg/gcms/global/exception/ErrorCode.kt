@@ -4,6 +4,8 @@ enum class ErrorCode(
     val message: String,
     val status: Int
 ) {
+    FILE_SIZE_OVER("파일의 크기가 4보다 큼", 400),
+
     UNAUTHORIZED("권한이 없음", 401),
     EXPIRED_TOKEN("만료된 토큰", 401),
 
