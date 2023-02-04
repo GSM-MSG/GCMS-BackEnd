@@ -36,7 +36,7 @@ class ImageUploadServiceTest : BehaviorSpec({
                 result shouldNotBe null
             }
             then("validatorFileSize in imageValidator must be called") {
-                verify(exactly = 1) {imageValidator.validatorFileSize(size)}
+                verify(exactly = 1) { imageValidator.validatorFileSize(size) }
             }
             then("result should be same as userDto") {
                 result shouldBe response
