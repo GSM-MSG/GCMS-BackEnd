@@ -1,7 +1,7 @@
 package com.msg.gcms.domain.user.presentaion.data.dto
 
 import com.msg.gcms.domain.club.enums.ClubType
-import java.util.UUID
+import java.util.*
 
 data class UserDto (
     val uuid: UUID,
