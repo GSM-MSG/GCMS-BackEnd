@@ -15,7 +15,7 @@ class ImageController(
     private val uploadImageService: UploadImageService
 ) {
     @PostMapping
-    fun uploadFile(@Valid @RequestPart(value = "file",) multipartFile: List<MultipartFile>): ResponseEntity<ImagesResponseDto> =
+    fun uploadFile(@Valid @RequestPart(value = "file") multipartFile: List<MultipartFile>): ResponseEntity<ImagesResponseDto> =
         imageConverter.toDto(multipartFile)
             .let { uploadImageService.execute(it) }
             .let { imageConverter.toResponse(it) }
