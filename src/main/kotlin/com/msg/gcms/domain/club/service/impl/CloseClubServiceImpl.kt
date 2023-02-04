@@ -1,6 +1,5 @@
 package com.msg.gcms.domain.club.service.impl
 
-import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
@@ -26,27 +25,10 @@ class CloseClubServiceImpl(
         val user = userUtil.fetchCurrentUser()
         if (club.user != user)
             throw HeadNotSameException()
-        updateClubStatusUtil.changeIsOpened(club = club, isOpened = false)
+        updateClubStatusUtil.changeIsOpened(club, false)
         return clubConverter.toStatusDto(club)
     }
 
-    private fun closeClub(club: Club, status: Boolean) {
-        val newClub = Club(
-            id = club.id,
-            activityImg = club.activityImg,
-            applicant = club.applicant,
-            bannerImg = club.bannerImg,
-            clubMember = club.clubMember,
-            contact = club.contact,
-            content = club.content,
-            name = club.name,
-            notionLink = club.notionLink,
-            teacher = club.teacher,
-            type = club.type,
-            user = club.user,
-            isOpened = false
-        )
-        clubRepository.save(newClub)
-    }
+
 
 }

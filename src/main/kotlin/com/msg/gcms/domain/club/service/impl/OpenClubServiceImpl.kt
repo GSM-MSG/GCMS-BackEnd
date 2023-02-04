@@ -1,6 +1,5 @@
 package com.msg.gcms.domain.club.service.impl
 
-import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
@@ -22,12 +21,12 @@ class OpenClubServiceImpl(
     private val userUtil: UserUtil
 ) : OpenClubService {
     override fun execute(clubId: Long): ClubStatusDto {
-        val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
+        val club = clubRepository.findByIdOrNull(clubId)
+            ?: throw ClubNotFoundException()
         val user = userUtil.fetchCurrentUser()
-        if(club.user != user) {
+        if(club.user != user)
             throw HeadNotSameException()
-        }
-        updateClubStatusUtil.changeIsOpened(club, true)
-        return clubConverter.toStatusDto(club)
+        val newClub = updateClubStatusUtil.changeIsOpened(club, true)
+        return clubConverter.toStatusDto(newClub)
     }
 }

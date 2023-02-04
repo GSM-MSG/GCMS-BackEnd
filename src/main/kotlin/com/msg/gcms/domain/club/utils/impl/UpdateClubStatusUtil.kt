@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class UpdateClubStatusUtil(
     private val clubRepository: ClubRepository
 ) {
-    fun changeIsOpened(club: Club, isOpened: Boolean) {
+    fun changeIsOpened(club: Club, isOpened: Boolean): Club {
         val newClub = Club(
             id = club.id,
             activityImg = club.activityImg,
@@ -25,5 +25,6 @@ class UpdateClubStatusUtil(
             isOpened = isOpened
         )
         clubRepository.save(newClub)
+        return club
     }
 }
