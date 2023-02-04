@@ -1,8 +1,6 @@
 package com.msg.gcms.domain.club.controller
 
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.ClubController
-import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubStatusDto
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.service.*

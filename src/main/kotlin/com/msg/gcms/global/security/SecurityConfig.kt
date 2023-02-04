@@ -39,6 +39,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
+            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
 
             .antMatchers(HttpMethod.POST, "/club").authenticated()
             .antMatchers(HttpMethod.GET, "/club").permitAll()
@@ -47,7 +48,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
 
             .antMatchers(HttpMethod.GET,"/user").authenticated()
-            .antMatchers(HttpMethod.GET,"/user/search").permitAll()
+            .antMatchers(HttpMethod.GET,"/user/search").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/user").authenticated()
 
             .anyRequest().denyAll()
             .and()
