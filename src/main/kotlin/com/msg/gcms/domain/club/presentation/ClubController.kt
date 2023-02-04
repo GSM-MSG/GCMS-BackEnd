@@ -8,8 +8,8 @@ import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import javax.validation.Valid
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/club")
@@ -19,6 +19,7 @@ class ClubController(
     private val updateClubService: UpdateClubService,
     private val closeClubService: CloseClubService,
     private val openClubService: OpenClubService,
+    private val exitClubService: ExitClubService,
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
@@ -48,5 +49,9 @@ class ClubController(
     @PatchMapping("/{club_id}/open")
     fun openClub(@PathVariable club_id: Long): ResponseEntity<Void> =
         openClubService.execute(club_id)
+            .let { ResponseEntity.noContent().build() }
+    @DeleteMapping("/{club_id}/exit")
+    fun exitClub(@PathVariable club_id: Long): ResponseEntity<Void> =
+        exitClubService.execute(club_id)
             .let { ResponseEntity.noContent().build() }
 }
