@@ -15,5 +15,4 @@ class AuthDetailsService(
         val user = userRepository.findByEmail(username) ?: throw RuntimeException()
         return AuthDetails(user)
     }
-
 }
