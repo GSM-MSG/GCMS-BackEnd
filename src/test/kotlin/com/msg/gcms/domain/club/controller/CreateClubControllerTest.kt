@@ -4,10 +4,7 @@ import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
-import com.msg.gcms.domain.club.service.CloseClubService
-import com.msg.gcms.domain.club.service.CreateClubService
-import com.msg.gcms.domain.club.service.FindClubListService
-import com.msg.gcms.domain.club.service.UpdateClubService
+import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import io.kotest.core.spec.style.BehaviorSpec
@@ -35,7 +32,8 @@ class CreateClubControllerTest : BehaviorSpec({
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()
     val closeClubService = mockk<CloseClubService>()
-    val clubController = ClubController(createClubService, findClubListService, updateClubService, closeClubService,clubConverter())
+    val exitClubService = mockk<ExitClubService>()
+    val clubController = ClubController(createClubService, findClubListService, updateClubService, closeClubService, exitClubService, clubConverter())
 
     given("요청이 들어오면") {
         val dto = ClubDto(
