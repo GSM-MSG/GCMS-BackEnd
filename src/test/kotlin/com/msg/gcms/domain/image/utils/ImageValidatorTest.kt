@@ -3,11 +3,8 @@ package com.msg.gcms.domain.image.utils
 import com.msg.gcms.domain.image.exception.FileSizeOverException
 import com.msg.gcms.domain.image.utils.impl.ImageValidatorImpl
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import org.junit.jupiter.api.assertThrows
 
 class ImageValidatorTest : BehaviorSpec({
     val imageValidatorImpl = ImageValidatorImpl()

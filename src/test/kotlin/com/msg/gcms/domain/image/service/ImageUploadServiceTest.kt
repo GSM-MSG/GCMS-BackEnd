@@ -17,9 +17,8 @@ import java.io.InputStream
 
 class ImageUploadServiceTest : BehaviorSpec({
     val amazonS3 = mockk<AmazonS3>()
-    val imageValidator = mockk<ImageValidator>()
 
-    val uploadImagesServiceImpl = UploadImageServiceImpl(amazonS3, imageValidator)
+    val uploadImagesServiceImpl = UploadImageServiceImpl(amazonS3)
 
     given("find user") {
         val size = (1..4).random()
@@ -29,14 +28,10 @@ class ImageUploadServiceTest : BehaviorSpec({
         val response = ImagesDto(listOf())
 
         `when`("is invoked") {
-            every { imageValidator.validatorFileSize(size) } returns Unit
             val result = uploadImagesServiceImpl.execute(dto)
 
             then("result should not be null") {
                 result shouldNotBe null
-            }
-            then("validatorFileSize in imageValidator must be called") {
-                verify(exactly = 1) { imageValidator.validatorFileSize(size) }
             }
             then("result should be same as userDto") {
                 result shouldBe response
