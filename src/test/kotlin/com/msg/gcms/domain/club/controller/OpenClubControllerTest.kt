@@ -13,7 +13,8 @@ import io.mockk.verify
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
 
-class CloseClubControllerTest : BehaviorSpec({
+class OpenClubControllerTest : BehaviorSpec({
+
     @Bean
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
@@ -25,6 +26,7 @@ class CloseClubControllerTest : BehaviorSpec({
     val closeClubService = mockk<CloseClubService>()
     val openClubService = mockk<OpenClubService>()
     val exitClubService = mockk<ExitClubService>()
+
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -34,15 +36,15 @@ class CloseClubControllerTest : BehaviorSpec({
         exitClubService,
         clubConverter()
     )
+    Given("요청이 들어오면") {
+        When("is received") {
+            every { openClubService.execute(1) } returns ClubStatusDto(true)
+            val response = clubController.openClub(1)
 
-    given("요청이 들어오면") {
-        `when`("is received") {
-            every { closeClubService.execute(1) } returns ClubStatusDto(false)
-            val response = clubController.closeClub(1)
-            then("서비스가 한번은 실행되어야 함") {
-                verify(exactly = 1) { closeClubService.execute(1) }
+            Then("서비스가 한번은 실행되어야 함") {
+                verify(exactly = 1) { openClubService.execute(1) }
             }
-            then("response status should be no content") {
+            Then("응답 상태코드가 NO_CONTENT여야 한다.") {
                 response.statusCode shouldBe HttpStatus.NO_CONTENT
             }
         }

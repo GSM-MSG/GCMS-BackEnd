@@ -48,6 +48,22 @@ object ClubDataUtil {
         clubMember = listOf()
     )
 
+    fun entity(isOpened: Boolean) = Club(
+        id = Random.nextLong(),
+        name = name(),
+        bannerImg = bannerImg(),
+        content = content(),
+        notionLink = notionLink(),
+        teacher = teacher(),
+        contact = contact(),
+        type = ClubType.values().random(),
+        isOpened = isOpened,
+        user = TestUtils.data().user().entity(),
+        activityImg = listOf(),
+        applicant = listOf(),
+        clubMember = listOf()
+    )
+
     fun entity(club: Club, clubMember: List<ClubMember>) = Club(
         id = club.id,
         name = club.name,
