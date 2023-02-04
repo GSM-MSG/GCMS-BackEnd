@@ -24,7 +24,8 @@ class ExitClubServiceImpl(
         val user = userUtil.fetchCurrentUser()
         if (club.user == user)
             throw ClubNotExitException()
-        val clubMember = club.clubMember.find { it.user == user }
+        val clubMember = club.clubMember
+            .find { it.user == user }
             ?: throw NotClubMemberException()
         clubMemberRepository.delete(clubMember)
     }
