@@ -1,9 +1,6 @@
 package com.msg.gcms.domain.club.controller
 
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.ClubController
-import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
-import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
@@ -20,12 +17,22 @@ class ExitClubControllerTest : BehaviorSpec({
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
     }
+
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()
     val closeClubService = mockk<CloseClubService>()
+    val openClubService = mockk<OpenClubService>()
     val exitClubService = mockk<ExitClubService>()
-    val clubController = ClubController(createClubService, findClubListService, updateClubService, closeClubService, exitClubService, clubConverter())
+    val clubController = ClubController(
+        createClubService,
+        findClubListService,
+        updateClubService,
+        closeClubService,
+        openClubService,
+        exitClubService,
+        clubConverter()
+    )
 
     given("요청이 들어오면") {
         `when`("is received") {

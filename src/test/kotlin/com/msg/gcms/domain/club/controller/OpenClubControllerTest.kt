@@ -19,13 +19,23 @@ class OpenClubControllerTest : BehaviorSpec({
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
     }
+
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()
     val closeClubService = mockk<CloseClubService>()
     val openClubService = mockk<OpenClubService>()
+    val exitClubService = mockk<ExitClubService>()
 
-    val clubController = ClubController(createClubService, findClubListService, updateClubService, closeClubService, openClubService, clubConverter())
+    val clubController = ClubController(
+        createClubService,
+        findClubListService,
+        updateClubService,
+        closeClubService,
+        openClubService,
+        exitClubService,
+        clubConverter()
+    )
     Given("요청이 들어오면") {
         When("is received") {
             every { openClubService.execute(1) } returns ClubStatusDto(true)

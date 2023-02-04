@@ -1,8 +1,8 @@
 package com.msg.gcms.domain.club.service
 
 import com.msg.gcms.domain.club.domain.entity.Club
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
@@ -17,13 +17,13 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
-class UpdateClubServiceImplTest: BehaviorSpec({
-    val updateClubService =  mockk<UpdateClubService>(relaxed = true)
+class UpdateClubServiceImplTest : BehaviorSpec({
+    val updateClubService = mockk<UpdateClubService>(relaxed = true)
     val tokenProvider = mockk<JwtTokenProvider>(relaxed = true)
     val userRepository = mockk<UserRepository>()
     val clubRepository = mockk<ClubRepository>()
     extension(SpringExtension)
-    given("유저, 동아리, clubDto가 주어질때"){
+    given("유저, 동아리, clubDto가 주어질때") {
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         every { userRepository.save(user) } returns user
         val director = userRepository.save(user)
@@ -47,7 +47,7 @@ class UpdateClubServiceImplTest: BehaviorSpec({
         )
         every { clubRepository.save(club) } returns club
         clubRepository.save(club)
-        `when`("부장이 동아리를 수정할때"){
+        `when`("부장이 동아리를 수정할때") {
             val updateRequest = ClubDto(
                 type = ClubType.FREEDOM,
                 name = "test",
@@ -64,7 +64,7 @@ class UpdateClubServiceImplTest: BehaviorSpec({
                 member = listOf()
             )
             updateClubService.execute(club.id, updateRequest)
-            then("업데이트된 동아리는 updateRequest의 내용과 같아야한다"){
+            then("업데이트된 동아리는 updateRequest의 내용과 같아야한다") {
                 every { clubRepository.findByIdOrNull(club.id) } returns club
                 val club = clubRepository.findByIdOrNull(club.id)
                 assertSoftly(club!!) {
