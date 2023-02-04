@@ -40,6 +40,7 @@ class FindClubMemberListTest : BehaviorSpec({
         val clubHeadDto = clubMemberConverter().toDto(club)
         clubMemberDto.add(clubHeadDto)
         val clubMemberListDto = ClubMemberListDto(MemberScope.MEMBER, clubMemberDto)
+        val clubHeadListDto = ClubMemberListDto(MemberScope.HEAD, clubMemberDto)
 
         When("동아리 구성원이 클럽 ID로 동아리 구성원 리스트를 조회할 때") {
             every { userUtil.fetchCurrentUser() } returns user
@@ -51,6 +52,14 @@ class FindClubMemberListTest : BehaviorSpec({
             }
             then("result 값과 ClubMemberListDto 값이 동일해야 한다.") {
                 result shouldBe clubMemberListDto
+            }
+            then("scope 값이 Member인지") {
+                MemberScope.MEMBER shouldBe clubMemberListDto.scope
+            }
+            then("scope 값이 Head인지") {
+                every { userUtil.fetchCurrentUser() } returns club.user
+                val result: ClubMemberListDto = findClubMemberListService.execute(club.id)
+                MemberScope.HEAD shouldBe clubHeadListDto.scope
             }
         }
 
