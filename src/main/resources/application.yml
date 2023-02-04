@@ -12,6 +12,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  servlet:
+    multipart:
+      max-file-size: ${FILE_SIZE}
+      max-request-size: ${REQUEST_SIZE}
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
