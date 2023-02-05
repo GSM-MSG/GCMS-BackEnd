@@ -22,6 +22,7 @@ class DeleteClubControllerTest : BehaviorSpec({
     val openClubService = mockk<OpenClubService>()
     val exitClubService = mockk<ExitClubService>()
     val deleteClubService = mockk<DeleteClubService>()
+    val detailClubService = mockk<DetailClubService>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -30,6 +31,7 @@ class DeleteClubControllerTest : BehaviorSpec({
         openClubService,
         exitClubService,
         deleteClubService,
+        detailClubService,
         clubConverter()
     )
     given("요청이 들어오면") {
