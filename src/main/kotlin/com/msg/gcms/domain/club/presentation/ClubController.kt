@@ -36,7 +36,7 @@ class ClubController(
             .let { findClubListService.execute(it) }
             .map { clubConverter.toResponseDto(it) }
             .let { ResponseEntity.ok().body(it) }
-    
+
     @GetMapping("/{club_id}")
     fun detailClub(@PathVariable("club_id") clubId: Long): ResponseEntity<DetailClubResponseDto> {
         val result = detailClubService.execute(clubId)
