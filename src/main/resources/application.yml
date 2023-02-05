@@ -42,3 +42,9 @@ cloud:
     credentials:
       access-Key: ${S3_ACCESS_KEY}
       secret-Key: ${S3_SECRET_KEY}
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
