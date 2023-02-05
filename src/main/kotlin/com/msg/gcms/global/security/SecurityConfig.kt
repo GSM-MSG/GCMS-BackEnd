@@ -53,6 +53,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/user").authenticated()
             .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
+            .antMatchers(HttpMethod.POST, "/image").authenticated()
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
