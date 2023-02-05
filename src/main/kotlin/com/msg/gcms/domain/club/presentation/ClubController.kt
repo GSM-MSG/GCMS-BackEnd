@@ -20,6 +20,7 @@ class ClubController(
     private val closeClubService: CloseClubService,
     private val openClubService: OpenClubService,
     private val exitClubService: ExitClubService,
+    private val deleteClubService: DeleteClubService,
     private val clubConverter: ClubConverter
 ) {
     @PostMapping
@@ -53,5 +54,10 @@ class ClubController(
     @DeleteMapping("/{club_id}/exit")
     fun exitClub(@PathVariable club_id: Long): ResponseEntity<Void> =
         exitClubService.execute(club_id)
+            .let { ResponseEntity.noContent().build() }
+
+    @DeleteMapping("/{club_id}")
+    fun deleteClub(@PathVariable club_id: Long): ResponseEntity<Void> =
+        deleteClubService.execute(club_id)
             .let { ResponseEntity.noContent().build() }
 }
