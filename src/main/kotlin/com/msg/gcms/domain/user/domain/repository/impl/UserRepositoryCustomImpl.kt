@@ -24,7 +24,7 @@ class UserRepositoryCustomImpl(
                 .and(user.nickname.contains(name)))
             .fetch()
 
-    override fun findUserJoin(type: ClubType, checkUser: User): Boolean {
+    override fun checkUserJoinOtherClub(type: ClubType, checkUser: User): Boolean {
         val fetchOne = queryFactory.selectOne()
             .from(user)
             .where(

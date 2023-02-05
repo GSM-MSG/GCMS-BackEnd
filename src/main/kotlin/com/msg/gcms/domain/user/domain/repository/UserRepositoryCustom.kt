@@ -5,5 +5,5 @@ import com.msg.gcms.domain.user.domain.entity.User
 
 interface UserRepositoryCustom {
     fun findUserNotJoin(type: ClubType, name: String): List<User>
-    fun findUserJoin(type: ClubType, checkUser: User): Boolean
+    fun checkUserJoinOtherClub(type: ClubType, checkUser: User): Boolean
 }
