@@ -24,6 +24,7 @@ class ExitClubControllerTest : BehaviorSpec({
     val closeClubService = mockk<CloseClubService>()
     val openClubService = mockk<OpenClubService>()
     val exitClubService = mockk<ExitClubService>()
+    val deleteClubService = mockk<DeleteClubService>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -31,6 +32,7 @@ class ExitClubControllerTest : BehaviorSpec({
         closeClubService,
         openClubService,
         exitClubService,
+        deleteClubService,
         clubConverter()
     )
 
