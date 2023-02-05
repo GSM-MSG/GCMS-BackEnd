@@ -35,7 +35,7 @@ jobs:
                   value: ${{ secrets.DB_PLATFORM }}
 
                 - name: DB_DRIVER
-                  value: ${{ secrets.DB_PLATFORM }}
+                  value: ${{ secrets.DB_DRIVER }}
 
                 - name: DB_USERNAME
                   value: ${{ secrets.DB_USERNAME }}
