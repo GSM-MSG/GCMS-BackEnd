@@ -8,5 +8,6 @@ import org.springframework.data.repository.CrudRepository
 interface ClubMemberRepository : CrudRepository<ClubMember, Long> {
     fun findAllByClub(club: Club): List<ClubMember>
     fun findByUser(user: User): List<ClubMember>
+    fun findByClub(club: Club): List<ClubMember>
     fun deleteByClub(club: Club)
 }

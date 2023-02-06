@@ -5,7 +5,7 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
-    database-platform: {DB_PLATFORM}
+    database-platform: ${DB_PLATFORM}
     hibernate:
       ddl-auto: ${JPA_DDL_AUTO}
     show-sql: true
