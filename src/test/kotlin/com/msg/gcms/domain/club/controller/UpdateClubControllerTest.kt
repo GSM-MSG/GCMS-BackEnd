@@ -28,6 +28,8 @@ class UpdateClubControllerTest : BehaviorSpec({
     val clubConverter = clubConverter()
     val closeClubService = mockk<CloseClubService>()
     val exitClubService = mockk<ExitClubService>()
+    val deleteClubService = mockk<DeleteClubService>()
+    val detailClubService = mockk<DetailClubService>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -35,7 +37,9 @@ class UpdateClubControllerTest : BehaviorSpec({
         closeClubService,
         openClubService,
         exitClubService,
-        clubConverter
+        deleteClubService,
+        detailClubService,
+        clubConverter()
     )
 
     given("요청이 들어오면") {
