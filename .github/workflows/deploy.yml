@@ -1,0 +1,92 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: jibin200558/gcms
+          stage: main
+          yaml: >
+          name: gcms-backend
+
+          app: java@11
+
+          options:
+              ports: 8080
+              env:
+                - name: DB_URL
+                  value: ${{ secrets.DB_URL }}
+
+                - name: DB_PLATFORM
+                  value: ${{ secrets.DB_PLATFORM }}
+
+                - name: DB_DRIVER
+                  value: ${{ secrets.DB_DRIVER }}
+
+                - name: DB_USERNAME
+                  value: ${{ secrets.DB_USERNAME }}
+
+                - name: DB_PASSWORD
+                  value: ${{ secrets.DB_PASSWORD }}
+
+                - name: JPA_DDL_AUTO
+                  value: ${{ secrets.JPA_DDL_AUTO }}
+
+                - name: REDIS_HOST
+                  value: ${{ secrets.REDIS_HOST }}
+
+                - name: REDIS_PORT
+                  value: ${{ secrets.REDIS_PORT }}
+
+                - name: JWT_ACCESS_SECRET
+                  value: ${{ secrets.JWT_ACCESS_SECRET }}
+
+                - name: JWT_REFRESH_SECRET
+                  value: ${{ secrets.JWT_REFRESH_SECRET }}
+
+                - name: GAUTH_CLIENTID
+                  value: ${{ secrets.GAUTH_CLIENTID }}
+
+                - name: CLIENT_SECRET
+                  value: ${{ secrets.CLIENT_SECRET }}
+
+                - name: REDIRECT_URI
+                  value: ${{ secrets.REDIRECT_URI }}
+
+                - name: S3_BUCKET
+                  value: ${{ secrets.S3_BUCKET }}
+
+                - name: S3_URL
+                  value: ${{ secrets.S3_URL }}
+
+                - name: S3_REGION
+                  value: ${{ secrets.S3_REGION }}
+
+                - name: S3_ACCESS_KEY
+                  value: ${{ secrets.S3_ACCESS_KEY }}
+
+                - name: S3_SECRET_KEY
+                  value: ${{ secrets.S3_SECRET_KEY }}
+                - name: FILE_SIZE
+                  value: ${{ secrets.FILE_SIZE }}
+                - name: REQUEST_SIZE
+                  value: ${{ secrets.REQUEST_SIZE }}
+          context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
+              preset: kotlin
