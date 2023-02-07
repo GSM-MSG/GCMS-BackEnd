@@ -7,8 +7,10 @@ import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
 import com.msg.gcms.domain.user.service.FindUserService
 import com.msg.gcms.domain.user.service.SearchUserService
 import com.msg.gcms.domain.user.service.UpdateProfileImgService
+import com.msg.gcms.domain.user.service.WithdrawUserService
 import com.msg.gcms.domain.user.utils.UserConverter
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -22,7 +24,8 @@ class UserController(
     private val userConverter: UserConverter,
     private val findUserService: FindUserService,
     private val searchUserService: SearchUserService,
-    private val updateProfileImgService: UpdateProfileImgService
+    private val updateProfileImgService: UpdateProfileImgService,
+    private val withdrawUserService: WithdrawUserService
 ) {
     @GetMapping
     fun findUser(): ResponseEntity<UserResponseDto> {
@@ -43,6 +46,10 @@ class UserController(
     fun updateProfileImg(@RequestBody requestDto: UpdateProfileImgRequestDto): ResponseEntity<Void> =
         userConverter.toDto(requestDto)
             .let { updateProfileImgService.execute(it) }
+            .let { ResponseEntity.noContent().build() }
+    @DeleteMapping
+    fun withdrawUser(): ResponseEntity<Void> =
+        withdrawUserService.execute()
             .let { ResponseEntity.noContent().build() }
 
 }

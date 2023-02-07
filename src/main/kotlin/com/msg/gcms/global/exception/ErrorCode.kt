@@ -4,6 +4,7 @@ enum class ErrorCode(
     val message: String,
     val status: Int
 ) {
+    USER_IS_HEAD("동아리의 부장임", 400),
     FILE_SIZE_OVER("파일의 크기가 4보다 큼", 400),
 
     UNAUTHORIZED("권한이 없음", 401),

@@ -9,4 +9,5 @@ interface ClubRepository : CrudRepository<Club, Long> {
     fun findByType(type: ClubType): List<Club>
     fun findByUser(user: User): List<Club>
     fun existsByUserAndType(user: User, type: ClubType): Boolean
+    fun existsByUser(user: User): Boolean
 }
