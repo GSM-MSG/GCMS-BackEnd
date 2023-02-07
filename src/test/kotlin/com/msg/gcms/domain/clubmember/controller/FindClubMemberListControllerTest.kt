@@ -4,6 +4,7 @@ import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.presentation.ClubMemberController
 import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListDto
 import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListResponse
+import com.msg.gcms.domain.clubMember.service.DelegateHeadService
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
 import com.msg.gcms.domain.clubMember.util.impl.ClubMemberConverterImpl
@@ -22,7 +23,8 @@ class FindClubMemberListControllerTest : BehaviorSpec({
     fun clubMemberConverter(): ClubMemberConverter = ClubMemberConverterImpl()
 
     val findClubMemberListService = mockk<FindClubMemberListService>()
-    val clubMemberController = ClubMemberController(findClubMemberListService, clubMemberConverter())
+    val delegateHeadService = mockk<DelegateHeadService>()
+    val clubMemberController = ClubMemberController(findClubMemberListService, delegateHeadService, clubMemberConverter())
 
     Given("요청이 주어졌을때") {
         val clubId: Long = 1L
