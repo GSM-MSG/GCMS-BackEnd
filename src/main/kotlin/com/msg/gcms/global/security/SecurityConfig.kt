@@ -40,13 +40,24 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
+            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
+
             .antMatchers(HttpMethod.POST, "/club").authenticated()
             .antMatchers(HttpMethod.GET, "/club").permitAll()
+            .antMatchers(HttpMethod.GET, "/club/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}/close").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/open").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/club/{club_id}").authenticated()
 
             .antMatchers(HttpMethod.GET,"/user").authenticated()
+            .antMatchers(HttpMethod.GET,"/user/search").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/user").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
+            .antMatchers(HttpMethod.POST, "/image").authenticated()
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()

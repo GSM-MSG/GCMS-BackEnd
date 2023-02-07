@@ -21,16 +21,17 @@ class FindClubListServiceTest : BehaviorSpec({
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
     }
+
     val clubRepository = mockk<ClubRepository>()
-    val findClubListServiceImpl = FindClubListServiceImpl(clubRepository,clubConverter())
+    val findClubListServiceImpl = FindClubListServiceImpl(clubRepository, clubConverter())
 
     given("find club list") {
         val type = ClubType.values().random()
         val clubTypeDto = ClubTypeDto(type)
         val club = (1..5)
             .map { TestUtils.data().club().entity(type) }
-       val clubListDto = club
-           .map { ClubListDto(it.id, it.type, it.name, it.bannerImg) }
+        val clubListDto = club
+            .map { ClubListDto(it.id, it.type, it.name, it.bannerImg) }
 
 
         `when`("is invoked") {
