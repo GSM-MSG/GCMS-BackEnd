@@ -81,6 +81,10 @@ jobs:
 
                 - name: S3_SECRET_KEY
                   value: ${{ secrets.S3_SECRET_KEY }}
+                - name: FILE_SIZE
+                  value: ${{ secrets.FILE_SIZE }}
+                - name: REQUEST_SIZE
+                  value: ${{ secrets.REQUEST_SIZE }}
           context:
               git:
                 url: git@github.com:${{ github.repository }}.git
