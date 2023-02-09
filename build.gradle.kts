@@ -28,7 +28,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v1.0.0")
+	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 	implementation("com.querydsl:querydsl-jpa:5.0.0")
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
