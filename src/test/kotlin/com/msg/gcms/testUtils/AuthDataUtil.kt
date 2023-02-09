@@ -3,9 +3,7 @@ package com.msg.gcms.testUtils
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
 import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
-import gauth.GAuthUserInfo
 import java.time.ZonedDateTime
-import java.util.UUID
 
 object AuthDataUtil {
     fun signInRequestDto(code: String) = SignInRequestDto(
