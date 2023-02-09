@@ -5,8 +5,6 @@ import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.service.impl.SignInServiceImpl
 import com.msg.gcms.domain.auth.util.AuthConverter
-import com.msg.gcms.domain.auth.util.AuthUtil
-import com.msg.gcms.domain.auth.util.impl.AuthConverterImpl
 import com.msg.gcms.domain.auth.util.impl.AuthUtilImpl
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
@@ -17,8 +15,10 @@ import gauth.GAuthToken
 import gauth.GAuthUserInfo
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
+import io.mockk.Called
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import java.util.*
 
 class SignInServiceTest : BehaviorSpec({
@@ -133,13 +133,11 @@ class SignInServiceTest : BehaviorSpec({
             userRepository.save(user)
         } returns user
 
-
         userRepository.save(user)
 
         every {
             refreshTokenRepository.save(refreshTokenEntity)
         } returns refreshTokenEntity
-
 
         refreshTokenRepository.save(refreshTokenEntity)
 
@@ -149,6 +147,14 @@ class SignInServiceTest : BehaviorSpec({
                 userRepository.findByEmail(gAuthUserInfo.email)
             } returns null
 
+            then("user insert 쿼리가 실행되어야 함") {
+                verify(exactly = 1) { userRepository.save(user) }
+            }
+
+            then("refreshToken insert 쿼리가 실행되어야 함") {
+                verify(exactly = 1) { refreshTokenRepository.save(refreshTokenEntity) }
+            }
+
             val result = signInService.execute(signInDto)
             then("토큰 값 비교") {
                 result.accessToken shouldBe accessToken
@@ -156,13 +162,23 @@ class SignInServiceTest : BehaviorSpec({
                 result.accessExp shouldBe accessExp
                 result.refreshExp shouldBe refreshExp
             }
+
         }
+
 
         `when`("signInDto가 주어지고 유저가 로그인 했던 유저라면") {
 
             every {
                 userRepository.findByEmail(gAuthUserInfo.email)
             } returns user
+
+            then("user insert 쿼리가 실행되지 않는다") {
+                verify { userRepository.save(user) wasNot Called }
+            }
+
+            then("refreshToken update 쿼리가 실행되어야 함") {
+                verify(exactly = 2) { refreshTokenRepository.save(refreshTokenEntity) }
+            }
 
             val result = signInService.execute(signInDto)
             then("토큰 값 비교") {
