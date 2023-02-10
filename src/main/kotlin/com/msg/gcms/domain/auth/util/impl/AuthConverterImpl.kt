@@ -3,12 +3,10 @@ package com.msg.gcms.domain.auth.util.impl
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
-import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
 import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import gauth.GAuthUserInfo
 import org.springframework.stereotype.Component
-import java.time.ZonedDateTime
 import java.util.*
 
 @Component
@@ -18,18 +16,6 @@ class AuthConverterImpl : AuthConverter {
             code = signInRequestDto.code
         )
 
-    override fun toResponse(
-        accessToken: String,
-        refreshToken: String,
-        accessExp: ZonedDateTime,
-        refreshExp: ZonedDateTime
-    ): SignInResponseDto =
-        SignInResponseDto(
-            accessToken = accessToken,
-            refreshToken = refreshToken,
-            accessExp = accessExp,
-            refreshExp = refreshExp
-        )
 
     override fun toEntity(gAuthUserInfo: GAuthUserInfo): User =
         User(
@@ -45,6 +31,12 @@ class AuthConverterImpl : AuthConverter {
     override fun toEntity(userInfo: User, refreshToken: String): RefreshToken =
         RefreshToken(
             userId = userInfo.id,
+            token = refreshToken
+        )
+
+    override fun toEntity(userId: UUID?, refreshToken: String): RefreshToken =
+        RefreshToken(
+            userId = userId,
             token = refreshToken
         )
 }
