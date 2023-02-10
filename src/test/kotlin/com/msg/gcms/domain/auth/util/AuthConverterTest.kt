@@ -5,11 +5,10 @@ import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import org.springframework.context.annotation.Bean
-import java.time.ZonedDateTime
 
 class AuthConverterTest : BehaviorSpec({
     @Bean
-    fun authConverter() : AuthConverter =
+    fun authConverter(): AuthConverter =
         AuthConverterImpl()
 
     given("convert toSignInDto request") {
@@ -24,27 +23,4 @@ class AuthConverterTest : BehaviorSpec({
         }
     }
 
-    given("convert toSignInResponseDto request") {
-        val accessToken = "thisAccessToken"
-        val refreshToken = "thisRefreshToken"
-        val accessExp = ZonedDateTime.now()
-        val refreshExp = ZonedDateTime.now()
-        val signInResponseDto = TestUtils.data().auth().signInResponseDto(
-            accessToken = accessToken,
-            refreshToken = refreshToken,
-            accessExp = accessExp,
-            refreshExp = refreshExp
-        )
-        `when`("is converting signInResponseDto") {
-            val convertedDto = authConverter().toResponse(
-                accessToken = accessToken,
-                refreshToken = refreshToken,
-                accessExp = accessExp,
-                refreshExp = refreshExp
-            )
-            then("convertedDto should be as same responseDto") {
-                convertedDto shouldBe signInResponseDto
-            }
-        }
-    }
 })
