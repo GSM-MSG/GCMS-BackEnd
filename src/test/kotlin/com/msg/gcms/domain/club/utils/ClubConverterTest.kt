@@ -30,9 +30,9 @@ class ClubConverterTest : BehaviorSpec({
     given("convert toClubListResponseDto request") {
         val type = ClubType.values().random()
         val clubListDto = (1..5)
-            .map { ClubListDto(it.toLong(), type, "동아리", "동아리 사진") }
+            .map { ClubListDto(it.toLong(), type, "동아리", "동아리 사진","동아리 설명") }
         val responseDto = clubListDto
-            .map { ClubListResponseDto(it.id, type, it.name, it.bannerImg) }
+            .map { ClubListResponseDto(it.id, type, it.name, it.bannerImg, it.content) }
 
         `when`("is converting clubListDto") {
             val convertedDto = clubListDto.map { clubConverter().toResponseDto(it) }
