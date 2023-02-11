@@ -48,7 +48,7 @@ class ClubConverterTest : BehaviorSpec({
             TestUtils.data().club().entity(type)
         }
         val clubListDto = club
-            .map { ClubListDto(it.id, type, it.name, it.bannerImg) }
+            .map { ClubListDto(it.id, type, it.name, it.bannerImg, it.content) }
 
         `when`("is converting clubListDto") {
             val convertedDto = club.map { clubConverter().toDto(it) }
