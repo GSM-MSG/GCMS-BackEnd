@@ -6,11 +6,11 @@ import com.msg.gcms.domain.clubMember.service.DelegateHeadService
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.service.impl.FindClubMemberListServiceImpl
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
+import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController
-@RequestMapping("/club-member")
+@RequestController("/club-member")
 class ClubMemberController(
     private val findClubMemberListService: FindClubMemberListService,
     private val delegateHeadService: DelegateHeadService,

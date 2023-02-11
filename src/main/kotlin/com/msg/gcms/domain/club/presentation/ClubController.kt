@@ -7,13 +7,13 @@ import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.presentation.data.response.DetailClubResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
-@RestController
-@RequestMapping("/club")
+@RequestController("/club")
 class ClubController(
     private val createClubService: CreateClubService,
     private val findClubListService: FindClubListService,

@@ -9,6 +9,7 @@ import com.msg.gcms.domain.user.service.SearchUserService
 import com.msg.gcms.domain.user.service.UpdateProfileImgService
 import com.msg.gcms.domain.user.service.WithdrawUserService
 import com.msg.gcms.domain.user.utils.UserConverter
+import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@RestController
-@RequestMapping("/user")
+@RequestController("/user")
 class UserController(
     private val userConverter: UserConverter,
     private val findUserService: FindUserService,
