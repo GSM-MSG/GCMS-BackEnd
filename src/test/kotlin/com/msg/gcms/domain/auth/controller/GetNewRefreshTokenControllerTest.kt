@@ -11,16 +11,10 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
-import org.springframework.test.context.ActiveProfiles
 import java.time.ZonedDateTime
 
-@SpringBootTest
-@ActiveProfiles("dev")
-@AutoConfigureMockMvc
 class GetNewRefreshTokenControllerTest : BehaviorSpec({
     @Bean
     fun authConverter(): AuthConverter =
