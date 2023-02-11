@@ -6,6 +6,7 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
+import com.msg.gcms.domain.user.domain.entity.User
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextBoolean
 
@@ -78,6 +79,22 @@ object ClubDataUtil {
         activityImg = listOf(),
         applicant = listOf(),
         clubMember = clubMember
+    )
+
+    fun entity(user: User) = Club(
+        id = Random.nextLong(),
+        name = name(),
+        bannerImg = bannerImg(),
+        content = content(),
+        notionLink = notionLink(),
+        teacher = teacher(),
+        contact = contact(),
+        type = ClubType.values().random(),
+        isOpened = nextBoolean(),
+        user = user,
+        activityImg = listOf(),
+        applicant = listOf(),
+        clubMember = listOf()
     )
     fun clubListDto(type: ClubType) = ClubListDto(
         id = Random.nextLong(),
