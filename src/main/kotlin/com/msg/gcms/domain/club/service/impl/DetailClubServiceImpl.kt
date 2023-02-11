@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.service.impl
 
-import com.msg.gcms.domain.applicant.domain.repository.ApplicantRepository
+import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
