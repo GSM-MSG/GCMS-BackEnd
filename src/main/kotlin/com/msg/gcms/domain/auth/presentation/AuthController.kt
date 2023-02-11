@@ -24,6 +24,6 @@ class AuthController(
 
     @PatchMapping
     fun getNewRefreshToken(@RequestHeader("Refresh-Token") refreshToken: String): ResponseEntity<NewRefreshTokenResponseDto> =
-        ResponseEntity.ok(getNewRefreshTokenService.execute(refreshToken))
+        ResponseEntity.ok().body(getNewRefreshTokenService.execute(refreshToken = refreshToken))
 
 }
