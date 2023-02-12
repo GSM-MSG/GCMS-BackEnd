@@ -49,9 +49,9 @@ class FindClubListControllerTest : BehaviorSpec({
         val type = ClubType.values().random()
         val clubTypeDto = ClubTypeDto(type)
         val clubListDto = (1..5)
-            .map { ClubListDto(it.toLong(), type, "동아리", "동아리 사진") }
+            .map { ClubListDto(it.toLong(), type, "동아리", "동아리 사진","설명") }
         val responseDto = (1..5)
-            .map { ClubListResponseDto(it.toLong(), type, "동아리", "동아리 사진") }
+            .map { ClubListResponseDto(it.toLong(), type, "동아리", "동아리 사진", "설명") }
 
         `when`("is received") {
             every { findClubListService.execute(clubTypeDto) } returns clubListDto

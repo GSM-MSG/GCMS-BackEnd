@@ -100,7 +100,8 @@ object ClubDataUtil {
         id = Random.nextLong(),
         type = type,
         name = name(),
-        bannerImg = bannerImg()
+        bannerImg = bannerImg(),
+        content = content()
     )
     fun clubTypeDto(type: ClubType) = ClubTypeDto(
         clubType = type
@@ -109,6 +110,7 @@ object ClubDataUtil {
         id = Random.nextLong(),
         type = type,
         name = name(),
-        bannerImg = bannerImg()
+        bannerImg = bannerImg(),
+        content = content()
     )
 }
