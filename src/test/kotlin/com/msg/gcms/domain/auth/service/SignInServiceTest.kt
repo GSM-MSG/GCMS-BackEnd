@@ -8,7 +8,7 @@ import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.auth.util.impl.AuthUtilImpl
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
-import com.msg.gcms.global.gAuth.properties.GAuthProperties
+import com.msg.gcms.global.gauth.properties.GAuthProperties
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import gauth.GAuth
 import gauth.GAuthToken
