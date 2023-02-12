@@ -1,4 +1,4 @@
-package com.msg.gcms.global.gAuth
+package com.msg.gcms.global.gauth
 
 import gauth.GAuth
 import gauth.impl.GAuthImpl
