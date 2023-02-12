@@ -20,5 +20,7 @@ enum class ErrorCode(
     USER_NOT_FOUND("해당 유저를 찾을 수 없음", 404),
     CLUB_NOT_FOUND("해당 동아리를 찾을 수 없음", 404),
 
+    ALREADY_CLUB_EXIST("해당 동아리가 이미 존재함", 409),
+
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500),
 }
