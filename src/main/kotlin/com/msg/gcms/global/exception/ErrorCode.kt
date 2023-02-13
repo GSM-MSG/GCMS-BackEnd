@@ -6,7 +6,6 @@ enum class ErrorCode(
 ) {
     USER_IS_HEAD("동아리의 부장임", 400),
     FILE_SIZE_OVER("파일의 크기가 4보다 큼", 400),
-    NOT_APPLICANT("해당 동아리에 가입 신청하지 않음", 403),
 
     UNAUTHORIZED("권한이 없음", 401),
     EXPIRED_TOKEN("만료된 토큰", 401),
@@ -17,6 +16,7 @@ enum class ErrorCode(
     NOT_CLUB_MEMBER("해당 동아리의 구성원이 아님", 403),
     ALREADY_CLUB_MEMBER("이미 동아리 구성원임", 403),
     DUPLICATE_APPLICANT("같은 타입의 동아리에 이미 신청함", 403),
+    NOT_APPLICANT("해당 동아리에 가입 신청하지 않음", 403),
 
     USER_NOT_FOUND("해당 유저를 찾을 수 없음", 404),
     CLUB_NOT_FOUND("해당 동아리를 찾을 수 없음", 404),
