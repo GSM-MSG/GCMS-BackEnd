@@ -1,7 +1,10 @@
 package com.msg.gcms.domain.applicant.presentation
 
+import com.msg.gcms.domain.applicant.presentation.data.response.ApplicantListResponseDto
+import com.msg.gcms.domain.applicant.service.ApplicantListService
 import com.msg.gcms.domain.applicant.service.CancelApplicationService
 import com.msg.gcms.domain.applicant.service.ClubApplyService
+import com.msg.gcms.domain.applicant.util.ApplicantConverter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,7 +18,17 @@ import org.springframework.web.bind.annotation.RestController
 class ApplicantController(
     private val clubApplyService: ClubApplyService,
     private val cancelApplicationService: CancelApplicationService,
+    private val applicantListService: ApplicantListService,
+    private val applicantConverter: ApplicantConverter
 ) {
+    @GetMapping("/{club_Id}")
+    fun findApplicantListByClubId(@PathVariable("club_Id") clubId: Long):ResponseEntity<ApplicantListResponseDto> {
+        val result = applicantListService.execute(clubId)
+        val applicantResponse = result.applicantList
+            .map { applicantConverter.toResponseDto(it) }
+        val response = applicantConverter.toResponseDto(result, applicantResponse)
+        return ResponseEntity.ok().body(response)
+    }
     @PostMapping("/{club_id}")
     fun apply(@PathVariable club_id: Long): ResponseEntity<Void> =
         clubApplyService.execute(club_id)
