@@ -21,8 +21,8 @@ class ApplicantController(
     private val applicantListService: ApplicantListService,
     private val applicantConverter: ApplicantConverter
 ) {
-    @GetMapping("/{club_Id}")
-    fun findApplicantListByClubId(@PathVariable("club_Id") clubId: Long):ResponseEntity<ApplicantListResponseDto> {
+    @GetMapping("/{club_id}")
+    fun findApplicantListByClubId(@PathVariable("club_id") clubId: Long):ResponseEntity<ApplicantListResponseDto> {
         val result = applicantListService.execute(clubId)
         val applicantResponse = result.applicantList
             .map { applicantConverter.toResponseDto(it) }
