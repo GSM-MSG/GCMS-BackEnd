@@ -3,6 +3,7 @@ package com.msg.gcms.domain.auth.controller
 import com.msg.gcms.domain.auth.presentation.AuthController
 import com.msg.gcms.domain.auth.presentation.data.response.NewRefreshTokenResponseDto
 import com.msg.gcms.domain.auth.service.GetNewRefreshTokenService
+import com.msg.gcms.domain.auth.service.LogoutService
 import com.msg.gcms.domain.auth.service.SignInService
 import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.auth.util.impl.AuthConverterImpl
@@ -22,10 +23,12 @@ class GetNewRefreshTokenControllerTest : BehaviorSpec({
 
     val getNewRefreshTokenService = mockk<GetNewRefreshTokenService>()
     val signInService = mockk<SignInService>()
+    val logoutService = mockk<LogoutService>()
     val authController = AuthController(
         authConverter = authConverter(),
         signInService = signInService,
-        getNewRefreshTokenService = getNewRefreshTokenService
+        getNewRefreshTokenService = getNewRefreshTokenService,
+        logoutService = logoutService,
     )
 
     given("요청이 들어오면") {
