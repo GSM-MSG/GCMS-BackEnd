@@ -5,10 +5,7 @@ import com.msg.gcms.domain.user.presentaion.UserController
 import com.msg.gcms.domain.user.presentaion.data.dto.ProfileImgDto
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
 import com.msg.gcms.domain.user.presentaion.data.request.UpdateProfileImgRequestDto
-import com.msg.gcms.domain.user.service.FindUserService
-import com.msg.gcms.domain.user.service.SearchUserService
-import com.msg.gcms.domain.user.service.UpdateProfileImgService
-import com.msg.gcms.domain.user.service.WithdrawUserService
+import com.msg.gcms.domain.user.service.*
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.domain.user.utils.impl.UserConverterImpl
 import com.msg.gcms.testUtils.TestUtils
@@ -30,7 +27,8 @@ class UpdateProfileImgControllerTest : BehaviorSpec({
     val findUserService = mockk<FindUserService>()
     val updateProfileImgService = mockk<UpdateProfileImgService>()
     val withdrawUserService = mockk<WithdrawUserService>()
-    val clubController = UserController(userConverter(), findUserService, searchUserService, updateProfileImgService, withdrawUserService)
+    val findUserProfileService = mockk<FindUserProfileService>()
+    val clubController = UserController(userConverter(), findUserService, searchUserService, updateProfileImgService, withdrawUserService, findUserProfileService)
 
     given("update profileImg request") {
         val profileImg = TestUtils.data().user().profileImg()
