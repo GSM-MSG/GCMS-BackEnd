@@ -5,6 +5,7 @@ import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
 import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
 import com.msg.gcms.domain.auth.service.GetNewRefreshTokenService
+import com.msg.gcms.domain.auth.service.LogoutService
 import com.msg.gcms.domain.auth.service.SignInService
 import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.auth.util.impl.AuthConverterImpl
@@ -30,9 +31,11 @@ class SignInControllerTest : BehaviorSpec({
 
     val signInService = mockk<SignInService>()
     val getNewRefreshTokenService = mockk<GetNewRefreshTokenService>()
+    val logoutService = mockk<LogoutService>()
     val authController = AuthController(
         authConverter = authConverter(),
         signInService = signInService,
+        logoutService = logoutService,
         getNewRefreshTokenService = getNewRefreshTokenService
     )
 
