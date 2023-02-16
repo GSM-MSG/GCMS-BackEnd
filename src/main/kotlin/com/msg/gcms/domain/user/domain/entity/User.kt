@@ -10,7 +10,7 @@ import javax.persistence.*
 @Entity
 class User(
     @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @Column
     var id: UUID,
 
     @Column(length = 20)
