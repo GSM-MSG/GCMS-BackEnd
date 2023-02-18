@@ -24,8 +24,6 @@ class ExitClubMemberServiceImpl(
 ) : ExitClubMemberService {
     override fun execute(clubMemberExitDto: ClubMemberExitDto) {
         val user = userUtil.fetchCurrentUser()
-        println(user.id)
-        println("테스트" + user.id.toString())
         if(user.id.toString() == clubMemberExitDto.uuid) {
             throw ClubMemberExitOneSelfException()
         }
@@ -34,11 +32,11 @@ class ExitClubMemberServiceImpl(
         if(club.user != user) {
             throw HeadNotSameException()
         }
-        val memberRelease: ClubMember = getClubMemberRelease(club, clubMemberExitDto.uuid)
+        val memberRelease: ClubMember = getClubMemberToRelease(club, clubMemberExitDto.uuid)
         clubMemberRepository.delete(memberRelease)
     }
 
-    private fun getClubMemberRelease(club: Club, uuid: String): ClubMember =
+    private fun getClubMemberToRelease(club: Club, uuid: String): ClubMember =
         clubMemberRepository.findByClub(club)
             .find { it.user.id.toString() == uuid }
             ?: throw ClubMemberReleaseNotFoundException()
