@@ -3,11 +3,9 @@ package com.msg.gcms.domain.user.presentaion
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.presentaion.data.request.UpdateProfileImgRequestDto
 import com.msg.gcms.domain.user.presentaion.data.response.SearchUserResponseDto
+import com.msg.gcms.domain.user.presentaion.data.response.UserProfileResponseDto
 import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
-import com.msg.gcms.domain.user.service.FindUserService
-import com.msg.gcms.domain.user.service.SearchUserService
-import com.msg.gcms.domain.user.service.UpdateProfileImgService
-import com.msg.gcms.domain.user.service.WithdrawUserService
+import com.msg.gcms.domain.user.service.*
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
@@ -25,7 +23,8 @@ class UserController(
     private val findUserService: FindUserService,
     private val searchUserService: SearchUserService,
     private val updateProfileImgService: UpdateProfileImgService,
-    private val withdrawUserService: WithdrawUserService
+    private val withdrawUserService: WithdrawUserService,
+    private val findUserProfileService: FindUserProfileService
 ) {
     @GetMapping
     fun findUser(): ResponseEntity<UserResponseDto> {
@@ -41,6 +40,11 @@ class UserController(
         userConverter.toDto(type, name)
             .let { searchUserService.execute(it) }
             .map { userConverter.toResponseDto(it) }
+            .let { ResponseEntity.ok().body(it) }
+    @GetMapping("/profile")
+    fun findUserProfile(): ResponseEntity<UserProfileResponseDto> =
+        findUserProfileService.execute()
+            .let { userConverter.toResponseDto(it) }
             .let { ResponseEntity.ok().body(it) }
     @PatchMapping
     fun updateProfileImg(@RequestBody requestDto: UpdateProfileImgRequestDto): ResponseEntity<Void> =
