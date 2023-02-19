@@ -52,13 +52,14 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}").authenticated()
 
-            .antMatchers(HttpMethod.GET,"/user").authenticated()
-            .antMatchers(HttpMethod.GET,"/user/search").authenticated()
+            .antMatchers(HttpMethod.GET, "/user").authenticated()
+            .antMatchers(HttpMethod.GET, "/user/search").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user").authenticated()
             .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}").authenticated()
             .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/applicant/{club_id}/accept").authenticated()
 
             .antMatchers(HttpMethod.POST, "/image").authenticated()
             .anyRequest().denyAll()
