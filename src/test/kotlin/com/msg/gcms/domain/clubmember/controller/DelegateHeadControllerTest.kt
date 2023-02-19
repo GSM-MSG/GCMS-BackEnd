@@ -5,6 +5,7 @@ import com.msg.gcms.domain.clubMember.presentation.data.dto.ChangeHeadDto
 import com.msg.gcms.domain.clubMember.presentation.data.dto.DelegateHeadDto
 import com.msg.gcms.domain.clubMember.presentation.data.request.DelegateHeadRequest
 import com.msg.gcms.domain.clubMember.service.DelegateHeadService
+import com.msg.gcms.domain.clubMember.service.ExitClubMemberService
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
 import com.msg.gcms.domain.clubMember.util.impl.ClubMemberConverterImpl
@@ -21,9 +22,10 @@ class DelegateHeadControllerTest : BehaviorSpec({
     @Bean
     fun clubMemberConverter(): ClubMemberConverter = ClubMemberConverterImpl()
 
+    val exitClubMemberService = mockk<ExitClubMemberService>()
     val findClubMemberListService = mockk<FindClubMemberListService>()
     val delegateHeadService = mockk<DelegateHeadService>()
-    val clubMemberController = ClubMemberController(findClubMemberListService, delegateHeadService, clubMemberConverter())
+    val clubMemberController = ClubMemberController(findClubMemberListService, delegateHeadService, clubMemberConverter(), exitClubMemberService)
 
     given("요청이 들어오면") {
         val user = TestUtils.data().user().entity()
