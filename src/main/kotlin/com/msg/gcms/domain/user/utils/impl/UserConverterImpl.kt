@@ -77,7 +77,7 @@ class UserConverterImpl : UserConverter {
             id = dto.id,
             type = dto.type,
             name = dto.name,
-            bannerImg = dto.name
+            bannerImg = dto.bannerImg
         )
 
     override fun toResponseDto(dto: UserProfileDto): UserProfileResponseDto =
