@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
+import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
 
 @Entity
 class User(
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)")
     var id: UUID,
 
