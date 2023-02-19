@@ -3,9 +3,7 @@ package com.msg.gcms.domain.user.controller
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.presentaion.UserController
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
-import com.msg.gcms.domain.user.service.FindUserService
-import com.msg.gcms.domain.user.service.SearchUserService
-import com.msg.gcms.domain.user.service.UpdateProfileImgService
+import com.msg.gcms.domain.user.service.*
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.domain.user.utils.impl.UserConverterImpl
 import com.msg.gcms.testUtils.TestUtils
@@ -26,7 +24,9 @@ class SearchUserControllerTest : BehaviorSpec({
     val searchUserService = mockk<SearchUserService>()
     val findUserService = mockk<FindUserService>()
     val updateProfileImgService = mockk<UpdateProfileImgService>()
-    val clubController = UserController(userConverter(), findUserService, searchUserService, updateProfileImgService)
+    val withdrawUserService = mockk<WithdrawUserService>()
+    val findUserProfileService = mockk<FindUserProfileService>()
+    val clubController = UserController(userConverter(), findUserService, searchUserService, updateProfileImgService, withdrawUserService, findUserProfileService)
 
     given("search user request") {
         val type = ClubType.values().random()

@@ -5,6 +5,8 @@ import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.enums.MemberScope
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberExitDto
 import com.msg.gcms.domain.clubMember.presentation.data.request.ExitClubMemberRequest
+import com.msg.gcms.domain.clubMember.presentation.data.dto.DelegateHeadDto
+import com.msg.gcms.domain.clubMember.presentation.data.request.DelegateHeadRequest
 import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListDto
 import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListResponse
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
@@ -35,6 +37,9 @@ class ClubMemberConverterImpl : ClubMemberConverter {
             profileImg = entity.user.profileImg,
             scope = MemberScope.HEAD
         )
+
+    override fun toDto(delegateHeadRequest: DelegateHeadRequest): DelegateHeadDto =
+        DelegateHeadDto(delegateHeadRequest.uuid)
 
     override fun toListDto(scope: MemberScope, dto: List<ClubMemberListDto.SingleClubMemberDto>): ClubMemberListDto =
         ClubMemberListDto(

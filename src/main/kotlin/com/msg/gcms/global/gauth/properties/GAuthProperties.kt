@@ -1,4 +1,4 @@
-package com.msg.gcms.global.gAuth.properties
+package com.msg.gcms.global.gauth.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

@@ -1,11 +1,13 @@
 package com.msg.gcms.testUtils
 
+import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
+import com.msg.gcms.domain.user.domain.entity.User
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextBoolean
 
@@ -79,11 +81,45 @@ object ClubDataUtil {
         applicant = listOf(),
         clubMember = clubMember
     )
+
+    fun entity(user: User) = Club(
+        id = Random.nextLong(),
+        name = name(),
+        bannerImg = bannerImg(),
+        content = content(),
+        notionLink = notionLink(),
+        teacher = teacher(),
+        contact = contact(),
+        type = ClubType.values().random(),
+        isOpened = nextBoolean(),
+        user = user,
+        activityImg = listOf(),
+        applicant = listOf(),
+        clubMember = listOf()
+    )
+
+    fun entity(club: Club, applicant: Applicant) = Club(
+        id = club.id,
+        name = club.name,
+        bannerImg = club.bannerImg,
+        content = club.content,
+        notionLink = club.notionLink,
+        teacher = club.teacher,
+        contact = club.contact,
+        type = club.type,
+        isOpened = club.isOpened,
+        user = club.user,
+        activityImg = listOf(),
+        applicant = listOf(applicant),
+        clubMember = listOf()
+    )
+
     fun clubListDto(type: ClubType) = ClubListDto(
         id = Random.nextLong(),
         type = type,
         name = name(),
-        bannerImg = bannerImg()
+        bannerImg = bannerImg(),
+        content = content()
     )
     fun clubTypeDto(type: ClubType) = ClubTypeDto(
         clubType = type
@@ -92,6 +128,7 @@ object ClubDataUtil {
         id = Random.nextLong(),
         type = type,
         name = name(),
-        bannerImg = bannerImg()
+        bannerImg = bannerImg(),
+        content = content()
     )
 }

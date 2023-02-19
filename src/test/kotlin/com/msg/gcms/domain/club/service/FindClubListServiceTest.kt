@@ -31,7 +31,7 @@ class FindClubListServiceTest : BehaviorSpec({
         val club = (1..5)
             .map { TestUtils.data().club().entity(type) }
         val clubListDto = club
-            .map { ClubListDto(it.id, it.type, it.name, it.bannerImg) }
+            .map { ClubListDto(it.id, it.type, it.name, it.bannerImg, it.content) }
 
 
         `when`("is invoked") {

@@ -4,13 +4,13 @@ import com.msg.gcms.domain.image.presentation.data.response.ImagesResponseDto
 import com.msg.gcms.domain.image.service.UploadImageService
 import com.msg.gcms.domain.image.utils.ImageConverter
 import com.msg.gcms.domain.image.utils.ImageValidator
+import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import javax.validation.Valid
 
-@RestController
-@RequestMapping("/image")
+@RequestController("/image")
 class ImageController(
     private val imageConverter: ImageConverter,
     private val imageValidator: ImageValidator,

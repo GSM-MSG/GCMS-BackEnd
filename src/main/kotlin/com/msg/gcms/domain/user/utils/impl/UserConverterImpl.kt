@@ -3,18 +3,22 @@ package com.msg.gcms.domain.user.utils.impl
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.domain.entity.User
-import com.msg.gcms.domain.user.presentaion.data.dto.ProfileImgDto
-import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
-import com.msg.gcms.domain.user.presentaion.data.dto.SearchUserDto
-import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
+import com.msg.gcms.domain.user.presentaion.data.dto.*
 import com.msg.gcms.domain.user.presentaion.data.request.UpdateProfileImgRequestDto
 import com.msg.gcms.domain.user.presentaion.data.response.SearchUserResponseDto
+import com.msg.gcms.domain.user.presentaion.data.response.UserProfileResponseDto
 import com.msg.gcms.domain.user.presentaion.data.response.UserResponseDto
 import com.msg.gcms.domain.user.utils.UserConverter
 import org.springframework.stereotype.Component
 
 @Component
 class UserConverterImpl : UserConverter {
+    override fun toUserProfileDto(user: User): UserProfileDto =
+        UserProfileDto(
+            name = user.nickname,
+            profileImg = user.profileImg
+        )
+
     override fun toDto(user: User, dto: List<UserDto.ClubDto>): UserDto =
         UserDto(
             uuid = user.id,
@@ -75,6 +79,13 @@ class UserConverterImpl : UserConverter {
             name = dto.name,
             bannerImg = dto.name
         )
+
+    override fun toResponseDto(dto: UserProfileDto): UserProfileResponseDto =
+        UserProfileResponseDto(
+            name = dto.name,
+            profileImg = dto.profileImg
+        )
+
     override fun toResponseDto(dto: UserDto, responseDto: List<UserResponseDto.ClubResponseDto>): UserResponseDto =
         UserResponseDto(
             uuid = dto.uuid,

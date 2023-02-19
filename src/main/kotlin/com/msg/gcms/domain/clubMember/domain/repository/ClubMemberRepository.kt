@@ -9,6 +9,7 @@ interface ClubMemberRepository : CrudRepository<ClubMember, Long> {
     fun findAllByClub(club: Club): List<ClubMember>
     fun findByUser(user: User): List<ClubMember>
     fun findByClub(club: Club): List<ClubMember>
+    fun findByUserAndClub(user: User, club: Club): ClubMember?
     fun deleteByClub(club: Club)
     fun existsByUserAndClub(user: User, club: Club): Boolean
 }
