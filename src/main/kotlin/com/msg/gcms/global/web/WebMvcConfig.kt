@@ -9,7 +9,7 @@ class WebMvcConfig: WebMvcConfigurer {
   override fun addCorsMappings(registry: CorsRegistry) {
     registry.addMapping("/**")
       .allowedOrigins("https://gcms-front-end-v2.vercel.app")
-      .allowedMethods("POST, PATCH, PUT, DELETE, HEAD")
+      .allowedMethods("GET, POST, PATCH, PUT, DELETE, HEAD")
       .allowedHeaders("Authorization", "Refresh-Token")
       .allowCredentials(true)
   }
