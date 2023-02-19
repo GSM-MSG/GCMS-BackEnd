@@ -8,9 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebMvcConfig: WebMvcConfigurer {
   override fun addCorsMappings(registry: CorsRegistry) {
     registry.addMapping("/**")
-      .allowedOrigins("https://port-0-gcms-backend-sop272gldjuo9pg.gksl2.cloudtype.app")
+      .allowedOrigins("https://gcms-front-end-v2.vercel.app")
       .allowedMethods("POST, PATCH, PUT, DELETE, HEAD")
-      .allowedHeaders("Authorization")
+      .allowedHeaders("Authorization", "Refresh-Token")
       .allowCredentials(true)
   }
 }
