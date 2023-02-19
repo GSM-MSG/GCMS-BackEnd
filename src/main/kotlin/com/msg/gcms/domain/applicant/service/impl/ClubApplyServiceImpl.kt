@@ -23,7 +23,7 @@ class ClubApplyServiceImpl(
     private val applicantRepository: ApplicantRepository
 ) : ClubApplyService {
     override fun execute(clubId: Long): ClubApplyDto {
-        val club = clubRepository.findById(clubId)
+        val club = clubRepository.findById(1)
             .orElseThrow { ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
         if (club.clubMember.contains(clubMemberRepository.findByUserAndClub(user, club)) || club.user == user)

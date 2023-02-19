@@ -1,7 +1,6 @@
 package com.msg.gcms.domain.applicant.service.impl
 
 import com.msg.gcms.domain.applicant.domain.entity.Applicant
-import com.msg.gcms.domain.applicant.exception.DuplicateClubTypeApplicantException
 import com.msg.gcms.domain.applicant.exception.NotApplicantException
 import com.msg.gcms.domain.applicant.presentation.data.dto.AcceptDto
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
@@ -33,11 +32,12 @@ class AcceptApplicantServiceImpl(
         val clubInfo: Club = clubRepository.findById(clubId)
             .orElseThrow { ClubNotFoundException() }
 
+        clubInfo.applicant
+            .find { it.user == headUser }
+            ?: throw NotApplicantException()
+
         val applicantUser: User = userRepository.findById(UUID.fromString(acceptDto.uuid))
             .orElseThrow { UserNotFoundException() }
-
-        if (applicantRepository.countByClubTypeAndUser(clubInfo.type, applicantUser) != 0L)
-            throw DuplicateClubTypeApplicantException()
 
         val clubMember = ClubMember(
             club = clubInfo,
