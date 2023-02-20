@@ -1,10 +1,7 @@
 package com.msg.gcms.domain.applicant.controller
 
 import com.msg.gcms.domain.applicant.presentation.ApplicantController
-import com.msg.gcms.domain.applicant.service.AcceptApplicantService
-import com.msg.gcms.domain.applicant.service.ApplicantListService
-import com.msg.gcms.domain.applicant.service.CancelApplicationService
-import com.msg.gcms.domain.applicant.service.ClubApplyService
+import com.msg.gcms.domain.applicant.service.*
 import com.msg.gcms.domain.applicant.util.ApplicantConverter
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -20,12 +17,14 @@ class CancelApplicationControllerTest : BehaviorSpec({
     val applicantListService = mockk<ApplicantListService>()
     val applicantConverter = mockk<ApplicantConverter>()
     val acceptApplicationService = mockk<AcceptApplicantService>()
+    val rejectApplicantService = mockk<RejectApplicantService>()
     val applicantController = ApplicantController(
         clubApplyService,
         cancelApplicationService,
         acceptApplicationService,
         applicantListService,
         applicantConverter,
+        rejectApplicantService
     )
 
     given("요청이 들어오면") {
@@ -40,5 +39,4 @@ class CancelApplicationControllerTest : BehaviorSpec({
             }
         }
     }
-}) {
-}
+})
