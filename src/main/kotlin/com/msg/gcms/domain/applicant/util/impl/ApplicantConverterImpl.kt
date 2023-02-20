@@ -5,7 +5,9 @@ import com.msg.gcms.domain.applicant.presentation.data.dto.ApplicantListDto
 import com.msg.gcms.domain.applicant.presentation.data.request.AcceptRequestDto
 import com.msg.gcms.domain.applicant.presentation.data.response.ApplicantListResponseDto
 import com.msg.gcms.domain.applicant.util.ApplicantConverter
+import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.Scope
+import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
 
@@ -49,4 +51,10 @@ class ApplicantConverterImpl : ApplicantConverter {
         scope = dto.scope,
         applicantList = responseDto
     )
+
+    override fun toEntity(club: Club, user: User): ClubMember =
+        ClubMember(
+            club = club,
+            user = user
+        )
 }
