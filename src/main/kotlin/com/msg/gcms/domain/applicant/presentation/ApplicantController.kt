@@ -1,12 +1,11 @@
 package com.msg.gcms.domain.applicant.presentation
 
 import com.msg.gcms.domain.applicant.presentation.data.request.AcceptRequestDto
+import com.msg.gcms.domain.applicant.presentation.data.request.RejectRequestDto
 import com.msg.gcms.domain.applicant.presentation.data.response.ApplicantListResponseDto
-import com.msg.gcms.domain.applicant.service.AcceptApplicantService
-import com.msg.gcms.domain.applicant.service.ApplicantListService
-import com.msg.gcms.domain.applicant.service.CancelApplicationService
-import com.msg.gcms.domain.applicant.service.ClubApplyService
+import com.msg.gcms.domain.applicant.service.*
 import com.msg.gcms.domain.applicant.util.ApplicantConverter
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -17,7 +16,8 @@ class ApplicantController(
     private val cancelApplicationService: CancelApplicationService,
     private val acceptApplicantService: AcceptApplicantService,
     private val applicantListService: ApplicantListService,
-    private val applicantConverter: ApplicantConverter
+    private val applicantConverter: ApplicantConverter,
+    private val rejectApplicantService: RejectApplicantService
 ) {
     @GetMapping("/{club_id}")
     fun findApplicantListByClubId(@PathVariable("club_id") clubId: Long): ResponseEntity<ApplicantListResponseDto> {
@@ -42,10 +42,19 @@ class ApplicantController(
     fun acceptApplicant(
         @PathVariable club_id: Long,
         @RequestBody acceptRequestDto: AcceptRequestDto
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Void> =
         applicantConverter.toDto(acceptRequestDto = acceptRequestDto)
             .let { acceptApplicantService.execute(club_id, it) }
-            .run { return ResponseEntity.noContent().build() }
-    }
+            .run { ResponseEntity.status(HttpStatus.CREATED).build() }
+
+
+    @PostMapping("/{club_id}/reject")
+    fun rejectApplicant(
+        @PathVariable club_id: Long,
+        @RequestBody rejectRequestDto: RejectRequestDto
+    ): ResponseEntity<Void> =
+        applicantConverter.toDto(rejectRequestDto)
+            .let { rejectApplicantService.execute(club_id, it) }
+            .run { ResponseEntity.noContent().build() }
 
 }
