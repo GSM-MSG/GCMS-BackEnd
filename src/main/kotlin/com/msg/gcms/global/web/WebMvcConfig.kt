@@ -10,7 +10,7 @@ class WebMvcConfig: WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins("https://gcms-front-end-v2.vercel.app")
             .allowedMethods("*")
-            .allowedHeaders("Authorization", "Refresh-Token")
+            .allowedHeaders("*")
             .allowCredentials(true)
     }
 }
