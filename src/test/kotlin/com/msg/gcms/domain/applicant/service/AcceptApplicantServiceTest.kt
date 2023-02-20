@@ -9,6 +9,7 @@ import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.every
@@ -17,20 +18,22 @@ import io.mockk.verify
 import org.springframework.data.repository.findByIdOrNull
 import java.util.*
 
-class AcceptApplicationServiceTest : BehaviorSpec({
+class AcceptApplicantServiceTest : BehaviorSpec({
 
     val clubRepository = mockk<ClubRepository>()
     val applicantRepository = mockk<ApplicantRepository>()
     val clubMemberRepository = mockk<ClubMemberRepository>()
     val userRepository = mockk<UserRepository>()
     val applicantConverter = mockk<ApplicantConverter>()
+    val userUtil = mockk<UserUtil>()
 
     val acceptApplicantService = AcceptApplicantServiceImpl(
         clubRepository = clubRepository,
         applicantConverter = applicantConverter,
         applicantRepository = applicantRepository,
         clubMemberRepository = clubMemberRepository,
-        userRepository = userRepository
+        userRepository = userRepository,
+        userUtil = userUtil
     )
 
     given("동아리 ID와 유저가 주어졌을때") {
@@ -42,6 +45,8 @@ class AcceptApplicationServiceTest : BehaviorSpec({
         val acceptDto = AcceptDto(
             uuid = user.id.toString()
         )
+
+        every { userUtil.fetchCurrentUser() } returns tempClub.user
 
         every { clubRepository.findByIdOrNull(1) } returns club
         every { userRepository.findByIdOrNull(UUID.fromString(acceptDto.uuid)) } returns user
