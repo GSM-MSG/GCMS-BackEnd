@@ -44,6 +44,23 @@ class ClubConverterImpl : ClubConverter {
             isOpened = true,
         )
 
+    override fun toEntity(id: Long, clubDto: UpdateClubDto, user: User, clubType: ClubType): Club =
+        Club(
+            id = 0,
+            type = clubType,
+            name = clubDto.name,
+            content = clubDto.content,
+            bannerImg = clubDto.bannerImg,
+            contact = clubDto.contact,
+            notionLink = clubDto.notionLink,
+            teacher = clubDto.teacher,
+            activityImg = listOf(),
+            clubMember = listOf(),
+            user = user,
+            applicant = listOf(),
+            isOpened = true,
+        )
+
     override fun toDto(type: ClubType): ClubTypeDto =
         ClubTypeDto(clubType = type)
 
@@ -124,9 +141,8 @@ class ClubConverterImpl : ClubConverter {
     override fun toStatusDto(club: Club): ClubStatusDto =
         ClubStatusDto(club.isOpened)
 
-    override fun toDto(updateClubRequest: UpdateClubRequest): ClubDto =
-        ClubDto(
-            type = updateClubRequest.type,
+    override fun toDto(updateClubRequest: UpdateClubRequest): UpdateClubDto =
+        UpdateClubDto(
             name = updateClubRequest.name,
             content = updateClubRequest.content,
             bannerImg = updateClubRequest.bannerImg,
