@@ -12,15 +12,19 @@ class UserUtil(
     private val userRepository: UserRepository
 ) {
     fun fetchCurrentUser(): User {
+        val email = fetchUserEmail()
+        return fetchUserByEmail(email)
+    }
+
+    fun fetchUserByEmail(email: String): User =
+        userRepository.findByEmail(email) ?: throw UserNotFoundException()
+    fun fetchUserEmail(): String {
         val principal = SecurityContextHolder.getContext().authentication.principal
         val email = if (principal is AuthDetails) {
             principal.username
         } else {
             principal.toString()
         }
-        return fetchUserByEmail(email)
+        return email
     }
-
-    fun fetchUserByEmail(email: String): User =
-        userRepository.findByEmail(email) ?: throw UserNotFoundException()
 }
