@@ -7,6 +7,7 @@ import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
 import com.msg.gcms.domain.user.service.impl.SearchUserServiceImpl
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.domain.user.utils.impl.UserConverterImpl
+import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -22,8 +23,9 @@ class SearchUserServiceTest : BehaviorSpec({
         return UserConverterImpl()
     }
     val userRepository = mockk<UserRepository>()
+    val userUtil = mockk<UserUtil>()
     val clubRepository = mockk<ClubRepository>()
-    val searchUserServiceImpl = SearchUserServiceImpl(userRepository, clubRepository, userConverter())
+    val searchUserServiceImpl = SearchUserServiceImpl(userUtil, userRepository, clubRepository, userConverter())
 
     given("search user With Type Is MAJOR OR FREEDOM") {
         val size = (1..100).random()
