@@ -45,7 +45,7 @@ class SecurityConfig(
 
             .antMatchers(HttpMethod.POST, "/club").authenticated()
             .antMatchers(HttpMethod.GET, "/club").permitAll()
-            .antMatchers(HttpMethod.GET, "/club/{club_id}").authenticated()
+            .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}/close").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}/open").permitAll()
