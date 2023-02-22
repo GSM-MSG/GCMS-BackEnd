@@ -23,6 +23,6 @@ class CreateClubServiceImpl(
             throw ClubAlreadyExistsException()
         val currentUser = userUtil.fetchCurrentUser()
         val club = clubConverter.toEntity(clubDto, currentUser)
-        saveClubUtil.saveClub(club, clubDto)
+        saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
     }
 }

@@ -4,6 +4,7 @@ import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
+import com.msg.gcms.domain.club.presentation.data.dto.UpdateClubDto
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
@@ -48,8 +49,7 @@ class UpdateClubServiceImplTest : BehaviorSpec({
         every { clubRepository.save(club) } returns club
         clubRepository.save(club)
         `when`("부장이 동아리를 수정할때") {
-            val updateRequest = ClubDto(
-                type = ClubType.FREEDOM,
+            val updateRequest = UpdateClubDto(
                 name = "test",
                 content = "test",
                 bannerImg = "https://avatars.githubusercontent.com/u/80161826?v=4",
@@ -70,7 +70,6 @@ class UpdateClubServiceImplTest : BehaviorSpec({
                 assertSoftly(club!!) {
                     name shouldBe updateRequest.name
                     content shouldBe updateRequest.content
-                    type shouldBe updateRequest.type
                     bannerImg shouldBe updateRequest.bannerImg
                     contact shouldBe updateRequest.contact
                     notionLink shouldBe updateRequest.notionLink

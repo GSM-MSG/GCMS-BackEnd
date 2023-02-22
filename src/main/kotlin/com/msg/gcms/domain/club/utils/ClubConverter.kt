@@ -13,6 +13,7 @@ import com.msg.gcms.domain.user.domain.entity.User
 interface ClubConverter {
     fun toDto(createClubRequest: CreateClubRequest): ClubDto
     fun toEntity(clubDto: ClubDto, user: User): Club
+    fun toEntity(id: Long, updateClubDto: UpdateClubDto, user: User, clubType: ClubType): Club
     fun toDto(type: ClubType): ClubTypeDto
     fun toDto(club: Club): ClubListDto
     fun toDto(user: User): DetailClubDto.UserDto
@@ -20,6 +21,6 @@ interface ClubConverter {
     fun toResponseDto(dto: ClubListDto): ClubListResponseDto
     fun toResponseDto(dto: DetailClubDto.UserDto): DetailClubResponseDto.UserResponseDto
     fun toResponseDto(dto: DetailClubDto, memberResponseDto: List<DetailClubResponseDto.UserResponseDto>): DetailClubResponseDto
-    fun toDto(updateClubRequest: UpdateClubRequest): ClubDto
+    fun toDto(updateClubRequest: UpdateClubRequest): UpdateClubDto
     fun toStatusDto(club: Club): ClubStatusDto
 }
