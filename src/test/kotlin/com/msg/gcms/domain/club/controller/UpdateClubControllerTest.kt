@@ -3,6 +3,7 @@ package com.msg.gcms.domain.club.controller
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
+import com.msg.gcms.domain.club.presentation.data.dto.UpdateClubDto
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
@@ -39,12 +40,11 @@ class UpdateClubControllerTest : BehaviorSpec({
         exitClubService,
         deleteClubService,
         detailClubService,
-        clubConverter()
+        clubConverter
     )
 
     given("요청이 들어오면") {
-        val dto = ClubDto(
-            type = ClubType.FREEDOM,
+        val dto = UpdateClubDto(
             name = "test",
             content = "test",
             bannerImg = "https://avatars.githubusercontent.com/u/80161826?v=4",
@@ -59,7 +59,6 @@ class UpdateClubControllerTest : BehaviorSpec({
             member = listOf()
         )
         val request = UpdateClubRequest(
-            type = ClubType.FREEDOM,
             name = "test",
             content = "test",
             bannerImg = "https://avatars.githubusercontent.com/u/80161826?v=4",
