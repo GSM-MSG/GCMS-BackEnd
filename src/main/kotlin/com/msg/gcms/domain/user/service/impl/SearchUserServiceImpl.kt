@@ -22,18 +22,18 @@ class SearchUserServiceImpl(
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(dto: SearchRequirementDto): List<SearchUserDto> {
         val user = userUtil.fetchCurrentUser()
-        if (dto.clubType != ClubType.MAJOR
+        return if (dto.clubType != ClubType.MAJOR
             && dto.clubType != ClubType.FREEDOM
         ) {
-            return  userRepository.findByNicknameContaining(dto.name)
+            userRepository.findByNicknameContaining(dto.name)
                 .filter { it.id != user.id }
                 .map { userConverter.toDto(it) }
         } else {
-            return userRepository.findUserNotJoin(dto.clubType, dto.name)
+            userRepository.findUserNotJoin(dto.clubType, dto.name)
                 .filter { !verifyUserIsHead(it, dto.clubType) }
                 .filter { it.id != user.id }
                 .map { userConverter.toDto(it) }
-        }
+        } 
     }
     private fun verifyUserIsHead(user: User, type: ClubType): Boolean =
         clubRepository.existsByUserAndType(user, type)
