@@ -19,10 +19,10 @@ class SaveClubUtil(
     private val clubMemberRepository: ClubMemberRepository,
     private val userRepository: UserRepository,
 ) {
-    fun saveClub(club: Club, imgList: List<String>, users: List<UUID>) {
+    fun saveClub(club: Club, imgList: List<String>, users: List<UUID>){
         clubRepository.save(club)
         val activityImgs = imgList
-            .map { ActivityImg(image = it, club = club) }
+            .map { ActivityImg(image = it, club =  club) }
         activityImgRepository.saveAll(activityImgs)
         val users = users
             .map { findById(it) }
