@@ -4,7 +4,6 @@ import com.msg.gcms.domain.club.domain.entity.ActivityImg
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
-import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
@@ -19,7 +18,7 @@ class SaveClubUtil(
     private val activityImgRepository: ActivityImgRepository,
     private val clubMemberRepository: ClubMemberRepository,
     private val userRepository: UserRepository,
-){
+) {
     fun saveClub(club: Club, imgList: List<String>, users: List<UUID>){
         clubRepository.save(club)
         val activityImgs = imgList

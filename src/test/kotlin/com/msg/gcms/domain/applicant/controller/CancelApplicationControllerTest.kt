@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.applicant.controller
 
 import com.msg.gcms.domain.applicant.presentation.ApplicantController
+import com.msg.gcms.domain.applicant.service.AcceptApplicantService
 import com.msg.gcms.domain.applicant.service.ApplicantListService
 import com.msg.gcms.domain.applicant.service.CancelApplicationService
 import com.msg.gcms.domain.applicant.service.ClubApplyService
@@ -18,11 +19,13 @@ class CancelApplicationControllerTest : BehaviorSpec({
     val cancelApplicationService = mockk<CancelApplicationService>()
     val applicantListService = mockk<ApplicantListService>()
     val applicantConverter = mockk<ApplicantConverter>()
+    val acceptApplicationService = mockk<AcceptApplicantService>()
     val applicantController = ApplicantController(
         clubApplyService,
         cancelApplicationService,
+        acceptApplicationService,
         applicantListService,
-        applicantConverter
+        applicantConverter,
     )
 
     given("요청이 들어오면") {

@@ -35,7 +35,7 @@ object ClubDataUtil {
         clubMember = listOf()
     )
     fun entity() = Club(
-        id = Random.nextLong(),
+        id = 1,
         name = name(),
         bannerImg = bannerImg(),
         content = content(),
