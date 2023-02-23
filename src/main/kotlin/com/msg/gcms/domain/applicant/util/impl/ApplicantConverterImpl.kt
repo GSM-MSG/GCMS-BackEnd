@@ -2,7 +2,9 @@ package com.msg.gcms.domain.applicant.util.impl
 
 import com.msg.gcms.domain.applicant.presentation.data.dto.AcceptDto
 import com.msg.gcms.domain.applicant.presentation.data.dto.ApplicantListDto
+import com.msg.gcms.domain.applicant.presentation.data.dto.RejectDto
 import com.msg.gcms.domain.applicant.presentation.data.request.AcceptRequestDto
+import com.msg.gcms.domain.applicant.presentation.data.request.RejectRequestDto
 import com.msg.gcms.domain.applicant.presentation.data.response.ApplicantListResponseDto
 import com.msg.gcms.domain.applicant.util.ApplicantConverter
 import com.msg.gcms.domain.club.domain.entity.Club
@@ -16,6 +18,11 @@ class ApplicantConverterImpl : ApplicantConverter {
     override fun toDto(acceptRequestDto: AcceptRequestDto): AcceptDto =
         AcceptDto(
             uuid = acceptRequestDto.uuid
+        )
+
+    override fun toDto(rejectRequestDto: RejectRequestDto): RejectDto =
+        RejectDto(
+            uuid = rejectRequestDto.uuid
         )
 
     override fun toDto(user: User): ApplicantListDto.ApplicantDto = ApplicantListDto.ApplicantDto(

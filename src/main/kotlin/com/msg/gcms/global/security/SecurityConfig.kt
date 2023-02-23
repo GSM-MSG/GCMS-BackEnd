@@ -61,6 +61,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}").authenticated()
             .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}/accept").authenticated()
+            .antMatchers(HttpMethod.POST, "/applicant/{club_id}/reject").authenticated()
 
             .antMatchers(HttpMethod.POST, "/image").authenticated()
             .anyRequest().denyAll()
