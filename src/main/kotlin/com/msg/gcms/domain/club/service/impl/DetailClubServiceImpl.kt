@@ -29,15 +29,16 @@ class DetailClubServiceImpl(
 ) : DetailClubService {
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(clubId: Long): DetailClubDto {
-        val user = userUtil.fetchCurrentUser()
+        val email = userUtil.fetchUserEmail()
+        val user = if(email == "anonymousUser") null else userUtil.fetchUserByEmail(email)
         val club = clubRepository.findById(clubId)
             .orElseThrow { throw ClubNotFoundException() }
         val clubMember = clubMemberRepository.findAllByClub(club)
             .map { clubConverter.toDto(it.user) }
         val activityImgs = activityImgRepository.findAllByClub(club)
             .map { it.image }
-        val scope = getScope(user, club)
-        val isApplied = applicantRepository.existsByUserAndClub(user, club)
+        val scope = if(user == null) Scope.OTHER else getScope(user!!, club)
+        val isApplied = if(user == null) false else applicantRepository.existsByUserAndClub(user!!, club)
 
         return clubConverter.toDto(club, clubMember, activityImgs, scope, isApplied)
 

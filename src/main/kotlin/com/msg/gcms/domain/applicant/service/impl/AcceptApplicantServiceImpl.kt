@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-@Transactional
+@Transactional(rollbackFor = [Exception::class])
 class AcceptApplicantServiceImpl(
     private val clubRepository: ClubRepository,
     private val applicantRepository: ApplicantRepository,
