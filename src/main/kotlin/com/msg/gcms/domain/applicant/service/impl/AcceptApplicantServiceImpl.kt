@@ -13,9 +13,11 @@ import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
+@Transactional(rollbackFor = [Exception::class])
 class AcceptApplicantServiceImpl(
     private val clubRepository: ClubRepository,
     private val applicantRepository: ApplicantRepository,

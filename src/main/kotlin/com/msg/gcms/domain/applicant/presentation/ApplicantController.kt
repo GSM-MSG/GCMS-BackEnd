@@ -42,10 +42,9 @@ class ApplicantController(
     fun acceptApplicant(
         @PathVariable club_id: Long,
         @RequestBody acceptRequestDto: AcceptRequestDto
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Void> =
         applicantConverter.toDto(acceptRequestDto = acceptRequestDto)
             .let { acceptApplicantService.execute(club_id, it) }
-            .run { return ResponseEntity.noContent().build() }
-    }
+            .run { ResponseEntity.noContent().build() }
 
 }
