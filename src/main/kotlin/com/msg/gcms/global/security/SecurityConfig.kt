@@ -41,6 +41,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
             .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
 
             .antMatchers(HttpMethod.POST, "/club").authenticated()
@@ -48,7 +49,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}/close").authenticated()
-            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/open").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/open").authenticated()
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}").authenticated()
 

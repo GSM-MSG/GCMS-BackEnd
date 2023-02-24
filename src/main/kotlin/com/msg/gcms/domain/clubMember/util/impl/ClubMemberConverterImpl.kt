@@ -3,6 +3,8 @@ package com.msg.gcms.domain.clubMember.util.impl
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.enums.MemberScope
+import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberExitDto
+import com.msg.gcms.domain.clubMember.presentation.data.request.ExitClubMemberRequest
 import com.msg.gcms.domain.clubMember.presentation.data.dto.DelegateHeadDto
 import com.msg.gcms.domain.clubMember.presentation.data.request.DelegateHeadRequest
 import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListDto
@@ -49,5 +51,11 @@ class ClubMemberConverterImpl : ClubMemberConverter {
         ClubMemberListResponse(
             scope = dto.scope,
             clubMember = dto.clubMember
+        )
+
+    override fun toDto(clubId: Long, requestDto: ExitClubMemberRequest): ClubMemberExitDto =
+        ClubMemberExitDto(
+            clubId = clubId,
+            uuid = requestDto.uuid
         )
 }
