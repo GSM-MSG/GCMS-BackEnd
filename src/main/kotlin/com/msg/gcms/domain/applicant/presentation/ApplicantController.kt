@@ -31,12 +31,12 @@ class ApplicantController(
     @PostMapping("/{club_id}")
     fun apply(@PathVariable club_id: Long): ResponseEntity<Void> =
         clubApplyService.execute(club_id)
-            .run { ResponseEntity.noContent().build() }
+            .let { ResponseEntity.noContent().build() }
 
     @DeleteMapping("/{club_id}")
     fun cancelApplication(@PathVariable club_id: Long): ResponseEntity<Void> =
         cancelApplicationService.execute(club_id)
-            .run { ResponseEntity.noContent().build() }
+            .let { ResponseEntity.noContent().build() }
 
     @PostMapping("/{club_id}/accept")
     fun acceptApplicant(
