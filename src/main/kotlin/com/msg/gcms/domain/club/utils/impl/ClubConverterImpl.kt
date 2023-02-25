@@ -46,7 +46,7 @@ class ClubConverterImpl : ClubConverter {
 
     override fun toEntity(id: Long, clubDto: UpdateClubDto, user: User, clubType: ClubType): Club =
         Club(
-            id = 0,
+            id = id,
             type = clubType,
             name = clubDto.name,
             content = clubDto.content,
