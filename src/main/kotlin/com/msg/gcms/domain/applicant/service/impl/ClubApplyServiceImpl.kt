@@ -27,7 +27,7 @@ class ClubApplyServiceImpl(
         val club = clubRepository.findById(clubId)
             .orElseThrow { ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
-        if (club.clubMember.contains(clubMemberRepository.findByUserAndClub(user, club)) || club.user == user)
+        if (club.clubMember.contains(clubMemberRepository.findByUserAndClub(user, club)) || club.user == user && club.type != ClubType.EDITORIAL)
             throw AlreadyClubMemberException()
         if (applicantRepository.countByClubTypeAndUser(club.type, user) != 0L && club.type != ClubType.EDITORIAL)
             throw DuplicateClubTypeApplicantException()
