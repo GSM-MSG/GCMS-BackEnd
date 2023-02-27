@@ -26,6 +26,7 @@ class SaveClubUtil(
         activityImgRepository.saveAll(activityImgs)
         val users = users
             .map { findById(it) }
+            .filter{ it != club.user }
             .map { ClubMember(club = club, user = it) }
         clubMemberRepository.saveAll(users)
     }
