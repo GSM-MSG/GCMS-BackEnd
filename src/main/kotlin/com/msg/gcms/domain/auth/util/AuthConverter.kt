@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.auth.util
 
+import com.msg.gcms.domain.admin.domain.entity.Admin
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
@@ -13,7 +14,11 @@ interface AuthConverter {
 
     fun toEntity(gAuthUserInfo: GAuthUserInfo): User
 
+    fun toAdminEntity(gAuthUserInfo: GAuthUserInfo): Admin
+
     fun toEntity(userInfo: User, refreshToken: String): RefreshToken
+
+    fun toEntity(adminInfo: Admin, refreshToken: String): RefreshToken
 
     fun toEntity(userId: UUID?, refreshToken: String): RefreshToken
 
