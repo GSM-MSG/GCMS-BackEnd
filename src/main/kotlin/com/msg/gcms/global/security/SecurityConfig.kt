@@ -1,6 +1,7 @@
 package com.msg.gcms.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.global.config.FilterConfig
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
@@ -40,7 +41,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
-            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
+            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").hasAuthority(Role.USER.name)
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
 
