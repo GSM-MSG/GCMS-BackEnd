@@ -50,6 +50,7 @@ class Club(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club", cascade = [CascadeType.REMOVE])
     val clubMember: List<ClubMember> = listOf(),
 
+    @Enumerated(value = EnumType.STRING)
     val clubStatus: ClubStatus = ClubStatus.PENDING
 ) {
 }
