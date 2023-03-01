@@ -2,6 +2,7 @@ package com.msg.gcms.domain.club.domain.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.applicant.domain.entity.Applicant
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.user.domain.entity.User
@@ -47,6 +48,9 @@ class Club(
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "club", cascade = [CascadeType.REMOVE])
-    val clubMember: List<ClubMember> = listOf()
+    val clubMember: List<ClubMember> = listOf(),
+
+    @Enumerated(value = EnumType.STRING)
+    val clubStatus: ClubStatus = ClubStatus.PENDING
 ) {
 }
