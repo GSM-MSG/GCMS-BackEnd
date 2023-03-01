@@ -1,6 +1,8 @@
 package com.msg.gcms.global.security.jwt
 
 import com.msg.gcms.domain.auth.domain.Role
+import com.msg.gcms.domain.auth.exception.AuthorityNotExistException
+import com.msg.gcms.domain.auth.exception.RoleNotExistException
 import com.msg.gcms.global.security.auth.AdminDetailsService
 import com.msg.gcms.global.security.auth.AuthDetailsService
 import com.msg.gcms.global.security.exception.ExpiredTokenException
@@ -57,9 +59,9 @@ class JwtTokenProvider(
 
     fun exactRoleFromRefreshToken(refresh: String): Role {
         return when (getTokenBody(refresh, jwtProperties.refreshSecret).get(AUTHORITY, String::class.java)) {
-            "USER" -> Role.USER
+            "STUDENT" -> Role.STUDENT
             "ADMIN" -> Role.ADMIN
-            else -> TODO("올바르지 않은 권한 입니다.")
+            else -> throw RoleNotExistException()
         }
 
     }
@@ -107,9 +109,9 @@ class JwtTokenProvider(
 
     private fun getLoadByUserDetail(token: String): UserDetails {
         return when (getTokenBody(token, jwtProperties.accessSecret).get(AUTHORITY, String::class.java)) {
-            Role.USER.name -> authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
+            Role.STUDENT.name -> authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
             Role.ADMIN.name -> adminDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
-            else -> throw TODO("유효하지 않은 토큰")
+            else -> throw AuthorityNotExistException()
         }
     }
 }

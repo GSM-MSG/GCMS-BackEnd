@@ -2,6 +2,7 @@ package com.msg.gcms.domain.auth.service.impl
 
 import com.msg.gcms.domain.admin.domain.repository.AdminRepository
 import com.msg.gcms.domain.auth.domain.Role
+import com.msg.gcms.domain.auth.exception.RoleNotExistException
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
 import com.msg.gcms.domain.auth.service.SignInService
@@ -60,9 +61,9 @@ class SignInServiceImpl(
 
     private fun getRoleByGauthInfo(role: String): Role {
         return when (role) {
-            "ROLE_STUDENT" -> Role.USER
+            "ROLE_STUDENT" -> Role.STUDENT
             "ROLE_TEACHER" -> Role.ADMIN
-            else -> throw TODO("존재하지 않는 role 입니다.")
+            else -> throw RoleNotExistException()
         }
     }
 
