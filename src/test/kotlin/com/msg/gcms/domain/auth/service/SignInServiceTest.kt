@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.auth.service
 
-import com.msg.gcms.domain.admin.domain.repository.AdminRepository
+
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
@@ -33,13 +33,11 @@ class SignInServiceTest : BehaviorSpec({
     val userRepository = mockk<UserRepository>()
     val refreshTokenRepository = mockk<RefreshTokenRepository>()
     val authConverter = mockk<AuthConverter>()
-    val adminRepository = mockk<AdminRepository>()
     val gAuthProperties = GAuthProperties(clientId = clientId, clientSecret = clientSecret, redirectUri = redirectUri)
     val authUtil = AuthUtilImpl(
         refreshTokenRepository = refreshTokenRepository,
         authConverter = authConverter,
         userRepository = userRepository,
-        adminRepository = adminRepository
     )
 
     val signInService = SignInServiceImpl(
@@ -49,7 +47,6 @@ class SignInServiceTest : BehaviorSpec({
         jwtTokenProvider = tokenProvider,
         gAuth = gAuth,
         authUtil = authUtil,
-        adminRepository= adminRepository
     )
 
     given("gAuth로 로그인 요청이 갔을때") {
@@ -74,8 +71,8 @@ class SignInServiceTest : BehaviorSpec({
         val accessToken = "thisIsAccessToken"
         val refreshToken = "thisIsRefreshToken"
 
-        val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         val role = Role.ROLE_STUDENT
+        val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, mutableListOf(role), null, listOf(), listOf(), listOf())
 
         val userMap: Map<String, Any> = mapOf(
             "email" to user.email,

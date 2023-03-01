@@ -25,8 +25,8 @@ class CloseClubServiceTest : BehaviorSpec({
     val closeClubService =  mockk<CloseClubService>(relaxed = true)
     extension(SpringExtension)
     given("유저와 동아리가 있을때"){
-        val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
         val role = Role.ROLE_STUDENT
+        val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, mutableListOf(role), null, listOf(), listOf(), listOf())
         every { userRepository.save(user) } returns user
         val director = userRepository.save(user)
         val directorToken = tokenProvider.generateAccessToken(director.email, role)
