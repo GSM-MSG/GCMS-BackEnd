@@ -1,6 +1,5 @@
 package com.msg.gcms.domain.auth.service.impl
 
-import com.msg.gcms.domain.admin.domain.repository.AdminRepository
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.exception.RoleNotExistException
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
@@ -26,7 +25,6 @@ class SignInServiceImpl(
     private val jwtTokenProvider: JwtTokenProvider,
     private val gAuth: GAuth,
     private val authUtil: AuthUtil,
-    private val adminRepository: AdminRepository
 ) : SignInService {
 
 
@@ -77,7 +75,7 @@ class SignInServiceImpl(
     }
 
     private fun createAdminOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String) {
-        val adminInfo = adminRepository.findByEmail(gAuthUserInfo.email)
+        val adminInfo = userRepository.findByEmail(gAuthUserInfo.email)
         if (adminInfo == null) {
             authUtil.saveNewAdmin(gAuthUserInfo, refreshToken)
         } else {

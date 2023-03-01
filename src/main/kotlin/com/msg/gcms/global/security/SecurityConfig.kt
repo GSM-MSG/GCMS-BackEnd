@@ -41,11 +41,11 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
-            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").hasRole(Role.ROLE_STUDENT.name)
+            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
 
-            .antMatchers(HttpMethod.POST, "/club").authenticated()
+            .antMatchers(HttpMethod.POST, "/club").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/club").permitAll()
             .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()

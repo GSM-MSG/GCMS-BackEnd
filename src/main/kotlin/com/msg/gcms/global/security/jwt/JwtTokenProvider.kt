@@ -1,9 +1,7 @@
 package com.msg.gcms.global.security.jwt
 
 import com.msg.gcms.domain.auth.domain.Role
-import com.msg.gcms.domain.auth.exception.AuthorityNotExistException
 import com.msg.gcms.domain.auth.exception.RoleNotExistException
-import com.msg.gcms.global.security.auth.AdminDetailsService
 import com.msg.gcms.global.security.auth.AuthDetailsService
 import com.msg.gcms.global.security.exception.ExpiredTokenException
 import com.msg.gcms.global.security.exception.InvalidTokenException
@@ -14,7 +12,6 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.security.Key
 import java.time.ZonedDateTime
@@ -25,7 +22,6 @@ import javax.servlet.http.HttpServletRequest
 class JwtTokenProvider(
     private val jwtProperties: JwtProperties,
     private val authDetailsService: AuthDetailsService,
-    private val adminDetailsService: AdminDetailsService
 ) {
     companion object {
         const val ACCESS_TYPE = "access"
@@ -70,7 +66,7 @@ class JwtTokenProvider(
         getTokenSubject(refresh, jwtProperties.refreshSecret)
 
     fun authentication(token: String): Authentication {
-        val userDetails = getLoadByUserDetail(token)
+        val userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
         return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
     }
 
@@ -106,12 +102,4 @@ class JwtTokenProvider(
 
     private fun getTokenSubject(token: String, secret: Key): String =
         getTokenBody(token, secret).subject
-
-    private fun getLoadByUserDetail(token: String): UserDetails {
-        return when (getTokenBody(token, jwtProperties.accessSecret).get(AUTHORITY, String::class.java)) {
-            Role.ROLE_STUDENT.name -> authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
-            Role.ROLE_ADMIN.name -> adminDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
-            else -> throw AuthorityNotExistException()
-        }
-    }
 }

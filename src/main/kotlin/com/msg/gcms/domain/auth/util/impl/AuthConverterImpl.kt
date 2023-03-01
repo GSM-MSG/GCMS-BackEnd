@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.auth.util.impl
 
-import com.msg.gcms.domain.admin.domain.entity.Admin
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
@@ -26,13 +26,20 @@ class AuthConverterImpl : AuthConverter {
             grade = gAuthUserInfo.grade,
             classNum = gAuthUserInfo.classNum,
             number = gAuthUserInfo.num,
+            roles = mutableListOf(Role.ROLE_STUDENT),
             profileImg = gAuthUserInfo.profileUrl,
         )
 
-    override fun toAdminEntity(gAuthUserInfo: GAuthUserInfo): Admin =
-        Admin(
+    override fun toAdminEntity(gAuthUserInfo: GAuthUserInfo): User =
+        User(
             id = UUID.randomUUID(),
-            email = gAuthUserInfo.email
+            email = gAuthUserInfo.email,
+            nickname = gAuthUserInfo.name,
+            grade = 0,
+            classNum = 0,
+            number = 0,
+            roles = mutableListOf(Role.ROLE_ADMIN),
+            profileImg = gAuthUserInfo.profileUrl,
         )
 
     override fun toEntity(userInfo: User, refreshToken: String): RefreshToken =
@@ -41,11 +48,6 @@ class AuthConverterImpl : AuthConverter {
             token = refreshToken
         )
 
-    override fun toEntity(adminInfo: Admin, refreshToken: String): RefreshToken =
-        RefreshToken(
-            userId = adminInfo.id,
-            token = refreshToken
-        )
 
     override fun toEntity(userId: UUID?, refreshToken: String): RefreshToken =
         RefreshToken(
