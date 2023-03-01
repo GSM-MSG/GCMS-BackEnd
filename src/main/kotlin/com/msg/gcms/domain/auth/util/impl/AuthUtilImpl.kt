@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 class AuthUtilImpl(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val authConverter: AuthConverter,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : AuthUtil {
 
     override fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String) {
@@ -23,8 +23,13 @@ class AuthUtilImpl(
             .let { refreshTokenRepository.save(it) }
     }
 
+    override fun saveNewAdmin(gAuthUserInfo: GAuthUserInfo, refreshToken: String) {
+        val signInAdminInfo: User = authConverter.toAdminEntity(gAuthUserInfo)
+            .let { userRepository.save(it) }
+        saveNewRefreshToken(signInAdminInfo, refreshToken)
+    }
+
     override fun saveNewRefreshToken(userInfo: User, refreshToken: String): RefreshToken =
         authConverter.toEntity(userInfo, refreshToken)
             .let { refreshTokenRepository.save(it) }
-
 }

@@ -1,5 +1,7 @@
 package com.msg.gcms.domain.auth.service
 
+
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
@@ -35,7 +37,7 @@ class SignInServiceTest : BehaviorSpec({
     val authUtil = AuthUtilImpl(
         refreshTokenRepository = refreshTokenRepository,
         authConverter = authConverter,
-        userRepository = userRepository
+        userRepository = userRepository,
     )
 
     val signInService = SignInServiceImpl(
@@ -44,7 +46,7 @@ class SignInServiceTest : BehaviorSpec({
         authConverter = authConverter,
         jwtTokenProvider = tokenProvider,
         gAuth = gAuth,
-        authUtil = authUtil
+        authUtil = authUtil,
     )
 
     given("gAuth로 로그인 요청이 갔을때") {
@@ -54,6 +56,7 @@ class SignInServiceTest : BehaviorSpec({
             "accessToken" to "thisIsAccessToken",
             "refreshToken" to "thisIsRefreshToken"
         )
+
 
         val gAuthToken = GAuthToken(map)
         every {
@@ -68,7 +71,8 @@ class SignInServiceTest : BehaviorSpec({
         val accessToken = "thisIsAccessToken"
         val refreshToken = "thisIsRefreshToken"
 
-        val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
+        val role = Role.ROLE_STUDENT
+        val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, mutableListOf(role), null, listOf(), listOf(), listOf())
 
         val userMap: Map<String, Any> = mapOf(
             "email" to user.email,
@@ -78,7 +82,7 @@ class SignInServiceTest : BehaviorSpec({
             "num" to 4,
             "gender" to "MALE",
             "profileUrl" to "https://velog.velcdn.com/images/msung99/post/9af546d4-210c-4647-9ccf-2f2878f0283b/image.png",
-            "role" to "student"
+            "role" to "ROLE_STUDENT"
         )
 
         val gAuthUserInfo = GAuthUserInfo(userMap)
@@ -103,11 +107,11 @@ class SignInServiceTest : BehaviorSpec({
         )
 
         every {
-            tokenProvider.generateAccessToken(gAuthUserInfo.email)
+            tokenProvider.generateAccessToken(gAuthUserInfo.email, role)
         } returns accessToken
 
         every {
-            tokenProvider.generateRefreshToken(gAuthUserInfo.email)
+            tokenProvider.generateRefreshToken(gAuthUserInfo.email, role)
         } returns refreshToken
 
         val accessExp = tokenProvider.accessExpiredTime

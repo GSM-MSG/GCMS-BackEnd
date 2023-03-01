@@ -9,5 +9,7 @@ interface AuthUtil {
 
     fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String)
 
+    fun saveNewAdmin(gAuthUserInfo: GAuthUserInfo, refreshToken: String)
+
     fun saveNewRefreshToken(userInfo: User, refreshToken: String): RefreshToken
 }

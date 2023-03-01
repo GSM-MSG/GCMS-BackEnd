@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.auth.service.impl
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
 import com.msg.gcms.domain.auth.exception.ExpiredRefreshTokenException
 import com.msg.gcms.domain.auth.presentation.data.response.NewRefreshTokenResponseDto
@@ -21,10 +22,11 @@ class GetNewRefreshTokenServiceImpl(
         val refresh = jwtTokenProvider.parseToken(refreshToken)
             ?: throw InvalidTokenException()
         val email: String = jwtTokenProvider.exactEmailFromRefreshToken(refresh)
+        val role: Role = jwtTokenProvider.exactRoleFromRefreshToken(refresh)
         val existingRefreshToken = refreshTokenRepository.findByToken(refresh)
             ?: throw ExpiredRefreshTokenException()
-        val newAccessToken = jwtTokenProvider.generateAccessToken(email)
-        val newRefreshToken = jwtTokenProvider.generateRefreshToken(email)
+        val newAccessToken = jwtTokenProvider.generateAccessToken(email, role)
+        val newRefreshToken = jwtTokenProvider.generateRefreshToken(email, role)
         val accessExp: ZonedDateTime = jwtTokenProvider.accessExpiredTime
         val refreshExp: ZonedDateTime = jwtTokenProvider.refreshExpiredTime
 

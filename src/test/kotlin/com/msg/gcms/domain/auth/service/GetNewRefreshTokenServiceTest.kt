@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.auth.service
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
 import com.msg.gcms.domain.auth.service.impl.GetNewRefreshTokenServiceImpl
@@ -30,6 +31,7 @@ class GetNewRefreshTokenServiceTest : BehaviorSpec({
 
         val accessToken = "thisIsAccessToken"
         val newRefreshToken = "thisIsBeforeRefreshToken"
+        val role = Role.ROLE_STUDENT
         val accessExp = ZonedDateTime.now()
         val refreshExp = ZonedDateTime.now()
 
@@ -38,6 +40,7 @@ class GetNewRefreshTokenServiceTest : BehaviorSpec({
         val email = "s21024@gsm.hs.kr"
 
         every { tokenProvider.exactEmailFromRefreshToken(refreshToken) } returns email
+        every { tokenProvider.exactRoleFromRefreshToken(refreshToken) } returns role
 
         val refreshTokenEntity = RefreshToken(
             userId = UUID.randomUUID(),
@@ -46,8 +49,8 @@ class GetNewRefreshTokenServiceTest : BehaviorSpec({
 
         every { refreshTokenRepository.findByToken(refreshToken) } returns refreshTokenEntity
 
-        every { tokenProvider.generateAccessToken(email) } returns accessToken
-        every { tokenProvider.generateRefreshToken(email) } returns newRefreshToken
+        every { tokenProvider.generateAccessToken(email, role) } returns accessToken
+        every { tokenProvider.generateRefreshToken(email, role) } returns newRefreshToken
         every { tokenProvider.accessExpiredTime } returns accessExp
         every { tokenProvider.refreshExpiredTime } returns refreshExp
 
