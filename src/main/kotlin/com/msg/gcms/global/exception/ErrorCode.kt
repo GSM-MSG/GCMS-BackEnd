@@ -21,11 +21,9 @@ enum class ErrorCode(
     NOT_APPLICANT("해당 동아리에 가입 신청하지 않음", 403),
 
     ROLE_NOT_EXIST("역활이 존재하지 않는 경우", 404),
-    AUTHORITY_NOT_EXIST("권한이 존재하지 않는 경우", 404),
     CLUB_MEMBER_RELEASE_NOT_FOUND("방출하려는 유저가 존재하지 않는 경우", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없음", 404),
     CLUB_NOT_FOUND("해당 동아리를 찾을 수 없음", 404),
-    ADMIN_NOT_FOUND("해당 어드민를 찾을 수 없음", 404),
 
     ALREADY_CLUB_EXIST("해당 동아리가 이미 존재함", 409),
 
