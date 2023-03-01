@@ -1,5 +1,7 @@
 package com.msg.gcms.global.security.jwt
 
+import com.msg.gcms.domain.auth.domain.Role
+import com.msg.gcms.domain.auth.exception.RoleNotExistException
 import com.msg.gcms.global.security.auth.AuthDetailsService
 import com.msg.gcms.global.security.exception.ExpiredTokenException
 import com.msg.gcms.global.security.exception.InvalidTokenException
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JwtTokenProvider(
     private val jwtProperties: JwtProperties,
-    private val authDetailsService: AuthDetailsService
+    private val authDetailsService: AuthDetailsService,
 ) {
     companion object {
         const val ACCESS_TYPE = "access"
@@ -27,6 +29,7 @@ class JwtTokenProvider(
         const val ACCESS_EXP = 60L * 15 // 15 min
         const val REFRESH_EXP = 60L * 60 * 24 * 7 // 1 weeks
         const val TOKEN_PREFIX = "Bearer "
+        const val AUTHORITY = "authority"
     }
 
     val accessExpiredTime: ZonedDateTime
@@ -35,11 +38,11 @@ class JwtTokenProvider(
     val refreshExpiredTime: ZonedDateTime
         get() = ZonedDateTime.now().plusSeconds(REFRESH_EXP)
 
-    fun generateAccessToken(email: String): String =
-        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
+    fun generateAccessToken(email: String, role: Role): String =
+        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP, role)
 
-    fun generateRefreshToken(email: String): String =
-        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
+    fun generateRefreshToken(email: String, role: Role): String =
+        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP, role)
 
     fun resolveToken(req: HttpServletRequest): String? {
         val token = req.getHeader("Authorization") ?: return null
@@ -48,6 +51,15 @@ class JwtTokenProvider(
 
     fun exactEmailFromRefreshToken(refresh: String): String {
         return getTokenSubject(refresh, jwtProperties.refreshSecret)
+    }
+
+    fun exactRoleFromRefreshToken(refresh: String): Role {
+        return when (getTokenBody(refresh, jwtProperties.refreshSecret).get(AUTHORITY, String::class.java)) {
+            "STUDENT" -> Role.ROLE_STUDENT
+            "ADMIN" -> Role.ROLE_ADMIN
+            else -> throw RoleNotExistException()
+        }
+
     }
 
     fun exactTypeFromRefreshToken(refresh: String): String =
@@ -61,12 +73,14 @@ class JwtTokenProvider(
     fun parseToken(token: String): String? =
         if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
 
-    fun generateToken(email: String, type: String, secret: Key, exp: Long): String {
+    fun generateToken(email: String, type: String, secret: Key, exp: Long, role: Role): String {
+        val claims = Jwts.claims().setSubject(email)
+        claims["type"] = type
+        claims[AUTHORITY] = role
         return Jwts.builder()
             .setHeaderParam("typ", "JWT")
             .signWith(secret, SignatureAlgorithm.HS256)
-            .setSubject(email)
-            .claim("type", type)
+            .setClaims(claims)
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + exp * 1000))
             .compact()

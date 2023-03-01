@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails
 class AuthDetails(
     private val user: User
 ) : UserDetails {
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? = null
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? = user.roles
 
     override fun getPassword(): String? = null
 

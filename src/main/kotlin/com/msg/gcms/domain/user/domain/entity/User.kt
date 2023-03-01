@@ -2,6 +2,7 @@ package com.msg.gcms.domain.user.domain.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.msg.gcms.domain.applicant.domain.entity.Applicant
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import org.hibernate.annotations.GenericGenerator
@@ -27,6 +28,11 @@ class User(
     val classNum: Int,
 
     val number: Int,
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Role", joinColumns = [JoinColumn(name = "user_id")])
+    var roles: MutableList<Role> = mutableListOf(),
 
     @Column(columnDefinition = "TEXT")
     var profileImg: String? = "",

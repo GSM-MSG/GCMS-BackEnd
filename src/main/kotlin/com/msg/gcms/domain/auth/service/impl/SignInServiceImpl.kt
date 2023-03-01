@@ -1,5 +1,7 @@
 package com.msg.gcms.domain.auth.service.impl
 
+import com.msg.gcms.domain.auth.domain.Role
+import com.msg.gcms.domain.auth.exception.RoleNotExistException
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
 import com.msg.gcms.domain.auth.service.SignInService
@@ -22,7 +24,7 @@ class SignInServiceImpl(
     private val authConverter: AuthConverter,
     private val jwtTokenProvider: JwtTokenProvider,
     private val gAuth: GAuth,
-    private val authUtil: AuthUtil
+    private val authUtil: AuthUtil,
 ) : SignInService {
 
 
@@ -34,18 +36,17 @@ class SignInServiceImpl(
             gAuthProperties.redirectUri
         )
         val gAuthUserInfo: GAuthUserInfo = gAuth.getUserInfo(gAuthToken.accessToken)
+        val role = getRoleByGauthInfo(gAuthUserInfo.role)
 
-        val userInfo = userRepository.findByEmail(gAuthUserInfo.email)
-
-        val accessToken: String = jwtTokenProvider.generateAccessToken(gAuthUserInfo.email)
-        val refreshToken: String = jwtTokenProvider.generateRefreshToken(gAuthUserInfo.email)
+        val accessToken: String = jwtTokenProvider.generateAccessToken(gAuthUserInfo.email, role)
+        val refreshToken: String = jwtTokenProvider.generateRefreshToken(gAuthUserInfo.email, role)
         val accessExp: ZonedDateTime = jwtTokenProvider.accessExpiredTime
         val refreshExp: ZonedDateTime = jwtTokenProvider.refreshExpiredTime
 
-        if (userInfo == null) {
-            authUtil.saveNewUser(gAuthUserInfo, refreshToken)
+        if(role == Role.ROLE_ADMIN) {
+            createAdminOrRefreshToken(gAuthUserInfo, refreshToken)
         } else {
-            authUtil.saveNewRefreshToken(userInfo, refreshToken)
+            createUserOrRefreshToken(gAuthUserInfo, refreshToken)
         }
 
         return SignInResponseDto(
@@ -54,6 +55,32 @@ class SignInServiceImpl(
             accessExp = accessExp,
             refreshExp = refreshExp
         )
+    }
+
+    private fun getRoleByGauthInfo(role: String): Role {
+        return when (role) {
+            "ROLE_STUDENT" -> Role.ROLE_STUDENT
+            "ROLE_TEACHER" -> Role.ROLE_ADMIN
+            else -> throw RoleNotExistException()
+        }
+    }
+
+    private fun createUserOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String) {
+        val userInfo = userRepository.findByEmail(gAuthUserInfo.email)
+        if (userInfo == null) {
+            authUtil.saveNewUser(gAuthUserInfo, refreshToken)
+        } else {
+            authUtil.saveNewRefreshToken(userInfo, refreshToken)
+        }
+    }
+
+    private fun createAdminOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String) {
+        val adminInfo = userRepository.findByEmail(gAuthUserInfo.email)
+        if (adminInfo == null) {
+            authUtil.saveNewAdmin(gAuthUserInfo, refreshToken)
+        } else {
+            authUtil.saveNewRefreshToken(adminInfo, refreshToken)
+        }
     }
 
 }

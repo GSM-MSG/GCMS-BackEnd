@@ -4,7 +4,6 @@ import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
-import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.presentation.data.dto.UpdateClubDto
 import com.msg.gcms.domain.club.service.UpdateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
