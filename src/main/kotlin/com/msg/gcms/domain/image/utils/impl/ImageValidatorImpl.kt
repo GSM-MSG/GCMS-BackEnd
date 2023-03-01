@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class ImageValidatorImpl : ImageValidator {
     override fun validatorFileSize(size: Int) {
-       if(size > 4) {
+       if(size > 5) {
            throw FileSizeOverException()
        }
     }
