@@ -1,6 +1,7 @@
 package com.msg.gcms.global.security.auth
 
 import com.msg.gcms.domain.admin.domain.repository.AdminRepository
+import com.msg.gcms.domain.admin.exception.AdminNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -13,7 +14,7 @@ class AdminDetailsService(
     private val adminRepository: AdminRepository
 ) : UserDetailsService {
     override fun loadUserByUsername(email: String): UserDetails {
-        val admin = adminRepository.findByEmail(email) ?: TODO("throw AdminNotFoundException")
+        val admin = adminRepository.findByEmail(email) ?: throw AdminNotFoundException()
         return AdminDetails(admin)
     }
 }

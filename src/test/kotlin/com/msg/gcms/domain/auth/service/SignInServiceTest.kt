@@ -75,7 +75,7 @@ class SignInServiceTest : BehaviorSpec({
         val refreshToken = "thisIsRefreshToken"
 
         val user = User(UUID.randomUUID(), "s21053@gsm.hs.kr", "test", 2, 1, 16, null, listOf(), listOf(), listOf())
-        val role = Role.STUDENT
+        val role = Role.ROLE_STUDENT
 
         val userMap: Map<String, Any> = mapOf(
             "email" to user.email,

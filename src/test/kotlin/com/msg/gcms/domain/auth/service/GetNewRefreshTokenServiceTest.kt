@@ -31,7 +31,7 @@ class GetNewRefreshTokenServiceTest : BehaviorSpec({
 
         val accessToken = "thisIsAccessToken"
         val newRefreshToken = "thisIsBeforeRefreshToken"
-        val role = Role.STUDENT
+        val role = Role.ROLE_STUDENT
         val accessExp = ZonedDateTime.now()
         val refreshExp = ZonedDateTime.now()
 

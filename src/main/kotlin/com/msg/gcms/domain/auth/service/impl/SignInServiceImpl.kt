@@ -45,7 +45,7 @@ class SignInServiceImpl(
         val accessExp: ZonedDateTime = jwtTokenProvider.accessExpiredTime
         val refreshExp: ZonedDateTime = jwtTokenProvider.refreshExpiredTime
 
-        if(role == Role.ADMIN) {
+        if(role == Role.ROLE_ADMIN) {
             createAdminOrRefreshToken(gAuthUserInfo, refreshToken)
         } else {
             createUserOrRefreshToken(gAuthUserInfo, refreshToken)
@@ -61,8 +61,8 @@ class SignInServiceImpl(
 
     private fun getRoleByGauthInfo(role: String): Role {
         return when (role) {
-            "ROLE_STUDENT" -> Role.STUDENT
-            "ROLE_TEACHER" -> Role.ADMIN
+            "ROLE_STUDENT" -> Role.ROLE_STUDENT
+            "ROLE_TEACHER" -> Role.ROLE_ADMIN
             else -> throw RoleNotExistException()
         }
     }

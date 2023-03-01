@@ -59,8 +59,8 @@ class JwtTokenProvider(
 
     fun exactRoleFromRefreshToken(refresh: String): Role {
         return when (getTokenBody(refresh, jwtProperties.refreshSecret).get(AUTHORITY, String::class.java)) {
-            "STUDENT" -> Role.STUDENT
-            "ADMIN" -> Role.ADMIN
+            "STUDENT" -> Role.ROLE_STUDENT
+            "ADMIN" -> Role.ROLE_ADMIN
             else -> throw RoleNotExistException()
         }
 
@@ -109,8 +109,8 @@ class JwtTokenProvider(
 
     private fun getLoadByUserDetail(token: String): UserDetails {
         return when (getTokenBody(token, jwtProperties.accessSecret).get(AUTHORITY, String::class.java)) {
-            Role.STUDENT.name -> authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
-            Role.ADMIN.name -> adminDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
+            Role.ROLE_STUDENT.name -> authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
+            Role.ROLE_ADMIN.name -> adminDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
             else -> throw AuthorityNotExistException()
         }
     }
