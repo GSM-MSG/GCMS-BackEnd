@@ -41,7 +41,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
-            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").hasAuthority(Role.USER.name)
+            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").hasAuthority(Role.STUDENT.name)
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
 
