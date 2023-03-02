@@ -2,6 +2,7 @@ package com.msg.gcms.testUtils
 
 import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.club.domain.entity.Club
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
@@ -32,7 +33,8 @@ object ClubDataUtil {
         user = TestUtils.data().user().entity(),
         activityImg = listOf(),
         applicant = listOf(),
-        clubMember = listOf()
+        clubMember = listOf(),
+        clubStatus = ClubStatus.values().random()
     )
     fun entity() = Club(
         id = 1,
