@@ -5,7 +5,7 @@ enum class ErrorCode(
     val status: Int
 ) {
     USER_IS_HEAD("동아리의 부장임", 400),
-    FILE_SIZE_OVER("파일의 크기가 4보다 큼", 400),
+    FILE_SIZE_OVER("파일의 크기가 5보다 큼", 400),
     CLUB_MEMBER_EXIT_ONESELF("자기 자신을 방출하려 하는 경우", 400),
 
     UNAUTHORIZED("권한이 없음", 401),
