@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.club.service.impl
 
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
 import com.msg.gcms.domain.club.service.FindClubListService
@@ -16,5 +17,6 @@ class FindClubListServiceImpl(
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(clubTypeDto: ClubTypeDto): List<ClubListDto> =
         clubRepository.findByType(clubTypeDto.clubType)
+            .filter { it.clubStatus != ClubStatus.PENDING }
             .map { clubConverter.toDto(it) }
 }
