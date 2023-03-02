@@ -16,7 +16,6 @@ class FindClubListServiceImpl(
 ) : FindClubListService {
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(clubTypeDto: ClubTypeDto): List<ClubListDto> =
-        clubRepository.findByType(clubTypeDto.clubType)
-            .filter { it.clubStatus != ClubStatus.PENDING }
+        clubRepository.findByTypeAndClubStatus(clubTypeDto.clubType, ClubStatus.CREATED)
             .map { clubConverter.toDto(it) }
 }
