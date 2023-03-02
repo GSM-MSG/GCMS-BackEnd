@@ -55,8 +55,8 @@ class JwtTokenProvider(
 
     fun exactRoleFromRefreshToken(refresh: String): Role {
         return when (getTokenBody(refresh, jwtProperties.refreshSecret).get(AUTHORITY, String::class.java)) {
-            "STUDENT" -> Role.ROLE_STUDENT
-            "ADMIN" -> Role.ROLE_ADMIN
+            "ROLE_STUDENT" -> Role.ROLE_STUDENT
+            "ROLE_ADMIN" -> Role.ROLE_ADMIN
             else -> throw RoleNotExistException()
         }
 
