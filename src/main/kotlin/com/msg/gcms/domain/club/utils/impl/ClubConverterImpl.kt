@@ -43,6 +43,7 @@ class ClubConverterImpl : ClubConverter {
             user = user,
             applicant = listOf(),
             isOpened = true,
+            clubStatus = ClubStatus.PENDING
         )
 
     override fun toEntity(id: Long, clubDto: UpdateClubDto, user: User, clubType: ClubType): Club =
