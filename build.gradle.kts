@@ -44,6 +44,8 @@ dependencies {
 	testImplementation("io.mockk:mockk:1.12.0")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+	implementation("org.apache.poi:poi:5.2.2")
+	implementation("org.apache.poi:poi-ooxml:5.2.2")
 }
 
 tasks.withType<KotlinCompile> {
