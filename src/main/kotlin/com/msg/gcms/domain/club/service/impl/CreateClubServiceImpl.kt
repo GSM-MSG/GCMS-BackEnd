@@ -1,9 +1,11 @@
 package com.msg.gcms.domain.club.service.impl
 
 import com.msg.gcms.domain.applicant.exception.AlreadyClubMemberException
+import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.exception.AlreadyClubApplicantException
 import com.msg.gcms.domain.club.exception.AlreadyClubHeadException
 import com.msg.gcms.domain.club.exception.ClubAlreadyExistsException
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
@@ -24,6 +26,7 @@ class CreateClubServiceImpl(
     private val saveClubUtil: SaveClubUtil,
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
+    private val applicantRepository: ApplicantRepository,
     private val clubConverter: ClubConverter
 ) : CreateClubService {
     override fun execute(clubDto: ClubDto) {
@@ -33,6 +36,7 @@ class CreateClubServiceImpl(
         val club = clubConverter.toEntity(clubDto, currentUser)
         checkAlreadyHead(currentUser, clubDto)
         checkAlreadyClubMember(currentUser, clubDto)
+        checkAlreadyApplicant(currentUser, clubDto)
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
     }
 
@@ -50,5 +54,10 @@ class CreateClubServiceImpl(
     ){
         if (clubDto.type != ClubType.EDITORIAL && clubMemberRepository.findByUser(currentUser).any { it.club.type == clubDto.type })
             throw AlreadyClubMemberException()
+    }
+
+    private fun checkAlreadyApplicant(currentUser: User, clubDto: ClubDto){
+        if (clubDto.type != ClubType.EDITORIAL && applicantRepository.findAllByUser(currentUser).any { it.club.type == clubDto.type })
+            throw AlreadyClubApplicantException()
     }
 }
