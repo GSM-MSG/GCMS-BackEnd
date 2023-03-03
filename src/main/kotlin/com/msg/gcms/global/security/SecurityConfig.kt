@@ -68,7 +68,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/image").authenticated()
 
             .antMatchers(HttpMethod.GET, "/admin/excel/club").permitAll()
-            .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ROLE_ADMIN")
+            .antMatchers(HttpMethod.POST, "/admin").hasRole("ROLE_ADMIN")
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
