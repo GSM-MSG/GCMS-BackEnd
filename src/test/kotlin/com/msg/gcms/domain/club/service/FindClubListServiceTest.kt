@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.club.service
 
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.dto.ClubListDto
 import com.msg.gcms.domain.club.presentation.data.dto.ClubTypeDto
@@ -35,7 +36,7 @@ class FindClubListServiceTest : BehaviorSpec({
 
 
         `when`("is invoked") {
-            every { clubRepository.findByType(type) } returns club
+            every { clubRepository.findByTypeAndClubStatus(type, ClubStatus.CREATED) } returns club
             val result = findClubListServiceImpl.execute(clubTypeDto)
 
             then("result should not be null") {
@@ -43,7 +44,7 @@ class FindClubListServiceTest : BehaviorSpec({
             }
 
             then("clubRepository should be called") {
-                verify(exactly = 1) { clubRepository.findByType(type) }
+                verify(exactly = 1) { clubRepository.findByTypeAndClubStatus(type, ClubStatus.CREATED) }
             }
             then("result should be same as clubListDto") {
                 result shouldBe clubListDto
