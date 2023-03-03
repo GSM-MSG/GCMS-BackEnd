@@ -45,7 +45,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
 
-            .antMatchers(HttpMethod.POST, "/club").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/club").authenticated()
             .antMatchers(HttpMethod.GET, "/club").permitAll()
             .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
@@ -66,6 +66,9 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}/reject").authenticated()
 
             .antMatchers(HttpMethod.POST, "/image").authenticated()
+
+            .antMatchers(HttpMethod.GET, "/admin/excel/club").permitAll()
+            .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ADMIN")
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
