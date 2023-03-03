@@ -17,6 +17,7 @@ enum class ErrorCode(
     NOT_CLUB_MEMBER("해당 동아리의 구성원이 아님", 403),
     ALREADY_CLUB_MEMBER("이미 동아리 구성원임", 403),
     ALREADY_CLUB_HEAD("이미 동아리 부장임", 403),
+    ALREADY_CLUB_APPLICANT("이미 동아리에 신청함", 403),
     DUPLICATE_APPLICANT("같은 타입의 동아리에 이미 신청함", 403),
     NOT_APPLICANT("해당 동아리에 가입 신청하지 않음", 403),
 
