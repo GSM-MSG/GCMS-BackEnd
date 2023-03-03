@@ -1,4 +1,4 @@
-name: gcsm-dev-ci
+name: CI
 
 on:
   push:
