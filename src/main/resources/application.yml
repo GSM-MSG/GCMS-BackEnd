@@ -25,10 +25,10 @@ spring:
 
 jwt:
   accessSecret: ${JWT_ACCESS_SECRET}
-  refreshSECRET: ${JWT_REFRESH_SECRET}
+  refreshSecret: ${JWT_REFRESH_SECRET}
   time:
     accessTime: ${JWT_ACCESS_TIME}
-    refresbTime: ${JWT_REFRESH_TIME}
+    refreshTime: ${JWT_REFRESH_TIME}
 
 gauth:
   clientId: ${GAUTH_CLIENTID}
