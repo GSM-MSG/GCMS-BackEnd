@@ -16,7 +16,8 @@ class UserConverterImpl : UserConverter {
     override fun toUserProfileDto(user: User): UserProfileDto =
         UserProfileDto(
             name = user.nickname,
-            profileImg = user.profileImg
+            profileImg = user.profileImg,
+            role = user.roles[0]
         )
 
     override fun toDto(user: User, dto: List<UserDto.ClubDto>): UserDto =
@@ -27,6 +28,7 @@ class UserConverterImpl : UserConverter {
             grade = user.grade,
             classNum = user.classNum,
             number = user.number,
+            role = user.roles[0],
             profileImg = user.profileImg,
             clubs = dto
         )
@@ -83,7 +85,8 @@ class UserConverterImpl : UserConverter {
     override fun toResponseDto(dto: UserProfileDto): UserProfileResponseDto =
         UserProfileResponseDto(
             name = dto.name,
-            profileImg = dto.profileImg
+            profileImg = dto.profileImg,
+            role = dto.role
         )
 
     override fun toResponseDto(dto: UserDto, responseDto: List<UserResponseDto.ClubResponseDto>): UserResponseDto =
@@ -94,6 +97,7 @@ class UserConverterImpl : UserConverter {
             grade = dto.grade,
             classNum = dto.classNum,
             number = dto.number,
+            role = dto.role,
             profileImg = dto.profileImg,
             clubs = responseDto
         )
