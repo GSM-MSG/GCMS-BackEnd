@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component
 class AdminConverterImpl : AdminConverter {
     override fun toDto(club: Club): PendingClubDto =
         PendingClubDto(
+            id = club.id,
             bannerImg = club.bannerImg,
             name = club.name,
             type = club.type,
@@ -18,6 +19,7 @@ class AdminConverterImpl : AdminConverter {
 
     override fun toResponse(dto: PendingClubDto): PendingClubResponse =
         PendingClubResponse(
+            id = dto.id,
             bannerImg = dto.bannerImg,
             name = dto.name,
             type = dto.type,
