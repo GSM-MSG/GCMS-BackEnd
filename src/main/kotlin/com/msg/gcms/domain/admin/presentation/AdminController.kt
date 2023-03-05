@@ -30,6 +30,7 @@ class AdminController(
         response.setHeader("Content-Disposition", "attachment; filename=club_assign_status.xlsx")
         return createClubMemberExcelByClassNumService.execute(clubType)
     }
+
     @PatchMapping("/{club_id}")
     fun acceptClub(@PathVariable("club_id") clubId: Long) : ResponseEntity<Void> =
         acceptClubService.execute(clubId = clubId)
