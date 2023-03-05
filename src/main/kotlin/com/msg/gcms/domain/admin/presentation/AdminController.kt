@@ -3,6 +3,7 @@ package com.msg.gcms.domain.admin.presentation
 import com.msg.gcms.domain.admin.service.AcceptClubService
 import com.msg.gcms.domain.admin.service.CreateClubMemberExcelByClassNumService
 import com.msg.gcms.domain.admin.service.CreateClubMemberExcelService
+import com.msg.gcms.domain.admin.util.AdminConverter
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
@@ -16,7 +17,8 @@ import javax.servlet.http.HttpServletResponse
 class AdminController(
     private val acceptClubService: AcceptClubService,
     private val createClubMemberExcelService: CreateClubMemberExcelService,
-    private val createClubMemberExcelByClassNumService: CreateClubMemberExcelByClassNumService
+    private val createClubMemberExcelByClassNumService: CreateClubMemberExcelByClassNumService,
+    private val adminConverter: AdminConverter,
 ) {
 
     @GetMapping("/excel/club")
