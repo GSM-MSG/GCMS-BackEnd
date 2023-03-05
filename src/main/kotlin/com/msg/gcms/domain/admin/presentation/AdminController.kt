@@ -50,7 +50,7 @@ class AdminController(
         acceptClubService.execute(clubId = clubId)
             .let { ResponseEntity.noContent().build() }
 
-    @DeleteMapping("/{club_id")
+    @DeleteMapping("/{club_id}")
     fun rejectClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
         rejectClubService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
