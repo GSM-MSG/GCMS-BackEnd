@@ -58,7 +58,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/user/search").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user").authenticated()
             .antMatchers(HttpMethod.DELETE, "/user").authenticated()
-
+            .antMatchers(HttpMethod.GET, "/user/profile").authenticated()
+            
             .antMatchers(HttpMethod.GET, "/applicant/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}").authenticated()
             .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").authenticated()
