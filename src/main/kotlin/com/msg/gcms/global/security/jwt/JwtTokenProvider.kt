@@ -6,6 +6,7 @@ import com.msg.gcms.global.security.auth.AuthDetailsService
 import com.msg.gcms.global.security.exception.ExpiredTokenException
 import com.msg.gcms.global.security.exception.InvalidTokenException
 import com.msg.gcms.global.security.jwt.properties.JwtProperties
+import com.msg.gcms.global.security.jwt.properties.TokenTimeProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -21,28 +22,27 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JwtTokenProvider(
     private val jwtProperties: JwtProperties,
+    private val tokenTimeProperties: TokenTimeProperties,
     private val authDetailsService: AuthDetailsService,
 ) {
     companion object {
         const val ACCESS_TYPE = "access"
         const val REFRESH_TYPE = "refresh"
-        const val ACCESS_EXP = 60L * 15 // 15 min
-        const val REFRESH_EXP = 60L * 60 * 24 * 7 // 1 weeks
         const val TOKEN_PREFIX = "Bearer "
         const val AUTHORITY = "authority"
     }
 
     val accessExpiredTime: ZonedDateTime
-        get() = ZonedDateTime.now().plusSeconds(ACCESS_EXP)
+        get() = ZonedDateTime.now().plusSeconds(tokenTimeProperties.accessTime)
 
     val refreshExpiredTime: ZonedDateTime
-        get() = ZonedDateTime.now().plusSeconds(REFRESH_EXP)
+        get() = ZonedDateTime.now().plusSeconds(tokenTimeProperties.refreshTime)
 
     fun generateAccessToken(email: String, role: Role): String =
-        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP, role)
+        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, tokenTimeProperties.accessTime, role)
 
     fun generateRefreshToken(email: String, role: Role): String =
-        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP, role)
+        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, tokenTimeProperties.refreshTime, role)
 
     fun resolveToken(req: HttpServletRequest): String? {
         val token = req.getHeader("Authorization") ?: return null
