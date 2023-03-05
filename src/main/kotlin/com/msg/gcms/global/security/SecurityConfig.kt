@@ -70,7 +70,9 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/admin/excel/club").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
-            .antMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN")
+            .antMatchers(HttpMethod.PATCH, "/admin/{club_id}").hasRole("ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/admin/{club_id}").hasRole("ADMIN")
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()

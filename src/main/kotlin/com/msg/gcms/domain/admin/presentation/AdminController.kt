@@ -6,9 +6,11 @@ import com.msg.gcms.domain.admin.service.CreateClubMemberExcelByClassNumService
 import com.msg.gcms.domain.admin.service.CreateClubMemberExcelService
 import com.msg.gcms.domain.admin.service.FindPendingClubListService
 import com.msg.gcms.domain.admin.util.AdminConverter
+import com.msg.gcms.domain.admin.service.RejectClubService
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,7 +23,8 @@ class AdminController(
     private val createClubMemberExcelService: CreateClubMemberExcelService,
     private val createClubMemberExcelByClassNumService: CreateClubMemberExcelByClassNumService,
     private val adminConverter: AdminConverter,
-    private val findPendingClubListService: FindPendingClubListService
+    private val findPendingClubListService: FindPendingClubListService,
+    private val rejectClubService: RejectClubService
 ) {
 
     @GetMapping("/excel/club")
@@ -43,7 +46,13 @@ class AdminController(
             .let { ResponseEntity.ok().body(it) }
 
     @PatchMapping("/{club_id}")
-    fun acceptClub(@PathVariable("club_id") clubId: Long) : ResponseEntity<Void> =
+    fun acceptClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
         acceptClubService.execute(clubId = clubId)
             .let { ResponseEntity.noContent().build() }
+
+    @DeleteMapping("/{club_id")
+    fun rejectClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        rejectClubService.execute(clubId)
+            .let { ResponseEntity.noContent().build() }
+
 }
