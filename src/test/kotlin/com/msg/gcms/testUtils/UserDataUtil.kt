@@ -1,5 +1,6 @@
 package com.msg.gcms.testUtils
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchUserDto
 import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
@@ -20,6 +21,7 @@ object UserDataUtil {
         grade = (1..3).random(),
         classNum = (1..3).random(),
         number = (1..3).random(),
+        roles = mutableListOf(Role.ROLE_STUDENT),
         club = listOf(),
         clubMember = listOf(),
         applicant = listOf()
@@ -32,6 +34,7 @@ object UserDataUtil {
         classNum = (1..3).random(),
         number = (1..3).random(),
         profileImg = profileImg(),
+        role = Role.ROLE_STUDENT,
         clubs = listOf()
     )
     fun userDto(user: User) = UserDto(
@@ -41,6 +44,7 @@ object UserDataUtil {
         grade =  user.grade,
         classNum = user.classNum,
         number = user.number,
+        role = Role.ROLE_STUDENT,
         profileImg = user.profileImg,
         clubs = listOf()
     )
@@ -71,6 +75,7 @@ object UserDataUtil {
         grade =  userDto.grade,
         classNum = userDto.classNum,
         number = userDto.number,
+        role = Role.ROLE_STUDENT,
         profileImg = userDto.profileImg,
         clubs = listOf()
     )
