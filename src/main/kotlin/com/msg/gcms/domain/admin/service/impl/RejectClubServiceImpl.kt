@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.admin.service.impl
 
+import com.msg.gcms.domain.admin.exception.ClubStatusNotPendingException
 import com.msg.gcms.domain.admin.service.RejectClubService
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubStatus
@@ -15,6 +16,10 @@ class RejectClubServiceImpl(
 ) : RejectClubService {
     override fun execute(clubId: Long) {
         val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
+
+        if(club.clubStatus != ClubStatus.PENDING) {
+            throw ClubStatusNotPendingException()
+        }
 
         clubRepository.delete(club)
     }
