@@ -16,7 +16,8 @@ class UserConverterImpl : UserConverter {
     override fun toUserProfileDto(user: User): UserProfileDto =
         UserProfileDto(
             name = user.nickname,
-            profileImg = user.profileImg
+            profileImg = user.profileImg,
+            role = user.roles[0]
         )
 
     override fun toDto(user: User, dto: List<UserDto.ClubDto>): UserDto =
