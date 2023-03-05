@@ -27,6 +27,7 @@ class UserConverterImpl : UserConverter {
             grade = user.grade,
             classNum = user.classNum,
             number = user.number,
+            role = user.roles[0],
             profileImg = user.profileImg,
             clubs = dto
         )
