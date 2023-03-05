@@ -3,9 +3,11 @@ package com.msg.gcms.domain.admin.presentation
 import com.msg.gcms.domain.admin.service.AcceptClubService
 import com.msg.gcms.domain.admin.service.CreateClubMemberExcelByClassNumService
 import com.msg.gcms.domain.admin.service.CreateClubMemberExcelService
+import com.msg.gcms.domain.admin.service.RejectClubService
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,7 +18,8 @@ import javax.servlet.http.HttpServletResponse
 class AdminController(
     private val acceptClubService: AcceptClubService,
     private val createClubMemberExcelService: CreateClubMemberExcelService,
-    private val createClubMemberExcelByClassNumService: CreateClubMemberExcelByClassNumService
+    private val createClubMemberExcelByClassNumService: CreateClubMemberExcelByClassNumService,
+    private val rejecttClubService: RejectClubService
 ) {
 
     @GetMapping("/excel/club")
@@ -31,7 +34,13 @@ class AdminController(
         return createClubMemberExcelByClassNumService.execute(clubType)
     }
     @PatchMapping("/{club_id}")
-    fun acceptClub(@PathVariable("club_id") clubId: Long) : ResponseEntity<Void> =
+    fun acceptClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
         acceptClubService.execute(clubId = clubId)
             .let { ResponseEntity.noContent().build() }
+
+    @DeleteMapping("/{club_id")
+    fun rejectClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        rejecttClubService.execute(clubId)
+            .let { ResponseEntity.noContent().build() }
+
 }
