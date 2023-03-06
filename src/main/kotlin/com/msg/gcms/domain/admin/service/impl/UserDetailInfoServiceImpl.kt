@@ -1,0 +1,46 @@
+package com.msg.gcms.domain.admin.service.impl
+
+import com.msg.gcms.domain.admin.presentation.data.dto.ClubInfoDto
+import com.msg.gcms.domain.admin.presentation.data.dto.UserDetailInfoDto
+import com.msg.gcms.domain.admin.presentation.data.request.UserDetailInfoRequest
+import com.msg.gcms.domain.admin.service.UserDetailInfoService
+import com.msg.gcms.domain.admin.util.AdminConverter
+import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.domain.user.exception.UserNotFoundException
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
+import java.util.*
+
+@Service
+class UserDetailInfoServiceImpl(
+        private val userRepository: UserRepository,
+        private val clubRepository: ClubRepository,
+        private val adminConverter: AdminConverter
+) : UserDetailInfoService {
+    override fun execute(userDetailInfoRequest: UserDetailInfoRequest): UserDetailInfoDto {
+        val user = userRepository.findByIdOrNull(UUID.fromString(userDetailInfoRequest.uuid))
+                ?: throw UserNotFoundException()
+        val clubList = clubRepository.findByUser(user)
+
+        var majorClub = clubList
+                .filter { it.type == ClubType.MAJOR }
+                .map { adminConverter.toClubInfoDto(it) }
+        var freedomClub = clubList
+                .filter { it.type == ClubType.FREEDOM }
+                .map { adminConverter.toClubInfoDto(it) }
+        val editorialClubList = clubList
+                .filter { it.type == ClubType.EDITORIAL }
+                .map { adminConverter.toClubInfoDto(it) }
+
+        if(majorClub.isEmpty()) {
+            majorClub = listOf(ClubInfoDto(null, null))
+        }
+        if(freedomClub.isEmpty()) {
+            freedomClub = listOf(ClubInfoDto(null, null))
+        }
+
+        return adminConverter.toDto(user, majorClub[0], freedomClub[0], editorialClubList)
+    }
+}
