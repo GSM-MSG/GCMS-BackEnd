@@ -29,7 +29,7 @@ class UpdateClubServiceImpl(
         val user = userUtil.fetchCurrentUser()
         if (foundClub.user != user)
             throw HeadNotSameException()
-        val club = clubConverter.toEntity(id, clubDto, user, foundClub.type)
+        val club = clubConverter.toEntity(id, clubDto, user, foundClub.type, foundClub.clubStatus)
         activityImgRepository.deleteByClub(foundClub)
         clubMemberRepository.deleteByClub(foundClub)
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
