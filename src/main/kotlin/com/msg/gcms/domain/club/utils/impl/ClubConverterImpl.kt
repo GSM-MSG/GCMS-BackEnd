@@ -46,7 +46,7 @@ class ClubConverterImpl : ClubConverter {
             clubStatus = ClubStatus.PENDING
         )
 
-    override fun toEntity(id: Long, clubDto: UpdateClubDto, user: User, clubType: ClubType): Club =
+    override fun toEntity(id: Long, clubDto: UpdateClubDto, user: User, clubType: ClubType, clubStatus: ClubStatus): Club =
         Club(
             id = id,
             type = clubType,
@@ -61,6 +61,7 @@ class ClubConverterImpl : ClubConverter {
             user = user,
             applicant = listOf(),
             isOpened = true,
+            clubStatus = clubStatus
         )
 
     override fun toDto(type: ClubType): ClubTypeDto =
