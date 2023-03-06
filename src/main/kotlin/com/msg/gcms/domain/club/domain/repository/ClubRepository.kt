@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository
 
 interface ClubRepository : CrudRepository<Club, Long> {
     fun findByTypeAndClubStatus(type: ClubType, status: ClubStatus): List<Club>
-    fun findAllByClubStatusAndUser(user: User, status: ClubStatus): List<Club>
+    fun findAllByClubStatusAndUser(status: ClubStatus, user: User): List<Club>
     fun findByType(type: ClubType): List<Club>
     fun findAllByClubStatus(status: ClubStatus): List<Club>
     fun findByUser(user: User): List<Club>

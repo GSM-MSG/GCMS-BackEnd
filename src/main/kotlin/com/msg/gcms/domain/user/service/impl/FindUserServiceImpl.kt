@@ -27,7 +27,7 @@ class FindUserServiceImpl(
         return userConverter.toDto(user,clubListDto)
     }
     private fun getClubListByUser(user: User): List<Club> {
-        val clubList = clubRepository.findAllByClubStatusAndUser(user, ClubStatus.CREATED)
+        val clubList = clubRepository.findAllByClubStatusAndUser(ClubStatus.CREATED, user)
         val memberClubList = clubMemberRepository.findByUser(user)
             .map { it.club }
             .filter { it.clubStatus == ClubStatus.CREATED }
