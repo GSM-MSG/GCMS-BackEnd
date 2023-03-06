@@ -7,9 +7,9 @@ import java.util.UUID
 
 @RedisHash(value = "refreshToken", timeToLive = 60L * 60 * 24 * 7)
 class RefreshToken(
-    @Id
     @Indexed
     val userId: UUID? = null,
+    @Id
     @Indexed
     val token: String,
 )
