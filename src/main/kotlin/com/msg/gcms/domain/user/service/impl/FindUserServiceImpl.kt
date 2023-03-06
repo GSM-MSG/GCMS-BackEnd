@@ -2,6 +2,7 @@ package com.msg.gcms.domain.user.service.impl
 
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
@@ -21,14 +22,15 @@ class FindUserServiceImpl(
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(): UserDto {
         val user = userUtil.fetchCurrentUser()
-        val clubListDto = getClubListWithUser(user)
+        val clubListDto = getClubListByUser(user)
             .map { userConverter.toDto(it) }
         return userConverter.toDto(user,clubListDto)
     }
-    private fun getClubListWithUser(user: User): List<Club> {
-        val clubList = clubRepository.findByUser(user)
+    private fun getClubListByUser(user: User): List<Club> {
+        val clubList = clubRepository.findAllByClubStatusAndUser(user, ClubStatus.CREATED)
         val memberClubList = clubMemberRepository.findByUser(user)
             .map { it.club }
+            .filter { it.clubStatus == ClubStatus.CREATED }
         return clubList + memberClubList
     }
 
