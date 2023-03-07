@@ -30,7 +30,8 @@ class UpdateClubHeadUtil(
                 teacher = club.teacher,
                 type = club.type,
                 user = clubMember.user,
-                isOpened = club.isOpened
+                isOpened = club.isOpened,
+                clubStatus = club.clubStatus
             )
         )
     }
