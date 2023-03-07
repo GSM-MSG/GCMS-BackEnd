@@ -6,7 +6,6 @@ import com.msg.gcms.domain.admin.presentation.data.request.UserDetailInfoRequest
 import com.msg.gcms.domain.admin.service.UserDetailInfoService
 import com.msg.gcms.domain.admin.util.AdminConverter
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import org.springframework.data.repository.findByIdOrNull
@@ -23,24 +22,13 @@ class UserDetailInfoServiceImpl(
         val user = userRepository.findByIdOrNull(UUID.fromString(userDetailInfoRequest.uuid))
                 ?: throw UserNotFoundException()
         val clubList = clubRepository.findByUser(user)
+                .map { ClubInfoDto(
+                        id = it.id,
+                        bannerImg = it.bannerImg,
+                        name = it.name,
+                        type = it.type
+                ) }
 
-        var majorClub = clubList
-                .filter { it.type == ClubType.MAJOR }
-                .map { adminConverter.toClubInfoDto(it) }
-        var freedomClub = clubList
-                .filter { it.type == ClubType.FREEDOM }
-                .map { adminConverter.toClubInfoDto(it) }
-        val editorialClubList = clubList
-                .filter { it.type == ClubType.EDITORIAL }
-                .map { adminConverter.toClubInfoDto(it) }
-
-        if(majorClub.isEmpty()) {
-            majorClub = listOf(ClubInfoDto(null, null))
-        }
-        if(freedomClub.isEmpty()) {
-            freedomClub = listOf(ClubInfoDto(null, null))
-        }
-
-        return adminConverter.toDto(user, majorClub[0], freedomClub[0], editorialClubList)
+        return adminConverter.toDto(user, clubList)
     }
 }

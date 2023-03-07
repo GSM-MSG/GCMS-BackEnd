@@ -8,7 +8,5 @@ data class UserDetailInfoResponse (
         val classNum: Int,
         val number: Int,
         val profileImg: String?,
-        val majorClub: ClubInfoDto?,
-        val freedomClub: ClubInfoDto?,
-        val editorialClub: List<ClubInfoDto>
+        val clubs: List<ClubInfoDto>
 )

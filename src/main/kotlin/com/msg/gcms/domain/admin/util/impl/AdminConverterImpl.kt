@@ -52,16 +52,14 @@ class AdminConverterImpl : AdminConverter {
                     profileImg = dto.profileImg
             )
 
-    override fun toDto(user: User, major: ClubInfoDto, freedom: ClubInfoDto, editorial: List<ClubInfoDto>): UserDetailInfoDto =
+    override fun toDto(user: User, clubs: List<ClubInfoDto>): UserDetailInfoDto =
             UserDetailInfoDto(
                     nickname = user.nickname,
                     grade = user.grade,
                     classNum = user.classNum,
                     number = user.number,
                     profileImg = user.profileImg,
-                    majorClub = major,
-                    freedomClub = freedom,
-                    editorialClub = editorial
+                    clubs = clubs
             )
 
     override fun toResponse(dto: UserDetailInfoDto): UserDetailInfoResponse =
@@ -71,15 +69,15 @@ class AdminConverterImpl : AdminConverter {
                     classNum = dto.classNum,
                     number = dto.number,
                     profileImg = dto.profileImg,
-                    majorClub = dto.majorClub,
-                    freedomClub = dto.freedomClub,
-                    editorialClub = dto.editorialClub
+                    clubs = dto.clubs
             )
 
 
     override fun toClubInfoDto(club: Club): ClubInfoDto =
             ClubInfoDto(
+                    id = club.id,
                     bannerImg = club.bannerImg,
-                    name = club.name
+                    name = club.name,
+                    type = club.type
             )
 }

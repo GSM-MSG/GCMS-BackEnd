@@ -18,7 +18,7 @@ interface AdminConverter {
 
     fun toResponse(dto: FindAllUserListDto): FindAllUserListResponse
 
-    fun toDto(user: User, major: ClubInfoDto, freedom: ClubInfoDto, editorial: List<ClubInfoDto>): UserDetailInfoDto
+    fun toDto(user: User, clubs: List<ClubInfoDto>): UserDetailInfoDto
 
     fun toResponse(dto: UserDetailInfoDto): UserDetailInfoResponse
 
