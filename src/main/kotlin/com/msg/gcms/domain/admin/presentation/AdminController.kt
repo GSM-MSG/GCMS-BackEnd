@@ -61,8 +61,8 @@ class AdminController(
                     .map { adminConverter.toResponse(it) }
                     .let { ResponseEntity.ok().body(it) }
 
-    @GetMapping("/user/detail")
-    fun userDetailInfo(@RequestBody userDetailInfoRequest: UserDetailInfoRequest) =
+    @GetMapping("/user/{uuid}")
+    fun userDetailInfo(@PathVariable("uuid") userDetailInfoRequest: UserDetailInfoRequest) =
             userDetailInfoService.execute(userDetailInfoRequest)
                     .let { adminConverter.toResponse(it) }
                     .let { ResponseEntity.ok().body(it) }
