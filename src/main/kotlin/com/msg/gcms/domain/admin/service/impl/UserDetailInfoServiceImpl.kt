@@ -22,16 +22,13 @@ class UserDetailInfoServiceImpl(
         val user = userRepository.findByIdOrNull(UUID.fromString(userDetailInfoRequest.uuid))
                 ?: throw UserNotFoundException()
         val clubList = clubRepository.findByUser(user)
-        val clubs = mutableListOf<ClubInfoDto>()
-        clubList.forEach {
-            clubs.add(ClubInfoDto(
-                    id = it.id,
-                    bannerImg = it.bannerImg,
-                    name = it.name,
-                    type = it.type
-            ))
-        }
+                .map { ClubInfoDto(
+                        id = it.id,
+                        bannerImg = it.bannerImg,
+                        name = it.name,
+                        type = it.type
+                ) }
 
-        return adminConverter.toDto(user, clubs)
+        return adminConverter.toDto(user, clubList)
     }
 }
