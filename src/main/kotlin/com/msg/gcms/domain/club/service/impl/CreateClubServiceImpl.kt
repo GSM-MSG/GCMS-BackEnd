@@ -4,10 +4,12 @@ import com.msg.gcms.domain.applicant.exception.AlreadyClubMemberException
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.exception.AlreadyClubApplicantException
 import com.msg.gcms.domain.club.exception.AlreadyClubHeadException
 import com.msg.gcms.domain.club.exception.ClubAlreadyExistsException
+import com.msg.gcms.domain.club.exception.ClubAlreadyPendingException
 import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
@@ -33,6 +35,8 @@ class CreateClubServiceImpl(
         if (clubRepository.existsByNameAndType(clubDto.name, clubDto.type))
             throw ClubAlreadyExistsException()
         val currentUser = userUtil.fetchCurrentUser()
+        if(clubRepository.existsByTypeAndUserAndClubStatus(clubDto.type, currentUser, ClubStatus.PENDING))
+            throw ClubAlreadyPendingException()
         val club = clubConverter.toEntity(clubDto, currentUser)
         checkAlreadyHead(currentUser, clubDto)
         checkAlreadyClubMember(currentUser, clubDto)

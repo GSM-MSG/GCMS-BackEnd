@@ -21,6 +21,8 @@ enum class ErrorCode(
     ALREADY_CLUB_APPLICANT("이미 동아리에 신청함", 403),
     DUPLICATE_APPLICANT("같은 타입의 동아리에 이미 신청함", 403),
     NOT_APPLICANT("해당 동아리에 가입 신청하지 않음", 403),
+    CLUB_ALREADY_PENDING("해당하는 클럽이 대기중 상태에 있습니다.", 403),
+
 
     ROLE_NOT_EXIST("역할이 존재하지 않는 경우", 404),
     CLUB_MEMBER_RELEASE_NOT_FOUND("방출하려는 유저가 존재하지 않는 경우", 404),
