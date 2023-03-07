@@ -19,7 +19,7 @@ class UserDetailInfoServiceImpl(
         private val adminConverter: AdminConverter
 ) : UserDetailInfoService {
     override fun execute(userDetailInfoRequest: UserDetailInfoRequest): UserDetailInfoDto {
-        val user = userRepository.findByIdOrNull(UUID.fromString(userDetailInfoRequest.uuid))
+        val user = userRepository.findByIdOrNull(userDetailInfoRequest.uuid)
                 ?: throw UserNotFoundException()
         val clubList = clubRepository.findByUser(user)
                 .map { ClubInfoDto(
