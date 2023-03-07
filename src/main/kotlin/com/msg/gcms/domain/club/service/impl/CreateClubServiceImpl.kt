@@ -35,7 +35,7 @@ class CreateClubServiceImpl(
         if (clubRepository.existsByNameAndType(clubDto.name, clubDto.type))
             throw ClubAlreadyExistsException()
         val currentUser = userUtil.fetchCurrentUser()
-        if(clubRepository.existsByNameAndTypeAndUserAndClubStatus(clubDto.name, clubDto.type, currentUser, ClubStatus.PENDING))
+        if(clubRepository.existsByTypeAndUserAndClubStatus(clubDto.type, currentUser, ClubStatus.PENDING))
             throw ClubAlreadyPendingException()
         val club = clubConverter.toEntity(clubDto, currentUser)
         checkAlreadyHead(currentUser, clubDto)
