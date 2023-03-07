@@ -22,7 +22,8 @@ class UpdateClubStatusUtil(
             teacher = club.teacher,
             type = club.type,
             user = club.user,
-            isOpened = isOpened
+            isOpened = isOpened,
+            clubStatus = club.clubStatus
         )
         clubRepository.save(newClub)
         return club
