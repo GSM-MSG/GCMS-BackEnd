@@ -26,7 +26,7 @@ class FindAllStatisticsServiceImpl(
         val userTotalCount: Int = userRepository.findAllByRoles(Role.ROLE_STUDENT).count()
         clubRepository.findByType(clubType)
             .forEach { applicantCount += getApplicantCount(it) }
-        return adminConverter.toDto(1, applicantCount)
+        return adminConverter.toDto(userTotalCount, applicantCount)
     }
 
     private fun getApplicantCount(club: Club): Int {
