@@ -23,4 +23,5 @@ interface AdminConverter {
     fun toClubInfoDto(club: Club): ClubInfoDto
 
     fun toDto(userTotalCount: Int, applicantCount: Int): FindAllStatisticsDto
+    fun toResponse(dto: FindAllStatisticsDto): FindAllStatisticsResponse
 }

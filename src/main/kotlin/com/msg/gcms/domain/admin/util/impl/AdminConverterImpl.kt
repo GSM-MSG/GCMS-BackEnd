@@ -86,4 +86,10 @@ class AdminConverterImpl : AdminConverter {
             nonApplicantCount = userTotalCount - applicantCount
         )
 
+    override fun toResponse(dto: FindAllStatisticsDto): FindAllStatisticsResponse =
+        FindAllStatisticsResponse(
+            total = dto.total,
+            applicantCount = dto.applicantCount,
+            nonApplicantCount = dto.nonApplicantCount
+        )
 }
