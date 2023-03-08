@@ -1,9 +1,11 @@
 package com.msg.gcms.domain.admin.presentation
 
 import com.msg.gcms.domain.admin.presentation.data.request.UserDetailInfoRequest
+import com.msg.gcms.domain.admin.presentation.data.response.FindAllStatisticsResponse
 import com.msg.gcms.domain.admin.presentation.data.response.PendingClubResponse
 import com.msg.gcms.domain.admin.service.*
 import com.msg.gcms.domain.admin.util.AdminConverter
+import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
@@ -24,7 +26,8 @@ class AdminController(
     private val findPendingClubListService: FindPendingClubListService,
     private val rejectClubService: RejectClubService,
     private val findAllUserListService: FindAllUserListService,
-    private val userDetailInfoService: UserDetailInfoService
+    private val userDetailInfoService: UserDetailInfoService,
+    private val findAllStatisticsService: FindAllStatisticsService
 ) {
 
     @GetMapping("/excel/club")
@@ -66,4 +69,11 @@ class AdminController(
             userDetailInfoService.execute(userDetailInfoRequest)
                     .let { adminConverter.toResponse(it) }
                     .let { ResponseEntity.ok().body(it) }
+
+    @GetMapping("/club/statistics")
+    fun findAllStatistics(@RequestParam clubType: ClubType): ResponseEntity<FindAllStatisticsResponse> =
+        findAllStatisticsService.execute(clubType)
+            .let { adminConverter.toResponse(it) }
+            .let { ResponseEntity.ok().body(it) }
+
 }
