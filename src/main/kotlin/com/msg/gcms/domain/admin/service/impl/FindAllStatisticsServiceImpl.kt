@@ -7,8 +7,6 @@ import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
-import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,23 +15,24 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true, rollbackFor = [Exception::class])
 class FindAllStatisticsServiceImpl(
     private val clubRepository: ClubRepository,
-    private val clubMemberRepository: ClubMemberRepository,
     private val userRepository: UserRepository,
     private val adminConverter: AdminConverter
 ) : FindAllStatisticsService {
     override fun execute(clubType: ClubType): FindAllStatisticsDto {
         var applicantCount: Int = 0
+        var duplicateHeadUserList: MutableSet<String> = mutableSetOf()
         val userTotalCount: Int = userRepository.findAllByRoles(Role.ROLE_STUDENT).count()
         clubRepository.findByType(clubType)
-            .forEach { applicantCount += getApplicantCount(it) }
+            .forEach { club ->
+                applicantCount += getApplicantCount(club)
+                if(club.user.id.toString() !in duplicateHeadUserList)
+                    duplicateHeadUserList.add(club.user.id.toString())
+            }
+        applicantCount += duplicateHeadUserList.count()
         return adminConverter.toDto(userTotalCount, applicantCount)
     }
 
     private fun getApplicantCount(club: Club): Int {
-        var clubHeadCount = 0
-        if(club.user != null)
-            clubHeadCount = 1
-        val clubMemberCount = club.clubMember.count()
-        return clubHeadCount + clubMemberCount
+        return club.clubMember.count()
     }
 }
