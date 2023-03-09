@@ -9,11 +9,13 @@ import java.util.*
 
 object AuthDataUtil {
     fun signInRequestDto(code: String) = SignInRequestDto(
-        code = code
+        code = code,
+        token = ""
     )
 
     fun signInDto(code: String) = SignInDto(
-        code = code
+        code = code,
+        token = ""
     )
 
     fun signInResponseDto(

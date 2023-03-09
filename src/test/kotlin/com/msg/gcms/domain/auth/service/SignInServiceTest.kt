@@ -9,9 +9,11 @@ import com.msg.gcms.domain.auth.service.impl.SignInServiceImpl
 import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.auth.util.impl.AuthUtilImpl
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.domain.user.domain.repository.DeviceTokenRepository
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.gauth.properties.GAuthProperties
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
+import com.msg.gcms.global.util.MessageSendUtil
 import gauth.GAuth
 import gauth.GAuthToken
 import gauth.GAuthUserInfo
@@ -33,17 +35,18 @@ class SignInServiceTest : BehaviorSpec({
     val userRepository = mockk<UserRepository>()
     val refreshTokenRepository = mockk<RefreshTokenRepository>()
     val authConverter = mockk<AuthConverter>()
+    val deviceTokenRepository = mockk<DeviceTokenRepository>()
     val gAuthProperties = GAuthProperties(clientId = clientId, clientSecret = clientSecret, redirectUri = redirectUri)
     val authUtil = AuthUtilImpl(
         refreshTokenRepository = refreshTokenRepository,
         authConverter = authConverter,
         userRepository = userRepository,
+        deviceTokenRepository = deviceTokenRepository
     )
 
     val signInService = SignInServiceImpl(
         gAuthProperties = gAuthProperties,
         userRepository = userRepository,
-        authConverter = authConverter,
         jwtTokenProvider = tokenProvider,
         gAuth = gAuth,
         authUtil = authUtil,
@@ -99,11 +102,12 @@ class SignInServiceTest : BehaviorSpec({
         )
 
         every {
-            authUtil.saveNewRefreshToken(userInfo = user, refreshToken = refreshToken)
+            authUtil.saveNewRefreshToken(userInfo = user, refreshToken = refreshToken, "")
         } returns refreshTokenEntity
 
         val signInDto = SignInDto(
-            code = "thisIsCode"
+            code = "thisIsCode",
+            token = ""
         )
 
         every {
