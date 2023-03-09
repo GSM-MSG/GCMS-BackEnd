@@ -2,7 +2,9 @@ package com.msg.gcms.domain.auth.util.impl
 
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
+import com.msg.gcms.domain.auth.presentation.data.dto.DeviceTokenDto
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
+import com.msg.gcms.domain.auth.presentation.data.request.DeviceTokenRequest
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
 import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.user.domain.entity.User
@@ -17,6 +19,9 @@ class AuthConverterImpl : AuthConverter {
             code = signInRequestDto.code,
             token = signInRequestDto.token
         )
+
+    override fun toDto(deviceTokenRequest: DeviceTokenRequest): DeviceTokenDto =
+        DeviceTokenDto(deviceTokenRequest.token)
 
 
     override fun toEntity(gAuthUserInfo: GAuthUserInfo): User =

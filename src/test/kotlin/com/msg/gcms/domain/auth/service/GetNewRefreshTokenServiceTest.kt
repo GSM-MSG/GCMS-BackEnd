@@ -3,9 +3,12 @@ package com.msg.gcms.domain.auth.service
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
+import com.msg.gcms.domain.auth.presentation.data.dto.DeviceTokenDto
 import com.msg.gcms.domain.auth.service.impl.GetNewRefreshTokenServiceImpl
 import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.auth.util.impl.AuthConverterImpl
+import com.msg.gcms.domain.user.domain.repository.DeviceTokenRepository
+import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -19,11 +22,15 @@ class GetNewRefreshTokenServiceTest : BehaviorSpec({
     val tokenProvider = mockk<JwtTokenProvider>()
     val refreshTokenRepository = mockk<RefreshTokenRepository>()
     val authConverter = mockk<AuthConverter>()
+    val deviceTokenRepository = mockk<DeviceTokenRepository>()
+    val userRepository = mockk<UserRepository>()
 
     val getNewRefreshTokenService = GetNewRefreshTokenServiceImpl(
         jwtTokenProvider = tokenProvider,
         refreshTokenRepository = refreshTokenRepository,
-        authConverter = authConverter
+        authConverter = authConverter,
+        deviceTokenRepository = deviceTokenRepository,
+        userRepository = userRepository
     )
 
     given("refresh 토큰이 주어졌을때") {
@@ -71,7 +78,7 @@ class GetNewRefreshTokenServiceTest : BehaviorSpec({
                 verify(exactly = 1) { refreshTokenRepository.save(newRefreshTokenEntity) }
             }
 
-            val result = getNewRefreshTokenService.execute(refreshToken)
+            val result = getNewRefreshTokenService.execute(refreshToken, DeviceTokenDto(""))
             then("토큰 값 비교") {
                 result.accessToken shouldBe accessToken
                 result.refreshToken shouldBe newRefreshToken
