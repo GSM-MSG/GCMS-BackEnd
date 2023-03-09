@@ -11,6 +11,8 @@ import com.msg.gcms.domain.club.exception.HeadNotSameException
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
+import com.msg.gcms.global.fcm.enums.SendType
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -23,7 +25,8 @@ class RejectApplicantServiceImpl(
     private val clubRepository: ClubRepository,
     private val userRepository: UserRepository,
     private val applicantRepository: ApplicantRepository,
-    private val userUtil: UserUtil
+    private val userUtil: UserUtil,
+    private val messageSendUtil: MessageSendUtil
 ) : RejectApplicantService {
     override fun execute(clubId: Long, rejectDto: RejectDto) {
         val clubInfo: Club = clubRepository.findByIdOrNull(clubId)
@@ -41,5 +44,7 @@ class RejectApplicantServiceImpl(
             ?: throw NotApplicantException()
 
         applicantRepository.delete(applicant)
+
+        messageSendUtil.send(applicantUser, "동아리 신청 거절", "${clubInfo.name}에 거절되셨습니다.", SendType.CLUB)
     }
 }
