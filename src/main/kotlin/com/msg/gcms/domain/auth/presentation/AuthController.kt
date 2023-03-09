@@ -26,8 +26,8 @@ class AuthController(
             .let { ResponseEntity.ok(signInService.execute(it)) }
 
     @PatchMapping
-    fun getNewRefreshToken(@RequestHeader("Refresh-Token") refreshToken: String, @RequestBody deviceTokenRequest: DeviceTokenRequest): ResponseEntity<NewRefreshTokenResponseDto> =
-        ResponseEntity.ok().body(getNewRefreshTokenService.execute(refreshToken = refreshToken, authConverter.toDto(deviceTokenRequest)))
+    fun getNewRefreshToken(@RequestHeader("Refresh-Token") refreshToken: String, @RequestBody(required = false) deviceTokenRequest: DeviceTokenRequest?): ResponseEntity<NewRefreshTokenResponseDto> =
+        ResponseEntity.ok().body(getNewRefreshTokenService.execute(refreshToken = refreshToken, authConverter.toDto(deviceTokenRequest?:DeviceTokenRequest(null))))
 
     @DeleteMapping
     fun logout(): ResponseEntity<Void> {
