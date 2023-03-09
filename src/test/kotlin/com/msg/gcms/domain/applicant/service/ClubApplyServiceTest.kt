@@ -12,6 +12,7 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.assertions.throwables.shouldThrow
@@ -27,8 +28,9 @@ class ClubApplyServiceTest : BehaviorSpec({
     val clubMemberRepository = mockk<ClubMemberRepository>()
     val applicantRepository = mockk<ApplicantRepository>()
     val applicantSaveUtil = mockk<ApplicantSaveUtil>()
+    val messageSendUtil = mockk<MessageSendUtil>()
 
-    val clubApplyServiceImpl = ClubApplyServiceImpl(userUtil, clubRepository, clubMemberRepository, applicantSaveUtil, applicantRepository)
+    val clubApplyServiceImpl = ClubApplyServiceImpl(userUtil, clubRepository, clubMemberRepository, applicantSaveUtil, applicantRepository, messageSendUtil)
 
     given("유저와 동아리가 주어지고"){
         val user = TestUtils.TestDataUtil.user().entity()

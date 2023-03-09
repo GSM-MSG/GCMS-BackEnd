@@ -9,6 +9,7 @@ import com.msg.gcms.domain.clubMember.presentation.data.dto.DelegateHeadDto
 import com.msg.gcms.domain.clubMember.service.impl.DelegateHeadServiceImpl
 import com.msg.gcms.domain.clubMember.util.UpdateClubHeadUtil
 import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
@@ -23,7 +24,8 @@ class DelegateHeadServiceTest : BehaviorSpec({
     val userRepository = mockk<UserRepository>()
     val clubMemberRepository = mockk<ClubMemberRepository>()
     val updateClubHeadUtil = mockk<UpdateClubHeadUtil>()
-    val delegateHeadServiceImpl = DelegateHeadServiceImpl(clubRepository, clubMemberRepository, userRepository, updateClubHeadUtil, userUtil)
+    val messageSendUtil = mockk<MessageSendUtil>()
+    val delegateHeadServiceImpl = DelegateHeadServiceImpl(clubRepository, clubMemberRepository, userRepository, updateClubHeadUtil, userUtil, messageSendUtil)
     given("동아리, 부장, 동아리 멤버가 주어지고"){
         val head = TestUtils.data().user().entity()
         val member = TestUtils.data().user().entity()
