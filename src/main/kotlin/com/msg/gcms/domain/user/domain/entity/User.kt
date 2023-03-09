@@ -48,8 +48,6 @@ class User(
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     val clubMember: List<ClubMember> = listOf(),
-
-    val fcmToken: String = "",
 ) {
     fun updateProfileImg(profileImg: String?) {
         this.profileImg = profileImg
