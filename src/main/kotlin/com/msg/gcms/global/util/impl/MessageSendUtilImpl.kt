@@ -36,7 +36,8 @@ class MessageSendUtilImpl(
     override fun send(user: User, title: String, content: String, type: SendType) {
         val deviceToken = deviceTokenRepository.findById(user.id)
             .orElseThrow { throw DeviceTokenNotFoundException() }
-        println("deviceToken.token = ${deviceToken.token}")
+        if(deviceToken.token == "" || deviceToken.token == null)
+            return
         sendMessage(deviceToken.token, title, content, type)
     }
 }
