@@ -28,6 +28,6 @@ class CancelApplicationServiceImpl(
             .find { it.user == user }
             ?: throw NotApplicantException()
         applicantRepository.delete(applicant)
-        messageSendUtil.send(user, "동아리 신청 취소", "${user.nickname}님이 ${club.name}에 신청 취소했습니다.", SendType.CLUB)
+        messageSendUtil.send(club.user, "동아리 신청 취소", "${user.nickname}님이 ${club.name}에 신청 취소했습니다.", SendType.CLUB)
     }
 }
