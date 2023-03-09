@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.auth.presentation
 
+import com.msg.gcms.domain.auth.presentation.data.request.DeviceTokenRequest
 import com.msg.gcms.domain.auth.presentation.data.request.SignInRequestDto
 import com.msg.gcms.domain.auth.presentation.data.response.NewRefreshTokenResponseDto
 import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.*
 
 @RequestController("/auth")
 class AuthController(
-    private val authConverter: AuthConverter,
     private val signInService: SignInService,
     private val getNewRefreshTokenService: GetNewRefreshTokenService,
-    private val logoutService: LogoutService
+    private val logoutService: LogoutService,
+    private val authConverter: AuthConverter
 ) {
 
     @PostMapping
@@ -25,8 +26,8 @@ class AuthController(
             .let { ResponseEntity.ok(signInService.execute(it)) }
 
     @PatchMapping
-    fun getNewRefreshToken(@RequestHeader("Refresh-Token") refreshToken: String): ResponseEntity<NewRefreshTokenResponseDto> =
-        ResponseEntity.ok().body(getNewRefreshTokenService.execute(refreshToken = refreshToken))
+    fun getNewRefreshToken(@RequestHeader("Refresh-Token") refreshToken: String, @RequestBody(required = false) deviceTokenRequest: DeviceTokenRequest?): ResponseEntity<NewRefreshTokenResponseDto> =
+        ResponseEntity.ok().body(getNewRefreshTokenService.execute(refreshToken = refreshToken, authConverter.toDto(deviceTokenRequest?:DeviceTokenRequest(null))))
 
     @DeleteMapping
     fun logout(): ResponseEntity<Void> {

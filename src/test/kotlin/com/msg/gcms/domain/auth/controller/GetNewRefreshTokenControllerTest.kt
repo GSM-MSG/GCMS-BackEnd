@@ -1,6 +1,8 @@
 package com.msg.gcms.domain.auth.controller
 
 import com.msg.gcms.domain.auth.presentation.AuthController
+import com.msg.gcms.domain.auth.presentation.data.dto.DeviceTokenDto
+import com.msg.gcms.domain.auth.presentation.data.request.DeviceTokenRequest
 import com.msg.gcms.domain.auth.presentation.data.response.NewRefreshTokenResponseDto
 import com.msg.gcms.domain.auth.service.GetNewRefreshTokenService
 import com.msg.gcms.domain.auth.service.LogoutService
@@ -35,7 +37,7 @@ class GetNewRefreshTokenControllerTest : BehaviorSpec({
         val refreshToken = "thisIsRefresh"
         `when`("is received") {
             every {
-                getNewRefreshTokenService.execute(refreshToken)
+                getNewRefreshTokenService.execute(refreshToken, DeviceTokenDto(null))
             } returns NewRefreshTokenResponseDto(
                 accessToken = "thisIsAccess",
                 refreshToken = "thisIsRefresh",
@@ -43,10 +45,10 @@ class GetNewRefreshTokenControllerTest : BehaviorSpec({
                 refreshExp = ZonedDateTime.now()
             )
 
-            val response = authController.getNewRefreshToken(refreshToken)
+            val response = authController.getNewRefreshToken(refreshToken, DeviceTokenRequest(null))
 
             then("서비스가 한번은 실행되어야 함") {
-                verify(exactly = 1) { getNewRefreshTokenService.execute(refreshToken) }
+                verify(exactly = 1) { getNewRefreshTokenService.execute(refreshToken, DeviceTokenDto(null)) }
             }
             then("response status should be success") {
                 response.statusCode shouldBe HttpStatus.OK
