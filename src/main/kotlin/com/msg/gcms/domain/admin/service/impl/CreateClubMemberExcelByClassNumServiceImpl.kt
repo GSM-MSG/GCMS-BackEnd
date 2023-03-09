@@ -28,8 +28,8 @@ class CreateClubMemberExcelByClassNumServiceImpl(
             .toMutableList()
         list.sortWith(compareBy<User> {it.grade}.thenBy { it.classNum }.thenBy { it.number })
         list.forEach {
-            if (!gradeClass.contains(""+it.grade+"-"+it.classNum))
-                gradeClass.add(""+it.grade+"-"+it.classNum)
+            if (!gradeClass.contains("${it.grade}-${it.classNum}"))
+                gradeClass.add("${it.grade}-${it.classNum}")
             dataLists.add(createData(it, clubType))
         }
         return excelUtil.createExcel(gradeClass, head, dataLists)

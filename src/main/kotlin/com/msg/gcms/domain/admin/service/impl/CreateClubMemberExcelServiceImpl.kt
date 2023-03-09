@@ -29,7 +29,7 @@ class CreateClubMemberExcelServiceImpl(
                 list.add(0, club.user)
                 val dataLists = mutableListOf<List<String>>()
                 list.forEachIndexed{index, it ->
-                    dataLists.add(listOf((index+1).toString(), it.grade.toString() + it.classNum + if (it.number <= 9) "0" else "" + it.number.toString(), it.nickname))
+                    dataLists.add(listOf("${index + 1}", "${it.grade}${it.classNum}${if (it.number <= 9) "0" else ""}${it.number}", it.nickname))
                 }
                 lists.add(dataLists)
                 clubNames.add(club.name)
