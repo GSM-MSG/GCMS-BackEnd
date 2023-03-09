@@ -41,10 +41,12 @@ class SignInControllerTest : BehaviorSpec({
 
     given("요청이 들어오면") {
         val dto = SignInDto(
-            code = "thisIsCode"
+            code = "thisIsCode",
+            token = ""
         )
         val request = SignInRequestDto(
-            code = "thisIsCode"
+            code = "thisIsCode",
+            token = ""
         )
         `when`("is received") {
             every { signInService.execute(dto) } returns SignInResponseDto(

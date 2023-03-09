@@ -14,7 +14,8 @@ import java.util.*
 class AuthConverterImpl : AuthConverter {
     override fun toDto(signInRequestDto: SignInRequestDto): SignInDto =
         SignInDto(
-            code = signInRequestDto.code
+            code = signInRequestDto.code,
+            token = signInRequestDto.token
         )
 
 

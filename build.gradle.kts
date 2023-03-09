@@ -46,6 +46,7 @@ dependencies {
 	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
 	implementation("org.apache.poi:poi:5.2.2")
 	implementation("org.apache.poi:poi-ooxml:5.2.2")
+	implementation("com.google.firebase:firebase-admin:7.3.0")
 }
 
 tasks.withType<KotlinCompile> {

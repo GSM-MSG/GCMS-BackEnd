@@ -7,6 +7,7 @@ import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.clubMember.exception.ClubMemberExitOneSelfException
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberExitDto
 import com.msg.gcms.domain.clubMember.service.impl.ExitClubMemberServiceImpl
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.assertions.throwables.shouldThrow
@@ -20,7 +21,8 @@ class ExitClubMemberTest : BehaviorSpec({
     val userUtil = mockk<UserUtil>()
     val clubRepository = mockk<ClubRepository>()
     val clubMemberRepository = mockk<ClubMemberRepository>()
-    val exitClubMemberService = ExitClubMemberServiceImpl(userUtil, clubRepository, clubMemberRepository)
+    val messageSendUtil = mockk<MessageSendUtil>()
+    val exitClubMemberService = ExitClubMemberServiceImpl(userUtil, clubRepository, clubMemberRepository, messageSendUtil)
 
     Given("clubMemberExitDto 주어졌을때") {
         val user = (1..2)

@@ -38,3 +38,4 @@ out/
 
 /src/main/resources/application-dev.yml
 docker-compose.yml
+/src/main/resources/msg-gcms-firebase-adminsdk-4bh18-0e0624833f.json

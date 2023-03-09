@@ -10,6 +10,8 @@ import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
+import com.msg.gcms.global.fcm.enums.SendType
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,12 +23,14 @@ class ClubApplyServiceImpl(
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
     private val applicantSaveUtil: ApplicantSaveUtil,
-    private val applicantRepository: ApplicantRepository
+    private val applicantRepository: ApplicantRepository,
+    private val messageSendUtil: MessageSendUtil
 ) : ClubApplyService {
     override fun execute(clubId: Long): ClubApplyDto {
         val club = clubRepository.findById(clubId)
             .orElseThrow { ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
+        messageSendUtil.send(club.user, "동아리 신청 요청", "${user.nickname}님이 ${club.name}에 신청했습니다.", SendType.CLUB)
         if (club.clubMember.contains(clubMemberRepository.findByUserAndClub(user, club)) || club.user == user && club.type != ClubType.EDITORIAL)
             throw AlreadyClubMemberException()
         if (applicantRepository.countByClubTypeAndUser(club.type, user) != 0L && club.type != ClubType.EDITORIAL)

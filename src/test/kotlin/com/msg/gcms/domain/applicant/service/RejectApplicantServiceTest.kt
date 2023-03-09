@@ -9,6 +9,7 @@ import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
@@ -25,12 +26,14 @@ class RejectApplicantServiceTest : BehaviorSpec({
     val userRepository = mockk<UserRepository>()
     val applicantConverter = mockk<ApplicantConverter>()
     val userUtil = mockk<UserUtil>()
+    val messageSendUtil = mockk<MessageSendUtil>()
 
     val rejectApplicantService = RejectApplicantServiceImpl(
         clubRepository = clubRepository,
         applicantRepository = applicantRepository,
         userRepository = userRepository,
-        userUtil = userUtil
+        userUtil = userUtil,
+        messageSendUtil = messageSendUtil
     )
 
     given("동아리 ID와 유저가 주어졌을때") {
