@@ -3,11 +3,10 @@ package com.msg.gcms.global.util.impl
 import com.google.firebase.messaging.*
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.DeviceTokenRepository
-import com.msg.gcms.domain.user.exception.DeviceTokenNotFoundException
 import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.MessageSendUtil
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class MessageSendUtilImpl(
@@ -34,8 +33,8 @@ class MessageSendUtilImpl(
     }
 
     override fun send(user: User, title: String, content: String, type: SendType) {
-        val deviceToken = deviceTokenRepository.findById(user.id)
-            .orElseThrow { throw DeviceTokenNotFoundException() }
+        val deviceToken = deviceTokenRepository.findByIdOrNull(user.id)
+            ?: return
         if(deviceToken.token == "" || deviceToken.token == null)
             return
         sendMessage(deviceToken.token, title, content, type)
