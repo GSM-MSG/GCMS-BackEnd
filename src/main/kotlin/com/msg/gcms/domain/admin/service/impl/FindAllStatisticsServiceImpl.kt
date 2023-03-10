@@ -6,6 +6,7 @@ import com.msg.gcms.domain.admin.util.AdminConverter
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
+import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -22,7 +23,7 @@ class FindAllStatisticsServiceImpl(
         var applicantCount: Int = 0
         var duplicateHeadUserList: MutableSet<String> = mutableSetOf()
         val userTotalCount: Int = userRepository.findAllByRoles(Role.ROLE_STUDENT).count()
-        clubRepository.findByType(clubType)
+        clubRepository.findByTypeAndClubStatus(clubType, ClubStatus.CREATED)
             .forEach { club ->
                 applicantCount += getApplicantCount(club)
                 if(club.user.id.toString() !in duplicateHeadUserList)
