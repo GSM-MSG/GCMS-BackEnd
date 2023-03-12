@@ -5,6 +5,7 @@ import com.msg.gcms.domain.applicant.presentation.data.dto.AcceptDto
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.applicant.service.AcceptApplicantService
 import com.msg.gcms.domain.applicant.util.ApplicantConverter
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
@@ -38,7 +39,7 @@ class AcceptApplicantServiceImpl(
 
         val headUserInfo: User = userUtil.fetchCurrentUser()
 
-        if (clubInfo.user != headUserInfo)
+        if (clubInfo.user != headUserInfo && headUserInfo.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
 
         val applicantUser: User = userRepository.findByIdOrNull(UUID.fromString(acceptDto.uuid))

@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.club.service.impl
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
@@ -27,9 +28,9 @@ class UpdateClubServiceImpl(
         val foundClub = clubRepository.findById(id)
             .orElseThrow { throw ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
-        if (foundClub.user != user)
+        if (foundClub.user != user && user.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
-        val club = clubConverter.toEntity(id, clubDto, user, foundClub.type, foundClub.clubStatus)
+        val club = clubConverter.toEntity(id, clubDto, foundClub.user, foundClub.type, foundClub.clubStatus)
         activityImgRepository.deleteByClub(foundClub)
         clubMemberRepository.deleteByClub(foundClub)
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)

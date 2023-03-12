@@ -4,6 +4,7 @@ import com.msg.gcms.domain.applicant.exception.NotApplicantException
 import com.msg.gcms.domain.applicant.presentation.data.dto.RejectDto
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.applicant.service.RejectApplicantService
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
@@ -33,7 +34,7 @@ class RejectApplicantServiceImpl(
             ?: throw ClubNotFoundException()
         val headUserInfo = userUtil.fetchCurrentUser()
 
-        if (clubInfo.user != headUserInfo)
+        if (clubInfo.user != headUserInfo && headUserInfo.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
 
         val applicantUser: User =
