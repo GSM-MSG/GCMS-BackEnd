@@ -30,6 +30,8 @@ class FcmConfig(
                     )
                     .build()
                 FirebaseApp.initializeApp(options)
+            } else {
+                FirebaseApp.getApps()
             }
         } catch (e: IOException) {
             e.printStackTrace()
