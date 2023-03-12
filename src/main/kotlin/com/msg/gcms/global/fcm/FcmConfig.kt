@@ -25,7 +25,9 @@ class FcmConfig(
                 val options: FirebaseOptions = FirebaseOptions.builder()
                     .setCredentials(
                         GoogleCredentials.fromStream(
-                            FileInputStream(fcmValue)
+                            ByteArrayInputStream(
+                                fcmValue.toByteArray(StandardCharsets.UTF_8)
+                            )
                         )
                     )
                     .build()
