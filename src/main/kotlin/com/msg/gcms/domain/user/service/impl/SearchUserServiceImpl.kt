@@ -1,15 +1,12 @@
 package com.msg.gcms.domain.user.service.impl
 
-import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchUserDto
 import com.msg.gcms.domain.user.service.SearchUserService
 import com.msg.gcms.domain.user.utils.UserConverter
 import com.msg.gcms.domain.user.utils.UserValidator
-import com.msg.gcms.global.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
