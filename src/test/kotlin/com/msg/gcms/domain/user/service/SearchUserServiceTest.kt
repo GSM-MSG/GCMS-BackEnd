@@ -6,6 +6,7 @@ import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.presentaion.data.dto.SearchRequirementDto
 import com.msg.gcms.domain.user.service.impl.SearchUserServiceImpl
 import com.msg.gcms.domain.user.utils.UserConverter
+import com.msg.gcms.domain.user.utils.UserValidator
 import com.msg.gcms.domain.user.utils.impl.UserConverterImpl
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
@@ -23,9 +24,9 @@ class SearchUserServiceTest : BehaviorSpec({
         return UserConverterImpl()
     }
     val userRepository = mockk<UserRepository>()
-    val userUtil = mockk<UserUtil>()
-    val clubRepository = mockk<ClubRepository>()
-    val searchUserServiceImpl = SearchUserServiceImpl(userUtil, userRepository, clubRepository, userConverter())
+    val userValidator = mockk<UserValidator>()
+
+    val searchUserServiceImpl = SearchUserServiceImpl(userValidator, userRepository, userConverter())
 
     given("search user With Type Is MAJOR OR FREEDOM") {
         val size = (1..100).random()
@@ -39,7 +40,6 @@ class SearchUserServiceTest : BehaviorSpec({
 
         `when`("is invoked") {
             every { userRepository.findUserNotJoin(type, name) } returns user
-            every { clubRepository.existsByUserAndType(any(), type) } returns false
             val result = searchUserServiceImpl.execute(dto)
 
             then("result should not be null") {
