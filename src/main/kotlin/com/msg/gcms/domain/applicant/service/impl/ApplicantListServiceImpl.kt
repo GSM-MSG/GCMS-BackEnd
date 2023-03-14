@@ -44,8 +44,8 @@ class ApplicantListServiceImpl(
             Scope.MEMBER
         } else if(user.roles[0] == Role.ROLE_ADMIN) {
             Scope.ADMIN
-        }
-        else {
+        } else {
             throw NotClubMemberException()
         }
+
 }
