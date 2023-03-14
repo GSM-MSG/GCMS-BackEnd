@@ -45,7 +45,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
 
-            .antMatchers(HttpMethod.POST, "/club").authenticated()
+            .antMatchers(HttpMethod.POST, "/club").hasAnyRole("STUDENT")
             .antMatchers(HttpMethod.GET, "/club").permitAll()
             .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
             .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
@@ -61,8 +61,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
             .antMatchers(HttpMethod.GET, "/applicant/{club_id}").authenticated()
-            .antMatchers(HttpMethod.POST, "/applicant/{club_id}").authenticated()
-            .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/applicant/{club_id}").hasAnyRole("STUDENT")
+            .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").hasAnyRole("STUDENT")
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}/accept").authenticated()
             .antMatchers(HttpMethod.POST, "/applicant/{club_id}/reject").authenticated()
 
