@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.clubMember.service.impl
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
@@ -32,7 +33,7 @@ class DelegateHeadServiceImpl(
         val club = (clubRepository.findByIdOrNull(clubId)
             ?: throw ClubNotFoundException())
         val user = userUtil.fetchCurrentUser()
-        if (club.user != user)
+        if (club.user != user && user.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
         if (!userRepository.existsById(delegateHeadDto.uuid))
             throw UserNotFoundException()

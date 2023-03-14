@@ -1,7 +1,9 @@
 package com.msg.gcms.domain.club.service.impl
 
+import com.msg.gcms.domain.admin.exception.NotAceessAdminException
 import com.msg.gcms.domain.applicant.exception.AlreadyClubMemberException
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubStatus
@@ -35,6 +37,10 @@ class CreateClubServiceImpl(
         if (clubRepository.existsByNameAndType(clubDto.name, clubDto.type))
             throw ClubAlreadyExistsException()
         val currentUser = userUtil.fetchCurrentUser()
+//        currentUser.roles.forEach {
+//            if(it == Role.ROLE_ADMIN)
+//                throw NotAceessAdminException()
+//        }
         if(clubRepository.existsByTypeAndUserAndClubStatus(clubDto.type, currentUser, ClubStatus.PENDING))
             throw ClubAlreadyPendingException()
         val club = clubConverter.toEntity(clubDto, currentUser)

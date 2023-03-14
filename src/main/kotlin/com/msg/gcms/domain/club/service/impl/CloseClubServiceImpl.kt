@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.club.service.impl
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
@@ -23,7 +24,7 @@ class CloseClubServiceImpl(
         val club = clubRepository.findById(clubId)
             .orElseThrow { throw ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
-        if (club.user != user)
+        if (club.user != user && user.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
         updateClubStatusUtil.changeIsOpened(club, false)
         return clubConverter.toStatusDto(club)
