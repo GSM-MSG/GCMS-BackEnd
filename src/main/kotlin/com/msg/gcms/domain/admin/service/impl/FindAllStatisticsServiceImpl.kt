@@ -19,21 +19,44 @@ class FindAllStatisticsServiceImpl(
     private val userRepository: UserRepository,
     private val adminConverter: AdminConverter
 ) : FindAllStatisticsService {
-    override fun execute(clubType: ClubType): FindAllStatisticsDto {
-        var applicantCount: Int = 0
+    companion object {
+        var duplicateClubMemberList: MutableSet<String> = mutableSetOf()
         var duplicateHeadUserList: MutableSet<String> = mutableSetOf()
+    }
+    override fun execute(clubType: ClubType): FindAllStatisticsDto {
+        var clubMemberCount: Int = 0
         val userTotalCount: Int = userRepository.findAllByRoles(Role.ROLE_STUDENT).count()
         clubRepository.findByTypeAndClubStatus(clubType, ClubStatus.CREATED)
             .forEach { club ->
-                applicantCount += getApplicantCount(club)
+                if(club.user.roles[0] == Role.ROLE_ADMIN) {
+                    return@forEach
+                }
+                clubMemberCount += getClubMemberCount(club, clubType, duplicateClubMemberList)
                 if(club.user.id.toString() !in duplicateHeadUserList)
                     duplicateHeadUserList.add(club.user.id.toString())
             }
-        applicantCount += duplicateHeadUserList.count()
-        return adminConverter.toDto(userTotalCount, applicantCount)
+        clubMemberCount += duplicateHeadUserList.count()
+        return adminConverter.toDto(userTotalCount, clubMemberCount)
     }
 
-    private fun getApplicantCount(club: Club): Int {
+    private fun getClubMemberCount(club: Club, clubType: ClubType, duplicateClubMemberList: MutableSet<String>): Int {
+        if(clubType == ClubType.EDITORIAL) {
+            if(club.user.id.toString() !in duplicateHeadUserList)
+                duplicateHeadUserList.add(club.user.id.toString())
+            var clubCount: Int = 0
+            club.clubMember
+                .forEach {
+                    if(it.user.roles[0] == Role.ROLE_ADMIN) {
+                        return@forEach
+                    }
+                    if(it.user.id.toString() !in duplicateClubMemberList) {
+                        duplicateClubMemberList.add(it.user.id.toString())
+                        clubCount++
+                    }
+                }
+            return clubCount
+
+        }
         return club.clubMember.count()
     }
 }

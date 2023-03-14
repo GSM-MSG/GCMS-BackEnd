@@ -4,6 +4,7 @@ import com.msg.gcms.domain.applicant.presentation.data.dto.ApplicantListDto
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.applicant.service.ApplicantListService
 import com.msg.gcms.domain.applicant.util.ApplicantConverter
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
@@ -41,7 +42,10 @@ class ApplicantListServiceImpl(
             Scope.HEAD
         } else if(clubMemberRepository.existsByUserAndClub(user, club)) {
             Scope.MEMBER
+        } else if(user.roles[0] == Role.ROLE_ADMIN) {
+            Scope.ADMIN
         } else {
             throw NotClubMemberException()
         }
+
 }

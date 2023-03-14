@@ -1,11 +1,14 @@
 package com.msg.gcms.domain.applicant.service.impl
 
+import com.msg.gcms.domain.admin.exception.NotAceessAdminException
 import com.msg.gcms.domain.applicant.exception.AlreadyClubMemberException
 import com.msg.gcms.domain.applicant.exception.DuplicateClubTypeApplicantException
+import com.msg.gcms.domain.applicant.exception.SameClubApplicantException
 import com.msg.gcms.domain.applicant.presentation.data.dto.ClubApplyDto
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.applicant.service.ClubApplyService
 import com.msg.gcms.domain.applicant.util.ApplicantSaveUtil
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
@@ -30,12 +33,20 @@ class ClubApplyServiceImpl(
         val club = clubRepository.findById(clubId)
             .orElseThrow { ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
-        messageSendUtil.send(club.user, "동아리 신청 요청", "${user.nickname}님이 ${club.name}에 신청했습니다.", SendType.CLUB)
-        if (club.clubMember.contains(clubMemberRepository.findByUserAndClub(user, club)) || club.user == user && club.type != ClubType.EDITORIAL)
+
+        if(applicantRepository.existsByUserAndClub(user, club))
+            throw SameClubApplicantException()
+
+        val clubMember = clubMemberRepository.findByUserAndClub(user, club)
+        if (club.clubMember.contains(clubMember) || club.user == user && club.type != ClubType.EDITORIAL)
             throw AlreadyClubMemberException()
-        if (applicantRepository.countByClubTypeAndUser(club.type, user) != 0L && club.type != ClubType.EDITORIAL)
-            throw DuplicateClubTypeApplicantException()
+
+        val countByClubTypeAndUser = applicantRepository.countByClubTypeAndUser(club.type, user)
+        if (countByClubTypeAndUser != 0L && club.type != ClubType.EDITORIAL)
+                throw DuplicateClubTypeApplicantException()
+
         val applicant = applicantSaveUtil.saveApplicant(club, user)
+        messageSendUtil.send(club.user, "동아리 신청 요청", "${user.nickname}님이 ${club.name}에 신청했습니다.", SendType.CLUB)
         return ClubApplyDto(applicant)
     }
 
