@@ -1,3 +1,4 @@
+
 spring:
   mvc:
     pathmatch:
@@ -22,7 +23,6 @@ spring:
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
-
 jwt:
   accessSecret: ${JWT_ACCESS_SECRET}
   refreshSecret: ${JWT_REFRESH_SECRET}
