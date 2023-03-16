@@ -20,8 +20,8 @@ class UserUtil(
         userRepository.findByEmail(email) ?: throw UserNotFoundException()
     fun fetchUserEmail(): String {
         val principal = SecurityContextHolder.getContext().authentication.principal
-        val email = if (principal is AuthDetails) {
-            principal.username
+        val email = if (principal is UserDetails) {
+            (principal as AuthDetails).username
         } else {
             principal.toString()
         }
