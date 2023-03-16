@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.club.service.impl
 
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ActivityImgRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
@@ -43,8 +44,10 @@ class DetailClubServiceImpl(
         return clubConverter.toDto(club, clubMember, activityImgs, scope, isApplied)
 
     }
-    private fun getScope(user: User, club: Club): Scope {
-        return if(user.id == club.user.id) {
+    private fun getScope(user: User, club: Club): Scope =
+        if(user.roles.contains(Role.ROLE_ADMIN)) {
+            Scope.ADMIN
+        } else if(user.id == club.user.id) {
             Scope.HEAD
         } else if(clubMemberRepository.existsByUserAndClub(user, club)) {
             Scope.MEMBER
@@ -53,7 +56,7 @@ class DetailClubServiceImpl(
         } else {
             Scope.USER
         }
-    }
+    
     private fun checkScopeIsOther(user: User, type: ClubType): Boolean {
         val result = userRepository.checkUserJoinOtherClub(type, user)
         return if(!result) {

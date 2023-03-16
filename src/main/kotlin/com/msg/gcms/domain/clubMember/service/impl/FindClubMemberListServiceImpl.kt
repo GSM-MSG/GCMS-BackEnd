@@ -39,7 +39,7 @@ class FindClubMemberListServiceImpl(
     }
 
     private fun getScopeFromClubMember(user: User, club: Club): MemberScope {
-        if(user.roles[0] == Role.ROLE_ADMIN)
+        if(user.roles.contains(Role.ROLE_ADMIN))
             return MemberScope.ADMIN
         if (club.user.id == user.id) {
             return MemberScope.HEAD
