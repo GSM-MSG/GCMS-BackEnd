@@ -31,6 +31,7 @@ class DetailClubServiceImpl(
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(clubId: Long): DetailClubDto {
         val email = userUtil.fetchUserEmail()
+        println(email)
         val user = if(email == "anonymousUser") null else userUtil.fetchUserByEmail(email)
         val club = clubRepository.findById(clubId)
             .orElseThrow { throw ClubNotFoundException() }
