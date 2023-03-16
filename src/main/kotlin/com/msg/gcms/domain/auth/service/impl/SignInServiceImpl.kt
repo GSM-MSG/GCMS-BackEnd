@@ -35,7 +35,7 @@ class SignInServiceImpl(
             gAuthProperties.redirectUri
         )
         val gAuthUserInfo: GAuthUserInfo = gAuth.getUserInfo(gAuthToken.accessToken)
-        val role = getRoleByGauthInfo(gAuthUserInfo.role)
+        val role = getRoleByGauthInfo(gAuthUserInfo.role, gAuthUserInfo.email)
         val token = signInDto.token
 
         val accessToken: String = jwtTokenProvider.generateAccessToken(gAuthUserInfo.email, role)
@@ -57,12 +57,16 @@ class SignInServiceImpl(
         )
     }
 
-    private fun getRoleByGauthInfo(role: String): Role {
+    private fun getRoleByGauthInfo(role: String, email: String): Role {
+        val user = userRepository.findByEmail(email) ?:
         return when (role) {
             "ROLE_STUDENT" -> Role.ROLE_STUDENT
             "ROLE_TEACHER" -> Role.ROLE_ADMIN
             else -> throw RoleNotExistException()
         }
+        if(user.roles.contains(Role.ROLE_ADMIN))
+            return Role.ROLE_ADMIN
+        return Role.ROLE_STUDENT
     }
 
     private fun createUserOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?) {

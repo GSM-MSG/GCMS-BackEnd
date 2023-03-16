@@ -56,7 +56,7 @@ class DetailClubServiceImpl(
         } else {
             Scope.USER
         }
-    
+
     private fun checkScopeIsOther(user: User, type: ClubType): Boolean {
         val result = userRepository.checkUserJoinOtherClub(type, user)
         return if(!result) {
