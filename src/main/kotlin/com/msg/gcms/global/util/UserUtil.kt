@@ -4,6 +4,7 @@ import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import com.msg.gcms.global.security.auth.AuthDetails
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
