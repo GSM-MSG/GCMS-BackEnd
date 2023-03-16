@@ -33,15 +33,16 @@ class DelegateHeadServiceImpl(
         val club = (clubRepository.findByIdOrNull(clubId)
             ?: throw ClubNotFoundException())
         val user = userUtil.fetchCurrentUser()
-        if (club.user != user && user.roles[0] != Role.ROLE_ADMIN)
+        val head = club.user
+        if (head != user && !user.roles.contains(Role.ROLE_ADMIN))
             throw HeadNotSameException()
         if (!userRepository.existsById(delegateHeadDto.uuid))
             throw UserNotFoundException()
         val clubMember = clubMemberRepository.findAllByClub(club)
             .find { it.user.id == delegateHeadDto.uuid }
             ?: throw NotClubMemberException()
-        updateClubHeadUtil.updateClubHead(club, clubMember, user)
+        updateClubHeadUtil.updateClubHead(club, clubMember, head)
         messageSendUtil.send(clubMember.user, "부장 위임", "${club.name}의 부장으로 위임되셨습니다.", SendType.CLUB)
-        return ChangeHeadDto(clubMember.user, user)
+        return ChangeHeadDto(clubMember.user, head)
     }
 }

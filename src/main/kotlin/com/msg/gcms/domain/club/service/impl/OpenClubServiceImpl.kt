@@ -25,7 +25,7 @@ class OpenClubServiceImpl(
         val club = clubRepository.findByIdOrNull(clubId)
             ?: throw ClubNotFoundException()
         val user = userUtil.fetchCurrentUser()
-        if(club.user != user && user.roles[0] == Role.ROLE_ADMIN)
+        if (user != club.user && !user.roles.contains(Role.ROLE_ADMIN))
             throw HeadNotSameException()
         val newClub = updateClubStatusUtil.changeIsOpened(club, true)
         return clubConverter.toStatusDto(newClub)

@@ -28,7 +28,7 @@ class UpdateClubServiceImpl(
         val foundClub = clubRepository.findById(id)
             .orElseThrow { throw ClubNotFoundException() }
         val user = userUtil.fetchCurrentUser()
-        if (foundClub.user != user && user.roles[0] != Role.ROLE_ADMIN)
+        if (user != foundClub.user && !user.roles.contains(Role.ROLE_ADMIN))
             throw HeadNotSameException()
         val club = clubConverter.toEntity(id, clubDto, foundClub.user, foundClub.type, foundClub.clubStatus)
         activityImgRepository.deleteByClub(foundClub)
