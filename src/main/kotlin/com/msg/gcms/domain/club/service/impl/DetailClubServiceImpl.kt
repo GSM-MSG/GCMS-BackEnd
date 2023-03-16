@@ -44,8 +44,8 @@ class DetailClubServiceImpl(
         return clubConverter.toDto(club, clubMember, activityImgs, scope, isApplied)
 
     }
-    private fun getScope(user: User, club: Club): Scope {
-        return if(user.roles[0] == Role.ROLE_ADMIN) {
+    private fun getScope(user: User, club: Club): Scope =
+        if(user.roles.contains(Role.ROLE_ADMIN)) {
             Scope.ADMIN
         } else if(user.id == club.user.id) {
             Scope.HEAD
@@ -56,7 +56,7 @@ class DetailClubServiceImpl(
         } else {
             Scope.USER
         }
-    }
+    
     private fun checkScopeIsOther(user: User, type: ClubType): Boolean {
         val result = userRepository.checkUserJoinOtherClub(type, user)
         return if(!result) {

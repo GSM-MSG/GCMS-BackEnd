@@ -38,12 +38,12 @@ class ApplicantListServiceImpl(
     }
 
     private fun getUserScope(user: User, club: Club): Scope =
-        if(user.id == club.user.id) {
+        if(user.roles.contains(Role.ROLE_ADMIN)) {
+            Scope.ADMIN
+        } else if(user.id == club.user.id) {
             Scope.HEAD
         } else if(clubMemberRepository.existsByUserAndClub(user, club)) {
             Scope.MEMBER
-        } else if(user.roles[0] == Role.ROLE_ADMIN) {
-            Scope.ADMIN
         } else {
             throw NotClubMemberException()
         }
