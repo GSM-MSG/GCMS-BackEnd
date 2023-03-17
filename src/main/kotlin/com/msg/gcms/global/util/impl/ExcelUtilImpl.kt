@@ -67,6 +67,27 @@ class ExcelUtilImpl : ExcelUtil {
         }
     }
 
+    override fun createExcel(
+        headers: List<String>,
+        attributes: List<String>,
+        dataMap: Map<String, MutableList<MutableList<String>>>
+    ): ByteArray {
+        val workbook = XSSFWorkbook()
+        headers.forEach {header ->
+            val sheet = workbook.createSheet(header)
+            val headerRow = sheet.createRow(0)
+            insertDataListsAtRow(headerRow, attributes, getHeaderCellStyle(workbook))
+            dataMap[header]!!.forEachIndexed{ idx, dataLists ->
+                val row = sheet.createRow(idx + 1)
+                insertDataListsAtRow(row, dataLists, getDefaultCellStyle(workbook))
+            }
+        }
+        ByteArrayOutputStream().use { stream ->
+            workbook.write(stream)
+            return stream.toByteArray()
+        }
+    }
+
     private fun insertDataListsAtRow(
         headerRow: XSSFRow,
         attributes: List<String?>,
