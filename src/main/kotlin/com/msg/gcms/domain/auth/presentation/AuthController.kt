@@ -11,6 +11,7 @@ import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RequestController("/auth")
 class AuthController(
@@ -21,7 +22,7 @@ class AuthController(
 ) {
 
     @PostMapping
-    fun signIn(@RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> =
+    fun signIn(@Valid @RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> =
         authConverter.toDto(signInRequestDto)
             .let { ResponseEntity.ok(signInService.execute(it)) }
 
