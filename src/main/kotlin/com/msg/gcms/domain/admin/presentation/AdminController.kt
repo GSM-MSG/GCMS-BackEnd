@@ -22,6 +22,7 @@ class AdminController(
     private val acceptClubService: AcceptClubService,
     private val createClubMemberExcelService: CreateClubMemberExcelService,
     private val createClubMemberExcelByClassNumService: CreateClubMemberExcelByClassNumService,
+    private val clubMemberCountExcelService: ClubMemberCountExcelService,
     private val adminConverter: AdminConverter,
     private val findPendingClubListService: FindPendingClubListService,
     private val rejectClubService: RejectClubService,
@@ -40,6 +41,12 @@ class AdminController(
     fun getClubMemberExcelByGrade(@RequestParam clubType: ClubType, response: HttpServletResponse): ByteArray{
         response.setHeader("Content-Disposition", "attachment; filename=club_assign_status.xlsx")
         return createClubMemberExcelByClassNumService.execute(clubType)
+    }
+
+    @GetMapping("/excel/club/member")
+    fun getClubMemberCountExcel(@RequestParam clubType: ClubType, response: HttpServletResponse): ByteArray{
+        response.setHeader("Content-Disposition", "attachment; filename=club_assign_status.xlsx")
+        return clubMemberCountExcelService.execute(clubType)
     }
 
     @GetMapping
