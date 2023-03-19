@@ -70,6 +70,7 @@ class SecurityConfig(
 
             .antMatchers(HttpMethod.GET, "/admin/excel/club").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/excel/club/member").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/user").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/user/{uuid}").hasRole("ADMIN")
