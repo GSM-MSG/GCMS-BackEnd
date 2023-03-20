@@ -12,10 +12,12 @@ import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
+import com.msg.gcms.domain.club.exception.ClubNotOpeningException
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -30,8 +32,9 @@ class ClubApplyServiceImpl(
     private val messageSendUtil: MessageSendUtil
 ) : ClubApplyService {
     override fun execute(clubId: Long): ClubApplyDto {
-        val club = clubRepository.findById(clubId)
-            .orElseThrow { ClubNotFoundException() }
+        val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
+        if(!club.isOpened)
+            throw ClubNotOpeningException()
         val user = userUtil.fetchCurrentUser()
 
         if(applicantRepository.existsByUserAndClub(user, club))

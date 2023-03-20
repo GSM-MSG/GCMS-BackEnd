@@ -8,6 +8,7 @@ enum class ErrorCode(
     FILE_SIZE_OVER("파일의 크기가 5보다 큼", 400),
     CLUB_MEMBER_EXIT_ONESELF("자기 자신을 방출하려 하는 경우", 400),
     CLUB_STATUS_NOT_PENDING("생성대기 중인 동아리가 아닙니다.", 400),
+    CLUB_NOT_OPENING("동아리 신청이 열리지 않았습니다.", 400),
 
     UNAUTHORIZED("권한이 없음", 401),
     EXPIRED_TOKEN("만료된 토큰", 401),
