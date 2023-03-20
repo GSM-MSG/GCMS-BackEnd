@@ -8,7 +8,7 @@ enum class ErrorCode(
     FILE_SIZE_OVER("파일의 크기가 5보다 큼", 400),
     CLUB_MEMBER_EXIT_ONESELF("자기 자신을 방출하려 하는 경우", 400),
     CLUB_STATUS_NOT_PENDING("생성대기 중인 동아리가 아닙니다.", 400),
-    CLUB_NOT_OPENING("동아리 신청이 열리지 않았습니다.", 400),
+
 
     UNAUTHORIZED("권한이 없음", 401),
     EXPIRED_TOKEN("만료된 토큰", 401),
@@ -24,6 +24,7 @@ enum class ErrorCode(
     NOT_APPLICANT("해당 동아리에 가입 신청하지 않음", 403),
     CLUB_ALREADY_PENDING("해당하는 클럽이 대기중 상태에 있습니다.", 403),
     NOT_ACCESS_ADMIN("해당 관리자 권한을 가진 사람은 접근할 수 없습니다.", 403),
+    CLUB_NOT_OPENING("동아리 신청이 열리지 않았습니다.", 403),
 
 
     ROLE_NOT_EXIST("역할이 존재하지 않는 경우", 404),
