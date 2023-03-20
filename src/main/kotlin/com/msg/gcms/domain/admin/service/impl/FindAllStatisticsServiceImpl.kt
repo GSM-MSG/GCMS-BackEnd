@@ -28,7 +28,7 @@ class FindAllStatisticsServiceImpl(
         val userTotalCount: Int = userRepository.findAllByRoles(Role.ROLE_STUDENT).count()
         clubRepository.findByTypeAndClubStatus(clubType, ClubStatus.CREATED)
             .forEach { club ->
-                if(club.user.roles[0] == Role.ROLE_ADMIN) {
+                if(club.user.roles.contains(Role.ROLE_ADMIN)) {
                     return@forEach
                 }
                 clubMemberCount += getClubMemberCount(club, clubType, duplicateClubMemberList)
@@ -36,7 +36,12 @@ class FindAllStatisticsServiceImpl(
                     duplicateHeadUserList.add(club.user.id.toString())
             }
         clubMemberCount += duplicateHeadUserList.count()
+        init()
         return adminConverter.toDto(userTotalCount, clubMemberCount)
+    }
+    private fun init() {
+        duplicateClubMemberList = mutableSetOf()
+        duplicateHeadUserList = mutableSetOf()
     }
 
     private fun getClubMemberCount(club: Club, clubType: ClubType, duplicateClubMemberList: MutableSet<String>): Int {
