@@ -32,7 +32,7 @@ class CreateClubMemberExcelServiceImpl(
                     dataLists.add(listOf("${index + 1}", "${it.grade}${it.classNum}${if (it.number <= 9) "0" else ""}${it.number}", it.nickname))
                 }
                 lists.add(dataLists)
-                clubNames.add(club.name)
+                clubNames.add(club.name.replace(":", " "))
             }
         return excelUtil.createExcel(clubNames, head, lists)
     }
