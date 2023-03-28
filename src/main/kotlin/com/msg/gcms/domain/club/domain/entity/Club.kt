@@ -6,9 +6,11 @@ import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.user.domain.entity.User
+import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
 
 @Entity
+@DynamicUpdate
 class Club(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
