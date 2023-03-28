@@ -5,11 +5,13 @@ import com.msg.gcms.domain.applicant.domain.entity.Applicant
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
+import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
 
 @Entity
+@DynamicUpdate
 class User(
     @Id
     @GeneratedValue(generator = "uuid2")
