@@ -33,7 +33,7 @@ class UserValidatorImpl(
 
 
     private fun verifyUserIsStudent(user: User): Boolean =
-        user.roles.equals(Role.ROLE_STUDENT)
+        user.roles.contains(Role.ROLE_STUDENT)
 
 
     private fun checkUserNotSameCurrentUser(user: User): Boolean {
