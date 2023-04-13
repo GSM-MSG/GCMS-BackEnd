@@ -17,9 +17,8 @@ class SearchUserServiceImpl(
     val userConverter: UserConverter,
 ) : SearchUserService {
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
-    override fun execute(dto: SearchRequirementDto): List<SearchUserDto> {
-        return if (dto.clubType == ClubType.EDITORIAL
-        ) {
+    override fun execute(dto: SearchRequirementDto): List<SearchUserDto> =
+        if (dto.clubType == ClubType.EDITORIAL) {
             userRepository.findByNicknameContaining(dto.name)
                 .let { userValidator.validateUser(it, dto.clubType) }
                 .map { userConverter.toDto(it) }
@@ -28,5 +27,4 @@ class SearchUserServiceImpl(
                 .let { userValidator.validateUser(it, dto.clubType) }
                 .map { userConverter.toDto(it) }
         }
-    }
 }
