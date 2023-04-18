@@ -17,7 +17,7 @@ data class UpdateClubRequest (
     @field:NotBlank
     val contact: String,
     @field:NotBlank
-    @Pattern(regexp = "^(http|https)://")
+    @field:Pattern(regexp = "^(http|https)://")
     val notionLink: String,
     val teacher: String? = null,
     @field:NotNull
