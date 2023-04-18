@@ -4,6 +4,7 @@ import com.msg.gcms.domain.club.enums.ClubType
 import java.util.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
 data class CreateClubRequest(
@@ -19,6 +20,7 @@ data class CreateClubRequest(
     @field:NotBlank
     val contact: String,
     @field:NotBlank
+    @field:Pattern(regexp = "^(http|https)://")
     val notionLink: String,
     val teacher: String? = null,
     @field:NotNull
