@@ -19,6 +19,7 @@ import com.msg.gcms.domain.club.utils.SaveClubUtil
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.domain.webhook.util.SendDiscordMessageUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional
 class CreateClubServiceImpl(
     private val userUtil: UserUtil,
     private val saveClubUtil: SaveClubUtil,
+    private val sendDiscordMessageUtil: SendDiscordMessageUtil,
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
     private val applicantRepository: ApplicantRepository,
@@ -43,8 +45,8 @@ class CreateClubServiceImpl(
         checkAlreadyHead(currentUser, clubDto)
         checkAlreadyClubMember(currentUser, clubDto)
         checkAlreadyApplicant(currentUser, clubDto)
-
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
+        sendDiscordMessageUtil(clubDto)
     }
 
     private fun checkAlreadyHead(
@@ -66,5 +68,9 @@ class CreateClubServiceImpl(
     private fun checkAlreadyApplicant(currentUser: User, clubDto: ClubDto){
         if (clubDto.type != ClubType.EDITORIAL && applicantRepository.findAllByUser(currentUser).any { it.club.type == clubDto.type })
             throw AlreadyClubApplicantException()
+    }
+
+    private fun sendDiscordMessageUtil(clubDto: ClubDto){
+        sendDiscordMessageUtil.execute(clubDto.name,clubDto.type,clubDto.bannerImg)
     }
 }
