@@ -1,12 +1,13 @@
 package com.msg.gcms.domain.webhook.util.impl
 
+import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.webhook.util.CreateMessageUtil
 import org.springframework.stereotype.Service
 
 @Service
 class CreateMessageUtilImpl : CreateMessageUtil {
 
-    override fun execute(club_name: String, club_type: String, club_img: String) = """
+    override fun execute(club_name: String, club_type: ClubType, club_img: String) = """
         {
           "content": null,
           "embeds": [
@@ -22,7 +23,7 @@ class CreateMessageUtilImpl : CreateMessageUtil {
                 },
                 {
                   "name": "동아리 유형",
-                  "value": "$club_type",
+                  "value": "${club_type.name}",
                   "inline": true
                 }
               ],
