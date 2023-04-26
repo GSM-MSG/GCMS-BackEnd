@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class SendDiscordMessageUtil (
-    val discordWebhookUrl: String,
-    val httpClient: OkHttpClient,
-    val createMessageUtil: CreateMessageUtil
+    private val discordWebhookUrl: String,
+    private val httpClient: OkHttpClient,
+    private val createMessageUtil: CreateMessageUtil
     ) {
     fun execute(club_name: String, club_type: ClubType, club_img: String){
         val message = createMessageUtil.execute(club_name, club_type, club_img)
