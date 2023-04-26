@@ -2,9 +2,10 @@ package com.msg.gcms.domain.webhook.util.impl
 
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.webhook.util.CreateMessageUtil
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
-@Service
+@Component
 class CreateMessageUtilImpl : CreateMessageUtil {
 
     override fun execute(club_name: String, club_type: ClubType, club_img: String) = """

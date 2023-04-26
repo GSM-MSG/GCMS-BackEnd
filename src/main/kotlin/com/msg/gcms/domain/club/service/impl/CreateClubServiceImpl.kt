@@ -43,6 +43,7 @@ class CreateClubServiceImpl(
         checkAlreadyHead(currentUser, clubDto)
         checkAlreadyClubMember(currentUser, clubDto)
         checkAlreadyApplicant(currentUser, clubDto)
+
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
     }
 

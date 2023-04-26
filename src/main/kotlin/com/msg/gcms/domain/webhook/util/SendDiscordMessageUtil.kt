@@ -1,16 +1,20 @@
-package com.msg.gcms.domain.webhook.service.impl
+package com.msg.gcms.domain.webhook.util
 
-import com.msg.gcms.domain.webhook.service.SendDiscordMessageService
+import com.msg.gcms.domain.club.enums.ClubType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
-class SendDiscordMessageServiceImpl (val discordWebhookUrl: String, val httpClient: OkHttpClient):
-    SendDiscordMessageService {
-    override fun execute(message: String){
+@Component
+class SendDiscordMessageUtil (
+    val discordWebhookUrl: String,
+    val httpClient: OkHttpClient,
+    val createMessageUtil: CreateMessageUtil
+    ) {
+    fun execute(club_name: String, club_type: ClubType, club_img: String){
+        val message = createMessageUtil.execute(club_name, club_type, club_img)
         val requestBody = message.toRequestBody("application/json; charset=utf-8".toMediaType())
         val request = Request.Builder()
             .url(discordWebhookUrl)
