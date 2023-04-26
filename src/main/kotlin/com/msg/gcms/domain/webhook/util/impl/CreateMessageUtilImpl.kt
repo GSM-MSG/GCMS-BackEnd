@@ -10,12 +10,11 @@ class CreateMessageUtilImpl : CreateMessageUtil {
 
     override fun execute(club_name: String, club_type: ClubType, club_img: String) = """
         {
-          "content": null,
+          "content": "동아리 신설 요청이 들어왔어요.",
           "embeds": [
             {
-              "title": "띵동!",
-              "description": "새로운 동아리 신설 요청이 들어왔어요.",
-              "color": 4097741,
+              "title": "새로운 동아리가 승인을 기다리고 있어요!",
+              "color": 5725911,
               "fields": [
                 {
                   "name": "동아리 이름",
@@ -33,7 +32,6 @@ class CreateMessageUtilImpl : CreateMessageUtil {
               }
             }
           ],
-          "username": "띵동이",
           "attachments": []
         }
         """.trimIndent()
