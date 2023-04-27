@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Component
 class CreateMessageUtilImpl : CreateMessageUtil {
 
-    override fun execute(club_name: String, club_type: ClubType, club_img: String) = """
+    override fun execute(clubName: String, clubType: ClubType, clubImg: String) = """
         {
           "content": "동아리 신설 요청이 들어왔어요.",
           "embeds": [
