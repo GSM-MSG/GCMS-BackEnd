@@ -12,7 +12,7 @@ class SendDiscordMessageUtil (
     private val discordWebhookUrl: String,
     private val httpClient: OkHttpClient,
     private val createMessageUtil: CreateMessageUtil
-    ) {
+) {
     fun execute(club_name: String, club_type: ClubType, club_img: String){
         val message = createMessageUtil.execute(club_name, club_type, club_img)
         val requestBody = message.toRequestBody("application/json; charset=utf-8".toMediaType())
