@@ -1,7 +1,6 @@
 package com.msg.gcms.domain.webhook.util.impl
 
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.webhook.config.DiscordWebhookConfig
 import com.msg.gcms.domain.webhook.util.DiscordUtil
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -9,12 +8,15 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import org.slf4j.LoggerFactory
 
 @Component
 class DiscordUtilImpl(val httpClient: OkHttpClient): DiscordUtil{
 
     @Value("\${discord.webhook.url}")
-    lateinit var discordWebhookProperties: String
+    private lateinit var discordWebhookProperties: String
+
+    private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
 
     override fun sendDiscordMessage(message: String) {
         val requestBody = message.toRequestBody("application/json; charset=utf-8".toMediaType())
@@ -25,9 +27,9 @@ class DiscordUtilImpl(val httpClient: OkHttpClient): DiscordUtil{
 
         httpClient.newCall(request).execute().use { response ->
             if (response.isSuccessful) {
-                println("띵동이가 동아리 신설 요청을 성공적으로 전달했어요.")
+                log.trace("띵동이가 동아리 신설 요청을 성공적으로 전달했어요.")
             } else {
-                println("띵동이가 동아리 신설 요청 대신 ${response.code}코드를 보냈어요.")
+                log.error("띵동이가 동아리 신설 요청 대신 ${response.code}코드를 보냈어요.")
             }
         }
     }
