@@ -41,20 +41,20 @@ class DiscordUtilImpl(val httpClient: OkHttpClient): DiscordUtil{
                 "title": "새로운 동아리가 승인을 기다리고 있어요!",
                 "color": 5725911,
                 "fields": [
-                {
-                    "name": "동아리 이름",
-                    "value": "$clubName",
-                    "inline": true
-                },
-                {
-                    "name": "동아리 유형",
-                    "value": "${clubType.name}",
-                    "inline": true
-                }
+                    {
+                        "name": "동아리 이름",
+                        "value": "$clubName",
+                        "inline": true
+                    },
+                    {
+                        "name": "동아리 유형",
+                        "value": "${clubType.name}",
+                        "inline": true
+                    }
                 ],
                 "image": {
-                "url": "$clubBannerImg"
-            }
+                    "url": "$clubBannerImg"
+                }
             }
             ],
             "attachments": []
