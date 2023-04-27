@@ -67,6 +67,6 @@ class CreateClubServiceImpl(
     }
 
     private fun sendDiscordMessageUtil(clubDto: ClubDto){
-        discordUtil.applyMessage(clubDto.name, clubDto.type, clubDto.bannerImg)
+        discordUtil.createClubApplyMessage(clubDto.name, clubDto.type, clubDto.bannerImg)
     }
 }

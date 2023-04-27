@@ -36,7 +36,7 @@ class DiscordUtilImpl(
         }
     }
 
-    override fun applyMessage(clubName: String, clubType: ClubType, clubBannerImg: String) = """
+    override fun createClubApplyMessage(clubName: String, clubType: ClubType, clubBannerImg: String) = """
             "content": "동아리 신설 요청이 들어왔어요.",
             "embeds": [
                 {
