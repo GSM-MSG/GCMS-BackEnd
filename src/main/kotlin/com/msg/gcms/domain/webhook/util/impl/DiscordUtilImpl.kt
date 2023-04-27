@@ -37,25 +37,25 @@ class DiscordUtilImpl(val httpClient: OkHttpClient): DiscordUtil{
     override fun applyMessage(clubName: String, clubType: ClubType, clubBannerImg: String) = """
             "content": "동아리 신설 요청이 들어왔어요.",
             "embeds": [
-            {
-                "title": "새로운 동아리가 승인을 기다리고 있어요!",
-                "color": 5725911,
-                "fields": [
-                    {
-                        "name": "동아리 이름",
-                        "value": "$clubName",
-                        "inline": true
-                    },
-                    {
-                        "name": "동아리 유형",
-                        "value": "${clubType.name}",
-                        "inline": true
+                {
+                    "title": "새로운 동아리가 승인을 기다리고 있어요!",
+                    "color": 5725911,
+                    "fields": [
+                        {
+                            "name": "동아리 이름",
+                            "value": "$clubName",
+                            "inline": true
+                        },
+                        {
+                            "name": "동아리 유형",
+                            "value": "${clubType.name}",
+                            "inline": true
+                        }
+                    ],
+                    "image": {
+                       "url": "$clubBannerImg"
                     }
-                ],
-                "image": {
-                    "url": "$clubBannerImg"
                 }
-            }
             ],
             "attachments": []
         }
