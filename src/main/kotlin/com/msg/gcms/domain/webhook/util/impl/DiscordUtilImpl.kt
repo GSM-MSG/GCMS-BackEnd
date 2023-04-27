@@ -11,17 +11,19 @@ import org.springframework.stereotype.Component
 import org.slf4j.LoggerFactory
 
 @Component
-class DiscordUtilImpl(val httpClient: OkHttpClient): DiscordUtil{
+class DiscordUtilImpl(
+    private val httpClient: OkHttpClient
+): DiscordUtil{
 
     @Value("\${discord.webhook.url}")
-    private lateinit var discordWebhookProperties: String
+    private lateinit var discordWebhookUrl: String
 
     private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
 
     override fun sendDiscordMessage(message: String) {
         val requestBody = message.toRequestBody("application/json; charset=utf-8".toMediaType())
         val request = Request.Builder()
-            .url(discordWebhookProperties)
+            .url(discordWebhookUrl)
             .post(requestBody)
             .build()
 
