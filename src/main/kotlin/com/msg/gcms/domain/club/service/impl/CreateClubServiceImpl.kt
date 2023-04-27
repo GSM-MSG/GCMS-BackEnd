@@ -1,10 +1,7 @@
 package com.msg.gcms.domain.club.service.impl
 
-import com.msg.gcms.domain.admin.exception.NotAceessAdminException
 import com.msg.gcms.domain.applicant.exception.AlreadyClubMemberException
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
-import com.msg.gcms.domain.auth.domain.Role
-import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
@@ -16,10 +13,9 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.SaveClubUtil
-import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
-import com.msg.gcms.domain.webhook.util.SendDiscordMessageUtil
+import com.msg.gcms.domain.webhook.util.DiscordUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 class CreateClubServiceImpl(
     private val userUtil: UserUtil,
     private val saveClubUtil: SaveClubUtil,
-    private val sendDiscordMessageUtil: SendDiscordMessageUtil,
+    private val discordUtil: DiscordUtil,
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
     private val applicantRepository: ApplicantRepository,
@@ -71,6 +67,6 @@ class CreateClubServiceImpl(
     }
 
     private fun sendDiscordMessageUtil(clubDto: ClubDto){
-        sendDiscordMessageUtil.execute(clubDto.name,clubDto.type,clubDto.bannerImg)
+        discordUtil.applyMessage(clubDto.name, clubDto.type, clubDto.bannerImg)
     }
 }
