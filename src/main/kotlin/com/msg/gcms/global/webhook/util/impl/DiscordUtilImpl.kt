@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 @Component
 class DiscordUtilImpl(
     private val httpClient: OkHttpClient
-): DiscordUtil {
+) : DiscordUtil {
 
     @Value("\${discord.webhook.url}")
     private lateinit var discordWebhookUrl: String
