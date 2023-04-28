@@ -62,5 +62,5 @@ class DiscordUtilImpl(
             "attachments": []
         }
         """.trimIndent()
-        .let{sendDiscordMessage(it)}
+
 }
