@@ -1,7 +1,7 @@
-package com.msg.gcms.domain.webhook.util.impl
+package com.msg.gcms.global.webhook.util.impl
 
 import com.msg.gcms.domain.club.enums.ClubType
-import com.msg.gcms.domain.webhook.util.DiscordUtil
+import com.msg.gcms.global.webhook.util.DiscordUtil
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 @Component
 class DiscordUtilImpl(
     private val httpClient: OkHttpClient
-): DiscordUtil{
+): DiscordUtil {
 
     @Value("\${discord.webhook.url}")
     private lateinit var discordWebhookUrl: String

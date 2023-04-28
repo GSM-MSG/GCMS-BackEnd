@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.webhook.util
+package com.msg.gcms.global.webhook.util
 
 import com.msg.gcms.domain.club.enums.ClubType
 

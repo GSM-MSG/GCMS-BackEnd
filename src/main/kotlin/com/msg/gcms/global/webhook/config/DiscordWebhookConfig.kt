@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.webhook.config
+package com.msg.gcms.global.webhook.config
 
 import okhttp3.OkHttpClient
 import org.springframework.context.annotation.Bean
