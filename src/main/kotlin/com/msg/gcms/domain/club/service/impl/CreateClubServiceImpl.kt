@@ -42,7 +42,7 @@ class CreateClubServiceImpl(
         checkAlreadyClubMember(currentUser, clubDto)
         checkAlreadyApplicant(currentUser, clubDto)
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
-        sendDiscordMessageUtil(clubDto)
+        sendDiscordMessage(clubDto)
     }
 
     private fun checkAlreadyHead(
@@ -66,7 +66,7 @@ class CreateClubServiceImpl(
             throw AlreadyClubApplicantException()
     }
 
-    private fun sendDiscordMessageUtil(clubDto: ClubDto){
-        discordUtil.createClubApplyMessage(clubDto.name, clubDto.type, clubDto.bannerImg)
+    private fun sendDiscordMessage(clubDto: ClubDto){
+        discordUtil.createClubMessage(clubDto.name, clubDto.type, clubDto.bannerImg)
     }
 }
