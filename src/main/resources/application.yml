@@ -56,3 +56,7 @@ logging:
           EC2MetadataUtils: error
 fcm:
   value: ${FCM_VALUE}
+
+discord:
+  webhook:
+    url: ${DISCORD_WEBHOOK_URL}

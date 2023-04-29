@@ -1,10 +1,7 @@
 package com.msg.gcms.domain.club.service.impl
 
-import com.msg.gcms.domain.admin.exception.NotAceessAdminException
 import com.msg.gcms.domain.applicant.exception.AlreadyClubMemberException
 import com.msg.gcms.domain.applicant.repository.ApplicantRepository
-import com.msg.gcms.domain.auth.domain.Role
-import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.enums.ClubType
@@ -16,9 +13,9 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubDto
 import com.msg.gcms.domain.club.service.CreateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.SaveClubUtil
-import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.global.webhook.util.DiscordUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -28,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 class CreateClubServiceImpl(
     private val userUtil: UserUtil,
     private val saveClubUtil: SaveClubUtil,
+    private val discordUtil: DiscordUtil,
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
     private val applicantRepository: ApplicantRepository,
@@ -44,6 +42,7 @@ class CreateClubServiceImpl(
         checkAlreadyClubMember(currentUser, clubDto)
         checkAlreadyApplicant(currentUser, clubDto)
         saveClubUtil.saveClub(club, clubDto.activityImgs, clubDto.member)
+        sendDiscordMessage(clubDto)
     }
 
     private fun checkAlreadyHead(
@@ -65,5 +64,10 @@ class CreateClubServiceImpl(
     private fun checkAlreadyApplicant(currentUser: User, clubDto: ClubDto){
         if (clubDto.type != ClubType.EDITORIAL && applicantRepository.findAllByUser(currentUser).any { it.club.type == clubDto.type })
             throw AlreadyClubApplicantException()
+    }
+
+    private fun sendDiscordMessage(clubDto: ClubDto){
+        discordUtil.createClubMessage(clubDto.name, clubDto.type, clubDto.bannerImg)
+            .let { discordUtil.sendDiscordMessage(it) }
     }
 }
