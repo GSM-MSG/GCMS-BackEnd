@@ -20,7 +20,7 @@ data class CreateClubRequest(
     @field:NotBlank
     val contact: String,
     @field:NotBlank
-    @field:Pattern(regexp = "^(http|https)://")
+    @field:Pattern(regexp = "^((http(s?))\\:\\/\\/)([0-9a-zA-Z\\-]+\\.)+[a-zA-Z]{2,6}(\\:[0-9]+)?(\\/\\S*)?\$")
     val notionLink: String,
     val teacher: String? = null,
     @field:NotNull
