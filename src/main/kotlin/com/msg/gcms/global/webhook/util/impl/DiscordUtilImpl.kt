@@ -1,6 +1,7 @@
 package com.msg.gcms.global.webhook.util.impl
 
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.enums.ClubType.*
 import com.msg.gcms.global.webhook.util.DiscordUtil
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -37,6 +38,7 @@ class DiscordUtilImpl(
     }
 
     override fun createClubMessage(clubName: String, clubType: ClubType, clubBannerImg: String) = """
+        {
             "content": "동아리 신설 요청이 들어왔어요.",
             "embeds": [
                 {
@@ -50,7 +52,7 @@ class DiscordUtilImpl(
                         },
                         {
                             "name": "동아리 유형",
-                            "value": "${clubType.name}",
+                            "value": "${clubType.display()}",
                             "inline": true
                         }
                     ],
@@ -62,5 +64,12 @@ class DiscordUtilImpl(
             "attachments": []
         }
         """.trimIndent()
+
+    fun ClubType.display(): String =
+        when(this) {
+            MAJOR -> "전공동아리"
+            FREEDOM -> "자율동아리"
+            EDITORIAL -> "사설동아리"
+        }
 
 }
