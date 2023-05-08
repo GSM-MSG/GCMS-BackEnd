@@ -52,13 +52,7 @@ class DiscordUtilImpl(
                         },
                         {
                             "name": "동아리 유형",
-                            "value": "${
-                                when(clubType){
-                                    MAJOR -> "전공동아리"
-                                    FREEDOM -> "자율동아리"
-                                    EDITORIAL -> "사설동아리"
-                                }
-                            }",
+                            "value": "${clubType.display()}",
                             "inline": true
                         }
                     ],
@@ -70,5 +64,12 @@ class DiscordUtilImpl(
             "attachments": []
         }
         """.trimIndent()
+
+    fun ClubType.display(): String =
+        when(this) {
+            MAJOR -> "전공동아리"
+            FREEDOM -> "자율동아리"
+            EDITORIAL -> "사설동아리"
+        }
 
 }
