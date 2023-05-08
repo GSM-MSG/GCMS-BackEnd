@@ -1,6 +1,7 @@
 package com.msg.gcms.global.webhook.util.impl
 
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.enums.ClubType.*
 import com.msg.gcms.global.webhook.util.DiscordUtil
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -51,7 +52,13 @@ class DiscordUtilImpl(
                         },
                         {
                             "name": "동아리 유형",
-                            "value": "${clubType.name}",
+                            "value": "${
+                                when(clubType){
+                                    MAJOR -> "전공동아리"
+                                    FREEDOM -> "자율동아리"
+                                    EDITORIAL -> "사설동아리"
+                                }
+                            }",
                             "inline": true
                         }
                     ],
