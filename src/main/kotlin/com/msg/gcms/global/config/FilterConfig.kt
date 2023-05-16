@@ -1,6 +1,7 @@
 package com.msg.gcms.global.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.msg.gcms.global.filter.RequestLogFilter
 import com.msg.gcms.global.security.filter.ExceptionFilter
 import com.msg.gcms.global.security.filter.JwtTokenFilter
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
@@ -17,7 +18,9 @@ class FilterConfig(
     override fun configure(builder: HttpSecurity) {
         val jwtTokenFilter = JwtTokenFilter(jwtTokenProvider)
         val exceptionFilter = ExceptionFilter(objectMapper)
+        val requestLogFilter = RequestLogFilter()
         builder.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
         builder.addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter::class.java)
+        builder.addFilterBefore(requestLogFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
 }
