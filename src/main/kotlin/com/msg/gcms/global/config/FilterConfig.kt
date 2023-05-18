@@ -1,7 +1,7 @@
 package com.msg.gcms.global.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.msg.gcms.global.filter.RequestLogFilter
+import com.msg.gcms.global.logger.filter.RequestLogFilter
 import com.msg.gcms.global.security.filter.ExceptionFilter
 import com.msg.gcms.global.security.filter.JwtTokenFilter
 import com.msg.gcms.global.security.jwt.JwtTokenProvider

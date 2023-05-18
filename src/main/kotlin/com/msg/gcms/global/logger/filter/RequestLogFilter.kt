@@ -1,4 +1,4 @@
-package com.msg.gcms.global.filter
+package com.msg.gcms.global.logger.filter
 
 import org.slf4j.LoggerFactory
 import org.springframework.web.filter.OncePerRequestFilter
@@ -18,5 +18,6 @@ class RequestLogFilter : OncePerRequestFilter() {
         log.info("request url = ${request.requestURI}")
         log.info("client info = ${request.getHeader("User-Agent")}")
         filterChain.doFilter(request, response)
+        log.info("response status = ${response.status}")
     }
 }
