@@ -1,5 +1,6 @@
 package com.msg.gcms.global.logger
 
+import com.msg.gcms.global.webhook.util.DiscordUtil
 import com.msg.gcms.global.webhook.util.impl.DiscordUtilImpl
 import org.springframework.core.io.ClassPathResource
 import org.springframework.scheduling.annotation.Scheduled
@@ -10,7 +11,7 @@ import java.time.LocalDate
 
 @Component
 class LoggingScheduler(
-    private val discordUtilImpl: DiscordUtilImpl
+    private val discordUtil: DiscordUtil
 ) {
     @Scheduled(cron = "59 59 23 * * ?", zone = "Asia/Seoul")
     fun sendLog(){
@@ -20,11 +21,7 @@ class LoggingScheduler(
         val errorFileLog = Files.readAllLines(Paths.get(ClassPathResource(errorDir).uri)).reduce { acc, str -> "$acc\n$str" }
         Files.deleteIfExists(Paths.get(ClassPathResource(requestDir).uri))
         Files.deleteIfExists(Paths.get(ClassPathResource(errorDir).uri))
-        println("==request==")
-        println(requestFileLog)
-        println("==error==")
-        println(errorFileLog)
-        discordUtilImpl.sendDiscordMessage("**gcms 요청 로그**\n$requestFileLog")
-        discordUtilImpl.sendDiscordMessage("**gcms 에러 로그**\n$errorFileLog")
+        discordUtil.sendDiscordMessage("**gcms 요청 로그**\n$requestFileLog")
+        discordUtil.sendDiscordMessage("**gcms 에러 로그**\n$errorFileLog")
     }
 }
