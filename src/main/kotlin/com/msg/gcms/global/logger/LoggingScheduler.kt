@@ -1,27 +1,48 @@
 package com.msg.gcms.global.logger
 
+import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.ObjectMetadata
+import com.amazonaws.services.s3.model.PutObjectRequest
 import com.msg.gcms.global.webhook.util.DiscordUtil
-import com.msg.gcms.global.webhook.util.impl.DiscordUtilImpl
-import org.springframework.core.io.ClassPathResource
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.time.LocalDate
+import java.io.File
 
 @Component
 class LoggingScheduler(
+    private val amazonS3: AmazonS3,
     private val discordUtil: DiscordUtil
 ) {
-    @Scheduled(cron = "59 59 23 * * ?", zone = "Asia/Seoul")
+    @Value("\${cloud.aws.s3.bucket}")
+    lateinit var bucket: String
+
+    @Value("\${cloud.aws.s3.url}")
+    lateinit var url: String
+
+    @Scheduled(cron = "59 14 14 * * ?", zone = "Asia/Seoul")
     fun sendLog(){
-        val requestDir = "./logs/access-${LocalDate.now()}.0.log"
-        val requestFileLog = Files.readAllLines(Paths.get(ClassPathResource(requestDir).uri)).reduce { acc, str -> "$acc\n$str" }
-        val errorDir = "./logs/error-${LocalDate.now()}.0.log"
-        val errorFileLog = Files.readAllLines(Paths.get(ClassPathResource(errorDir).uri)).reduce { acc, str -> "$acc\n$str" }
-        Files.deleteIfExists(Paths.get(ClassPathResource(requestDir).uri))
-        Files.deleteIfExists(Paths.get(ClassPathResource(errorDir).uri))
-        discordUtil.sendDiscordMessage("**gcms 요청 로그**\n$requestFileLog")
-        discordUtil.sendDiscordMessage("**gcms 에러 로그**\n$errorFileLog")
+        val logDir = "./src/main/resources/logs/"
+        val logDirectory = File(logDir)
+        val logUrlList = mutableListOf<String>()
+        logDirectory.listFiles()
+            .forEach {file ->
+                val fileName = file.name
+                val objectMetadata = ObjectMetadata()
+                objectMetadata.contentLength = file.length()
+                objectMetadata.contentType = "text/plain"
+                amazonS3.putObject(
+                    PutObjectRequest(bucket, fileName, file.inputStream(), objectMetadata)
+                        .withCannedAcl(CannedAccessControlList.PublicRead)
+                )
+                file.delete()
+                logUrlList.add(url+fileName)
+            }
+        val message = StringBuilder("**로그 목록**\n")
+        logUrlList.forEachIndexed { idx, str ->
+            message.append("${idx + 1} $str\n")
+        }
+        discordUtil.sendDiscordMessage(message.toString())
     }
 }
