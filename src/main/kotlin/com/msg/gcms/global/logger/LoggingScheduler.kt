@@ -21,7 +21,7 @@ class LoggingScheduler(
     @Value("\${cloud.aws.s3.url}")
     lateinit var url: String
 
-    @Scheduled(cron = "59 14 14 * * ?", zone = "Asia/Seoul")
+    @Scheduled(cron = "59 59 23 * * ?", zone = "Asia/Seoul")
     fun sendLog(){
         val logDir = "./src/main/resources/logs/"
         val logDirectory = File(logDir)
