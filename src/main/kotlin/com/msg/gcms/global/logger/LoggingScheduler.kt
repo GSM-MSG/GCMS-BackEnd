@@ -43,6 +43,12 @@ class LoggingScheduler(
         logUrlList.forEachIndexed { idx, str ->
             message.append("${idx + 1} $str\\n")
         }
-        discordUtil.sendDiscordMessage(message.toString())
+        discordUtil.sendDiscordMessage(message.toString().toJson())
     }
+
+    fun String.toJson(): String = """
+        {
+            "content":"$this"
+        }
+    """.trimIndent()
 }
