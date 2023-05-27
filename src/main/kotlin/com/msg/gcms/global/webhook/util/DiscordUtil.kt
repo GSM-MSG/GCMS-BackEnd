@@ -5,4 +5,5 @@ import com.msg.gcms.domain.club.enums.ClubType
 interface DiscordUtil {
     fun createClubMessage(clubName: String, clubType: ClubType, clubBannerImg: String): String
     fun sendDiscordMessage(message: String)
+    fun toSingleDiscordMessage(string: String): String
 }
