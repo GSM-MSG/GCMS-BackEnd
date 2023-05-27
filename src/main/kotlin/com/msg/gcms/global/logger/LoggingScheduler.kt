@@ -46,10 +46,4 @@ class LoggingScheduler(
         discordUtil.toSingleDiscordMessage(message.toString())
             .let { discordUtil.sendDiscordMessage(it) }
     }
-
-    fun String.toJson(): String = """
-        {
-            "content":"$this"
-        }
-    """.trimIndent()
 }
