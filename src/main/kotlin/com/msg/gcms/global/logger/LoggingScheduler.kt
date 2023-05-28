@@ -39,10 +39,11 @@ class LoggingScheduler(
                 file.delete()
                 logUrlList.add(url+fileName)
             }
-        val message = StringBuilder("**로그 목록**\n")
+        val message = StringBuilder("**로그 목록**\\n")
         logUrlList.forEachIndexed { idx, str ->
-            message.append("${idx + 1} $str\n")
+            message.append("${idx + 1} $str\\n")
         }
-        discordUtil.sendDiscordMessage(message.toString())
+        discordUtil.toSingleDiscordMessage(message.toString())
+            .let { discordUtil.sendDiscordMessage(it) }
     }
 }
