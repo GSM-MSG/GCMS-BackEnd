@@ -1,6 +1,10 @@
 package com.msg.gcms.domain.club.domain.entity
 
-import javax.persistence.*
+import com.msg.gcms.domain.club.presentation.data.dto.OperationPlanDto
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
 @Entity
 class MonthlyPlan(
@@ -11,4 +15,9 @@ class MonthlyPlan(
     val month: Long,
 
     val plan: String
-)
+) {
+    constructor(monthlyPlanDto: OperationPlanDto.MonthlyPlanDto): this(
+        month = monthlyPlanDto.month,
+        plan = monthlyPlanDto.plan
+    )
+}
