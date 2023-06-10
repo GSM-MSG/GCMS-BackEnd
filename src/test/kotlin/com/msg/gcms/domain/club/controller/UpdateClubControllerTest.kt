@@ -28,6 +28,7 @@ class UpdateClubControllerTest : BehaviorSpec({
     fun operationPlanConverter(): OperationPlanConverter {
         return OperationPlanConverterImpl()
     }
+
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()

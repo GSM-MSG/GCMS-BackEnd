@@ -4,7 +4,9 @@ import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubStatusDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
+import com.msg.gcms.domain.club.utils.impl.OperationPlanConverterImpl
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -14,20 +16,27 @@ import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
 
 class OpenClubControllerTest : BehaviorSpec({
-
     @Bean
     fun clubConverter(): ClubConverter {
         return ClubConverterImpl()
     }
 
+    @Bean
+    fun operationPlanConverter(): OperationPlanConverter {
+        return OperationPlanConverterImpl()
+    }
+
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
     val updateClubService = mockk<UpdateClubService>()
-    val closeClubService = mockk<CloseClubService>()
     val openClubService = mockk<OpenClubService>()
+    val clubConverter = clubConverter()
+    val closeClubService = mockk<CloseClubService>()
     val exitClubService = mockk<ExitClubService>()
     val deleteClubService = mockk<DeleteClubService>()
     val detailClubService = mockk<DetailClubService>()
+    val operationPlanConverter = operationPlanConverter()
+    val createOperationPlanService = mockk<CreateOperationPlanService>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -37,8 +46,11 @@ class OpenClubControllerTest : BehaviorSpec({
         exitClubService,
         deleteClubService,
         detailClubService,
-        clubConverter()
+        createOperationPlanService,
+        clubConverter,
+        operationPlanConverter
     )
+
     Given("요청이 들어오면") {
         When("is received") {
             every { openClubService.execute(1) } returns ClubStatusDto(true)

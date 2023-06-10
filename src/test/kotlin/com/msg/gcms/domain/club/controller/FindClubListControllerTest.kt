@@ -8,7 +8,9 @@ import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.service.impl.UpdateClubServiceImpl
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
+import com.msg.gcms.domain.club.utils.impl.OperationPlanConverterImpl
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -25,14 +27,22 @@ class FindClubListControllerTest : BehaviorSpec({
         return ClubConverterImpl()
     }
 
+    @Bean
+    fun operationPlanConverter(): OperationPlanConverter {
+        return OperationPlanConverterImpl()
+    }
+
     val findClubListService = mockk<FindClubListService>()
     val createClubService = mockk<CreateClubService>()
-    val updateClubService = mockk<UpdateClubServiceImpl>()
+    val updateClubService = mockk<UpdateClubService>()
     val openClubService = mockk<OpenClubService>()
+    val clubConverter = clubConverter()
     val closeClubService = mockk<CloseClubService>()
     val exitClubService = mockk<ExitClubService>()
     val deleteClubService = mockk<DeleteClubService>()
     val detailClubService = mockk<DetailClubService>()
+    val operationPlanConverter = operationPlanConverter()
+    val createOperationPlanService = mockk<CreateOperationPlanService>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -42,7 +52,9 @@ class FindClubListControllerTest : BehaviorSpec({
         exitClubService,
         deleteClubService,
         detailClubService,
-        clubConverter()
+        createOperationPlanService,
+        clubConverter,
+        operationPlanConverter
     )
 
     given("find club list request") {
