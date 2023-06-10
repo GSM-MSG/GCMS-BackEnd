@@ -2,11 +2,13 @@ package com.msg.gcms.domain.club.presentation
 
 import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
+import com.msg.gcms.domain.club.presentation.data.request.CreateOperationPlanRequest
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
 import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.presentation.data.response.DetailClubResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,7 +25,9 @@ class ClubController(
     private val exitClubService: ExitClubService,
     private val deleteClubService: DeleteClubService,
     private val detailClubService: DetailClubService,
-    private val clubConverter: ClubConverter
+    private val createOperationPlanService: CreateOperationPlanService,
+    private val clubConverter: ClubConverter,
+    private val operationPlanConverter: OperationPlanConverter
 ) {
     @PostMapping
     fun createClub(@Valid @RequestBody createClubRequest: CreateClubRequest): ResponseEntity<Void> =
@@ -72,4 +76,10 @@ class ClubController(
     fun deleteClub(@PathVariable club_id: Long): ResponseEntity<Void> =
         deleteClubService.execute(club_id)
             .let { ResponseEntity.noContent().build() }
+
+    @PostMapping("/operation/{club_id}")
+    fun createOperationPlan(@PathVariable("club_id") clubId: Long, createOperationPlanRequest: CreateOperationPlanRequest): ResponseEntity<Void> =
+        operationPlanConverter.toDto(createOperationPlanRequest)
+            .let { createOperationPlanService.execute(clubId, it) }
+            .let { ResponseEntity(HttpStatus.CREATED) }
 }
