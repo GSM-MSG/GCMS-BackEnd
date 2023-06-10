@@ -53,6 +53,10 @@ class Club(
     val clubMember: List<ClubMember> = listOf(),
 
     @Enumerated(value = EnumType.STRING)
-    val clubStatus: ClubStatus = ClubStatus.PENDING
+    val clubStatus: ClubStatus = ClubStatus.PENDING,
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "club")
+    @MapsId
+    val operationPlan: OperationPlan? = null
 ) {
 }
