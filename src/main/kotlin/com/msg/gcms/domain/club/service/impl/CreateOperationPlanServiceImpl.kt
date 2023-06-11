@@ -24,7 +24,10 @@ class CreateOperationPlanServiceImpl(
     override fun execute(clubId: Long, operationPlanDto: OperationPlanDto) {
         val club: Club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
         val monthlyPlan = operationPlanDto.monthlyPlan
-                .map { MonthlyPlan(it) }
+                .map { MonthlyPlan(
+                    month = it.month,
+                    plan = it.plan
+                ) }
 
         monthlyPlanRepository.saveAll(monthlyPlan)
 

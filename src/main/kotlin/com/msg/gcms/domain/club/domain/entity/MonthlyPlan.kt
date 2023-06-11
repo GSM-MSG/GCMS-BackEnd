@@ -15,9 +15,4 @@ class MonthlyPlan(
     val month: Long,
 
     val plan: String
-) {
-    constructor(monthlyPlanDto: OperationPlanDto.MonthlyPlanDto): this(
-        month = monthlyPlanDto.month,
-        plan = monthlyPlanDto.plan
-    )
-}
+)
