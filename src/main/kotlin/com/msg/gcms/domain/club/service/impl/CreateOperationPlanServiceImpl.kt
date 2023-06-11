@@ -10,6 +10,7 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.presentation.data.dto.OperationPlanDto
 import com.msg.gcms.domain.club.presentation.data.request.CreateOperationPlanRequest
 import com.msg.gcms.domain.club.service.CreateOperationPlanService
+import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,10 +20,11 @@ import org.springframework.transaction.annotation.Transactional
 class CreateOperationPlanServiceImpl(
     private val operationPlanRepository: OperationPlanRepository,
     private val monthlyPlanRepository: MonthlyPlanRepository,
-    private val clubRepository: ClubRepository
+    private val clubRepository: ClubRepository,
+    private val operationPlanConverter: OperationPlanConverter
 ): CreateOperationPlanService {
     override fun execute(clubId: Long, operationPlanDto: OperationPlanDto) {
-        val club: Club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
+        val foundClub: Club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
         val monthlyPlan = operationPlanDto.monthlyPlan
                 .map { MonthlyPlan(
                     month = it.month,
@@ -40,7 +42,9 @@ class CreateOperationPlanServiceImpl(
             monthlyPlan = monthlyPlan
         )
 
-        club.updateOperationPlan(operationPlan)
+        val club = operationPlanConverter.toEntity(clubId, operationPlan, foundClub)
+
+        clubRepository.save(club)
         operationPlanRepository.save(operationPlan)
     }
 }
