@@ -8,5 +8,5 @@ import com.msg.gcms.domain.club.presentation.data.request.CreateOperationPlanReq
 interface OperationPlanConverter {
     fun toDto(createOperationPlanRequest: CreateOperationPlanRequest): OperationPlanDto
     fun toDto(monthlyPlan: List<CreateOperationPlanRequest.CreateMonthlyPlanRequest>): List<OperationPlanDto.MonthlyPlanDto>
-    fun toEntity(clubId: Long, operationPlan: OperationPlan, club: Club): Club
+    fun toEntity(operationPlan: OperationPlan, club: Club): Club
 }

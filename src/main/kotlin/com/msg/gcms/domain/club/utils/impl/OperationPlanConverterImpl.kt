@@ -22,9 +22,9 @@ class OperationPlanConverterImpl: OperationPlanConverter {
     override fun toDto(monthlyPlan: List<CreateOperationPlanRequest.CreateMonthlyPlanRequest>): List<OperationPlanDto.MonthlyPlanDto> =
         monthlyPlan.map { OperationPlanDto.MonthlyPlanDto(it) }
 
-    override fun toEntity(clubId: Long, operationPlan: OperationPlan, club: Club): Club =
+    override fun toEntity(operationPlan: OperationPlan, club: Club): Club =
         Club(
-            id = clubId,
+            id = club.id,
             name = club.name,
             bannerImg = club.bannerImg,
             content = club.content,
