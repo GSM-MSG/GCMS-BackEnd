@@ -57,5 +57,5 @@ class Club(
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "club")
     @MapsId
-    var operationPlan: OperationPlan? = null
+    val operationPlan: OperationPlan? = null
 )
