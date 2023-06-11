@@ -42,9 +42,9 @@ class CreateOperationPlanServiceImpl(
             monthlyPlan = monthlyPlan
         )
 
-        val club = operationPlanConverter.toEntity(clubId, operationPlan, foundClub)
-
-        clubRepository.save(club)
         operationPlanRepository.save(operationPlan)
+
+        val club = operationPlanConverter.toEntity(operationPlan, foundClub)
+        clubRepository.save(club)
     }
 }
