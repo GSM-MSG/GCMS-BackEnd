@@ -18,6 +18,8 @@ class OperationPlan(
 
     val rule: String,
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation_plan", cascade = [CascadeType.REMOVE])
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
+    @JoinColumn(name = "monthly_plan_id")
     val monthlyPlan: List<MonthlyPlan>
 )

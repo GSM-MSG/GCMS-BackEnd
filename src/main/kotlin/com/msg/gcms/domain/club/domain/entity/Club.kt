@@ -55,7 +55,7 @@ class Club(
     @Enumerated(value = EnumType.STRING)
     val clubStatus: ClubStatus = ClubStatus.PENDING,
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "club")
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
+    @JoinColumn(name = "operation_plan_id")
     val operationPlan: OperationPlan? = null
 )
