@@ -60,3 +60,7 @@ fcm:
 discord:
   webhook:
     url: ${DISCORD_WEBHOOK_URL}
+
+hwp:
+  file:
+    url: ${HWP_FILE_URL}
