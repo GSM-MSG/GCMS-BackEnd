@@ -12,12 +12,12 @@ class HwpUtilImpl: HwpUtil {
     override fun readFile(url: String): HWPFile =
         HWPReader.fromURL(url)
 
-    override fun findCellByFieldName(hwpFile: HWPFile, index: Int, fieldName: String, content: String) {
+    override fun findCellByFieldName(hwpFile: HWPFile, index: Int, fieldName: String, content: String?) {
         CellFinder.findAll(hwpFile, fieldName)
             .map {
                 val para = it.paragraphList.getParagraph(index)
                 para.text ?: para.createText()
-                para.text.addString(content)
+                para.text.addString(content ?: "")
             }
     }
 }
