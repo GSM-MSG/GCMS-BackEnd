@@ -31,6 +31,7 @@ enum class ErrorCode(
     CLUB_MEMBER_RELEASE_NOT_FOUND("방출하려는 유저가 존재하지 않는 경우", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없음", 404),
     CLUB_NOT_FOUND("해당 동아리를 찾을 수 없음", 404),
+    OPERATION_PLAN_NOT_FOUND("해당 운영계획서를 찾을 수 없음", 404),
     DEVICE_TOKEN_NOT_FOUND("디바이스 토큰을 찾을 수 없음", 404),
 
     ALREADY_CLUB_EXIST("해당 동아리가 이미 존재함", 409),
