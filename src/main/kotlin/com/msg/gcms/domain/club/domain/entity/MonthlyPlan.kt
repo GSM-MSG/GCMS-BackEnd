@@ -14,7 +14,7 @@ class MonthlyPlan(
 
     val month: Long,
 
-    val planSummary: String,
+    val summaryPlan: String,
 
     val plan: String
 )

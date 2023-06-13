@@ -16,6 +16,8 @@ data class CreateOperationPlanRequest(
     data class CreateMonthlyPlanRequest(
         val month: Long,
 
+        val summaryPlan: String,
+
         val plan: String
     )
 }
