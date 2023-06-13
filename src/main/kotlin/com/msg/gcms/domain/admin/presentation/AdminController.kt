@@ -83,4 +83,6 @@ class AdminController(
             .let { adminConverter.toResponse(it) }
             .let { ResponseEntity.ok().body(it) }
 
+    @GetMapping("/hwp/operation/{club_id}")
+    fun 
 }

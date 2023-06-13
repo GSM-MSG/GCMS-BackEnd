@@ -30,29 +30,29 @@ class ClubOperationPlanHwpServiceImpl(
         val operationPlan = operationPlanRepository.findByIdOrNull(clubId) ?: throw OperationPlanNotFoundException()
         val user: User = club.user
 
-        hwpUtil.findCellByFieldName(hwpFile, "분야", operationPlan.field)
-        hwpUtil.findCellByFieldName(hwpFile, "동아리 장소", operationPlan.place)
-        hwpUtil.findCellByFieldName(hwpFile, "동아리명", club.name)
-        hwpUtil.findCellByFieldName(hwpFile, "지도교사", club.teacher)
+        hwpUtil.insertByFieldName(hwpFile, "분야", operationPlan.field)
+        hwpUtil.insertByFieldName(hwpFile, "동아리 장소", operationPlan.place)
+        hwpUtil.insertByFieldName(hwpFile, "동아리명", club.name)
+        hwpUtil.insertByFieldName(hwpFile, "지도교사", club.teacher)
 
-        hwpUtil.findCellByFieldName(hwpFile, "학번 이름1", sortNameAndNum(user))
-        hwpUtil.findCellByFieldName(hwpFile, "담당역할1", "부장")
+        hwpUtil.insertByFieldName(hwpFile, "학번 이름1", sortNameAndNum(user))
+        hwpUtil.insertByFieldName(hwpFile, "담당역할1", "부장")
 
         for(i in 2..12) {
             val member = club.clubMember[i - 2].user
-            hwpUtil.findCellByFieldName(hwpFile, "학번 이름${i}", sortNameAndNum(member))
-            hwpUtil.findCellByFieldName(hwpFile, "담당역할${i}", "")
+            hwpUtil.insertByFieldName(hwpFile, "학번 이름${i}", sortNameAndNum(member))
+            hwpUtil.insertByFieldName(hwpFile, "담당역할${i}", "")
         }
 
-        hwpUtil.findCellByFieldName(hwpFile, "연구주제", operationPlan.subject)
-        hwpUtil.findCellByFieldName(hwpFile, "연구내용", operationPlan.content)
-        hwpUtil.findCellByFieldName(hwpFile, "동아리 운영 규칙", operationPlan.rule)
+        hwpUtil.insertByFieldName(hwpFile, "연구주제", operationPlan.subject)
+        hwpUtil.insertByFieldName(hwpFile, "연구내용", operationPlan.content)
+        hwpUtil.insertByFieldName(hwpFile, "동아리 운영 규칙", operationPlan.rule)
 
 
         operationPlan.monthlyPlan
             .map {
-                hwpUtil.findCellByFieldName(hwpFile, "${it.month}월 개요", it.summaryPlan)
-                hwpUtil.findCellByFieldName(hwpFile, "${it.month}월 연구 내용", it.plan)
+                hwpUtil.insertByFieldName(hwpFile, "${it.month}월 개요", it.summaryPlan)
+                hwpUtil.insertByFieldName(hwpFile, "${it.month}월 연구 내용", it.plan)
         }
 
         val outPutStream = ByteArrayOutputStream()
