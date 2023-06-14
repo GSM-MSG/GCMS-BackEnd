@@ -39,8 +39,7 @@ class ClubOperationPlanHwpServiceImpl(
         hwpUtil.insertByFieldName(hwpFile, "담당역할1", "부장")
 
         for(i in 2..12) {
-            val member = club.clubMember[i - 2].user
-            hwpUtil.insertByFieldName(hwpFile, "학번 이름${i}", sortNameAndNum(member))
+            hwpUtil.insertByFieldName(hwpFile, "학번 이름${i}", sortNameAndNum(club.clubMember[i - 2].user))
             hwpUtil.insertByFieldName(hwpFile, "담당역할${i}", "")
         }
 
