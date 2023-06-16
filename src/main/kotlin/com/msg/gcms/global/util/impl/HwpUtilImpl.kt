@@ -7,7 +7,7 @@ import kr.dogfoot.hwplib.tool.objectfinder.CellFinder
 import org.springframework.stereotype.Component
 
 @Component
-class HwpUtilImpl: HwpUtil {
+class HwpUtilImpl : HwpUtil {
     override fun readFile(url: String): HWPFile =
         HWPReader.fromURL(url)
 
