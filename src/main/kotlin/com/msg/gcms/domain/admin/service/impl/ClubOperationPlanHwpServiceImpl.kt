@@ -21,7 +21,7 @@ class ClubOperationPlanHwpServiceImpl(
     private val operationPlanRepository: OperationPlanRepository,
     private val hwpProperties: HwpProperties,
     private val hwpUtil: HwpUtil
-): ClubOperationPlanHwpService {
+) : ClubOperationPlanHwpService {
     override fun execute(clubId: Long): ByteArray {
         val hwpUrl = hwpProperties.url
         val hwpFile = hwpUtil.readFile(hwpUrl)

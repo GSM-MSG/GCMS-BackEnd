@@ -21,7 +21,7 @@ class CreateOperationPlanServiceImpl(
     private val monthlyPlanRepository: MonthlyPlanRepository,
     private val clubRepository: ClubRepository,
     private val operationPlanConverter: OperationPlanConverter
-): CreateOperationPlanService {
+) : CreateOperationPlanService {
     override fun execute(clubId: Long, operationPlanDto: OperationPlanDto) {
         val foundClub: Club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
         val monthlyPlan = operationPlanDto.monthlyPlan
