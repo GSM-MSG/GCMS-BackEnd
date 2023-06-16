@@ -18,10 +18,13 @@ data class OperationPlanDto(
     data class MonthlyPlanDto(
         val month: Long,
 
+        val summaryPlan: String,
+
         val plan: String
     ) {
         constructor(createMonthlyPlanRequest: CreateOperationPlanRequest.CreateMonthlyPlanRequest): this(
             month = createMonthlyPlanRequest.month,
+            summaryPlan = createMonthlyPlanRequest.summaryPlan,
             plan = createMonthlyPlanRequest.plan
         )
     }

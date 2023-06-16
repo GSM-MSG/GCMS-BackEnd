@@ -48,6 +48,7 @@ dependencies {
 	implementation("org.apache.poi:poi-ooxml:5.2.2")
 	implementation("com.google.firebase:firebase-admin:7.3.0")
 	implementation("com.squareup.okhttp3:okhttp:4.10.0")
+	implementation("kr.dogfoot:hwplib:1.1.1")
 }
 
 tasks.withType<KotlinCompile> {

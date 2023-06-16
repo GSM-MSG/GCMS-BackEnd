@@ -28,7 +28,8 @@ class AdminController(
     private val rejectClubService: RejectClubService,
     private val findAllUserListService: FindAllUserListService,
     private val userDetailInfoService: UserDetailInfoService,
-    private val findAllStatisticsService: FindAllStatisticsService
+    private val findAllStatisticsService: FindAllStatisticsService,
+    private val clubOperationPlanHwpService: ClubOperationPlanHwpService
 ) {
 
     @GetMapping("/excel/club")
@@ -83,4 +84,9 @@ class AdminController(
             .let { adminConverter.toResponse(it) }
             .let { ResponseEntity.ok().body(it) }
 
+    @GetMapping("/hwp/operation/{club_id}")
+    fun getOperationPlanToHwp(@PathVariable("club_id") clubId: Long, response: HttpServletResponse): ByteArray {
+        response.setHeader("Content-Disposition", "attachment; filename=club.xlsx")
+        return clubOperationPlanHwpService.execute(clubId)
+    }
 }
