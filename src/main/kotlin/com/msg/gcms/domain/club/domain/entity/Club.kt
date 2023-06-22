@@ -57,5 +57,10 @@ class Club(
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "operation_plan_id")
-    val operationPlan: OperationPlan? = null
+    val operationPlan: OperationPlan? = null,
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_opening_application_id")
+    val clubOpeningApplication: ClubOpeningApplication? = null
+
 )
