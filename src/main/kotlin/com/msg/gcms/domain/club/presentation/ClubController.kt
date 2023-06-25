@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.club.presentation
 
 import com.msg.gcms.domain.club.enums.ClubType
+import com.msg.gcms.domain.club.presentation.data.request.CreateClubOpeningApplicationRequest
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubRequest
 import com.msg.gcms.domain.club.presentation.data.request.CreateOperationPlanRequest
 import com.msg.gcms.domain.club.presentation.data.request.UpdateClubRequest
@@ -8,6 +9,7 @@ import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.presentation.data.response.DetailClubResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.domain.club.utils.ClubOpeningApplicationServiceConverter
 import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
@@ -26,8 +28,10 @@ class ClubController(
     private val deleteClubService: DeleteClubService,
     private val detailClubService: DetailClubService,
     private val createOperationPlanService: CreateOperationPlanService,
+    private val createClubOpeningApplicationService: CreateClubOpeningApplicationService,
     private val clubConverter: ClubConverter,
-    private val operationPlanConverter: OperationPlanConverter
+    private val operationPlanConverter: OperationPlanConverter,
+    private val createClubOpeningApplicationServiceConverter: ClubOpeningApplicationServiceConverter
 ) {
     @PostMapping
     fun createClub(@Valid @RequestBody createClubRequest: CreateClubRequest): ResponseEntity<Void> =
@@ -81,5 +85,11 @@ class ClubController(
     fun createOperationPlan(@PathVariable("club_id") clubId: Long, createOperationPlanRequest: CreateOperationPlanRequest): ResponseEntity<Void> =
         operationPlanConverter.toDto(createOperationPlanRequest)
             .let { createOperationPlanService.execute(clubId, it) }
+            .let { ResponseEntity(HttpStatus.CREATED) }
+
+    @PostMapping("/application/{club_id}")
+    fun createClubOpeningApplication(@PathVariable("club_id") clubId: Long, createClubOpeningApplicationRequest: CreateClubOpeningApplicationRequest) : ResponseEntity<Void> =
+        createClubOpeningApplicationServiceConverter.toDto(createClubOpeningApplicationRequest)
+            .let { createClubOpeningApplicationService.execute(clubId, it) }
             .let { ResponseEntity(HttpStatus.CREATED) }
 }

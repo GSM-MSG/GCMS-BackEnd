@@ -3,6 +3,8 @@ package com.msg.gcms.domain.club.utils.impl
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.entity.ClubOpeningApplication
 import com.msg.gcms.domain.club.enums.ClubStatus
+import com.msg.gcms.domain.club.presentation.data.dto.ClubOpeningApplicationDto
+import com.msg.gcms.domain.club.presentation.data.request.CreateClubOpeningApplicationRequest
 import com.msg.gcms.domain.club.utils.ClubOpeningApplicationServiceConverter
 import org.springframework.stereotype.Component
 
@@ -25,5 +27,13 @@ class ClubOpeningApplicationServiceConverterImpl : ClubOpeningApplicationService
             isOpened = club.isOpened,
             clubStatus = ClubStatus.PENDING,
             clubOpeningApplication = clubOpeningApplication
+        )
+
+    override fun toDto(createClubOpeningApplicationRequest: CreateClubOpeningApplicationRequest): ClubOpeningApplicationDto =
+        ClubOpeningApplicationDto(
+            subject = createClubOpeningApplicationRequest.subject,
+            reason = createClubOpeningApplicationRequest.reason,
+            target = createClubOpeningApplicationRequest.target,
+            effect = createClubOpeningApplicationRequest.effect
         )
 }
