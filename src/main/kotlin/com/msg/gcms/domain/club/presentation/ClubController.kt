@@ -56,29 +56,29 @@ class ClubController(
     }
 
     @PatchMapping("/{club_id}")
-    fun updateClubById(@PathVariable club_id: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
+    fun updateClubById(@PathVariable("club_id") clubId: Long, @Valid @RequestBody updateClubRequest: UpdateClubRequest): ResponseEntity<Void> =
         clubConverter.toDto(updateClubRequest)
-            .let { updateClubService.execute(club_id, it) }
+            .let { updateClubService.execute(clubId, it) }
             .let { ResponseEntity.noContent().build() }
 
     @PatchMapping("/{club_id}/close")
-    fun closeClub(@PathVariable club_id: Long): ResponseEntity<Void> =
-        closeClubService.execute(club_id)
+    fun closeClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        closeClubService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
 
     @PatchMapping("/{club_id}/open")
-    fun openClub(@PathVariable club_id: Long): ResponseEntity<Void> =
-        openClubService.execute(club_id)
+    fun openClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        openClubService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
 
     @DeleteMapping("/{club_id}/exit")
-    fun exitClub(@PathVariable club_id: Long): ResponseEntity<Void> =
-        exitClubService.execute(club_id)
+    fun exitClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        exitClubService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
 
     @DeleteMapping("/{club_id}")
-    fun deleteClub(@PathVariable club_id: Long): ResponseEntity<Void> =
-        deleteClubService.execute(club_id)
+    fun deleteClub(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        deleteClubService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
 
     @PostMapping("/operation/{club_id}")

@@ -33,9 +33,9 @@ class ClubMemberController(
             .let { exitClubMemberService.execute(it) }
             .let { ResponseEntity.noContent().build() }
     @PatchMapping("/{club_id}")
-    fun delegateHead(@PathVariable club_id: Long, @RequestBody delegateHeadRequest: DelegateHeadRequest): ResponseEntity<Void> =
+    fun delegateHead(@PathVariable("club_id") clubId: Long, @RequestBody delegateHeadRequest: DelegateHeadRequest): ResponseEntity<Void> =
         clubMemberConverter.toDto(delegateHeadRequest)
-            .let { delegateHeadService.execute(club_id, it) }
+            .let { delegateHeadService.execute(clubId, it) }
             .let { ResponseEntity.noContent().build() }
 
 }
