@@ -5,11 +5,11 @@ import com.msg.gcms.domain.club.domain.entity.ClubOpeningApplication
 import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.presentation.data.dto.ClubOpeningApplicationDto
 import com.msg.gcms.domain.club.presentation.data.request.CreateClubOpeningApplicationRequest
-import com.msg.gcms.domain.club.utils.ClubOpeningApplicationServiceConverter
+import com.msg.gcms.domain.club.utils.ClubOpeningApplicationConverter
 import org.springframework.stereotype.Component
 
 @Component
-class ClubOpeningApplicationServiceConverterImpl : ClubOpeningApplicationServiceConverter {
+class ClubOpeningApplicationConverterImpl : ClubOpeningApplicationConverter {
     override fun toEntity(clubOpeningApplication: ClubOpeningApplication, club: Club): Club =
         Club(
             id = 0,

@@ -9,7 +9,7 @@ import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.presentation.data.response.DetailClubResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
-import com.msg.gcms.domain.club.utils.ClubOpeningApplicationServiceConverter
+import com.msg.gcms.domain.club.utils.ClubOpeningApplicationConverter
 import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
@@ -31,7 +31,7 @@ class ClubController(
     private val createClubOpeningApplicationService: CreateClubOpeningApplicationService,
     private val clubConverter: ClubConverter,
     private val operationPlanConverter: OperationPlanConverter,
-    private val createClubOpeningApplicationServiceConverter: ClubOpeningApplicationServiceConverter
+    private val createClubOpeningApplicationConverter: ClubOpeningApplicationConverter
 ) {
     @PostMapping
     fun createClub(@Valid @RequestBody createClubRequest: CreateClubRequest): ResponseEntity<Void> =
@@ -89,7 +89,7 @@ class ClubController(
 
     @PostMapping("/application/{club_id}")
     fun createClubOpeningApplication(@PathVariable("club_id") clubId: Long, createClubOpeningApplicationRequest: CreateClubOpeningApplicationRequest) : ResponseEntity<Void> =
-        createClubOpeningApplicationServiceConverter.toDto(createClubOpeningApplicationRequest)
+        createClubOpeningApplicationConverter.toDto(createClubOpeningApplicationRequest)
             .let { createClubOpeningApplicationService.execute(clubId, it) }
             .let { ResponseEntity(HttpStatus.CREATED) }
 }

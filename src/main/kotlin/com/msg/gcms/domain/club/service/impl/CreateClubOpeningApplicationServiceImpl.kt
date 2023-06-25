@@ -6,7 +6,7 @@ import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.presentation.data.dto.ClubOpeningApplicationDto
 import com.msg.gcms.domain.club.service.CreateClubOpeningApplicationService
-import com.msg.gcms.domain.club.utils.ClubOpeningApplicationServiceConverter
+import com.msg.gcms.domain.club.utils.ClubOpeningApplicationConverter
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 class CreateClubOpeningApplicationServiceImpl(
     private val clubRepository: ClubRepository,
     private val clubOpeningApplicationRepository: ClubOpeningApplicationRepository,
-    private val clubOpeningApplicationServiceConverter: ClubOpeningApplicationServiceConverter
+    private val clubOpeningApplicationConverter: ClubOpeningApplicationConverter
 ) : CreateClubOpeningApplicationService {
     override fun execute(clubId: Long, clubOpeningApplicationDto: ClubOpeningApplicationDto) {
         val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
@@ -30,6 +30,6 @@ class CreateClubOpeningApplicationServiceImpl(
 
         clubOpeningApplicationRepository.save(clubOpeningApplication)
 
-        clubRepository.save(clubOpeningApplicationServiceConverter.toEntity(clubOpeningApplication, club))
+        clubRepository.save(clubOpeningApplicationConverter.toEntity(clubOpeningApplication, club))
     }
 }
