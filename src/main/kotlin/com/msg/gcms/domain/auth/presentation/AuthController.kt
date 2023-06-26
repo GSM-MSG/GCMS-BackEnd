@@ -35,5 +35,4 @@ class AuthController(
         logoutService.execute()
         return ResponseEntity.noContent().build()
     }
-
 }

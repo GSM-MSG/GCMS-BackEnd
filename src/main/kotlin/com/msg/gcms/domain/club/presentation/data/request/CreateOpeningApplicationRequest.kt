@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.presentation.data.request
 
-data class CreateClubOpeningApplicationRequest(
+data class CreateOpeningApplicationRequest(
     val subject: String,
 
     val reason: String,

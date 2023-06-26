@@ -1,16 +1,16 @@
 package com.msg.gcms.domain.club.utils.impl
 
 import com.msg.gcms.domain.club.domain.entity.Club
-import com.msg.gcms.domain.club.domain.entity.ClubOpeningApplication
+import com.msg.gcms.domain.club.domain.entity.OpeningApplication
 import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.presentation.data.dto.ClubOpeningApplicationDto
-import com.msg.gcms.domain.club.presentation.data.request.CreateClubOpeningApplicationRequest
-import com.msg.gcms.domain.club.utils.ClubOpeningApplicationConverter
+import com.msg.gcms.domain.club.presentation.data.request.CreateOpeningApplicationRequest
+import com.msg.gcms.domain.club.utils.OpeningApplicationConverter
 import org.springframework.stereotype.Component
 
 @Component
-class ClubOpeningApplicationConverterImpl : ClubOpeningApplicationConverter {
-    override fun toEntity(clubOpeningApplication: ClubOpeningApplication, club: Club): Club =
+class OpeningApplicationConverterImpl : OpeningApplicationConverter {
+    override fun toEntity(openingApplication: OpeningApplication, club: Club): Club =
         Club(
             id = 0,
             type = club.type,
@@ -26,14 +26,14 @@ class ClubOpeningApplicationConverterImpl : ClubOpeningApplicationConverter {
             applicant = club.applicant,
             isOpened = club.isOpened,
             clubStatus = ClubStatus.PENDING,
-            clubOpeningApplication = clubOpeningApplication
+            openingApplication = openingApplication
         )
 
-    override fun toDto(createClubOpeningApplicationRequest: CreateClubOpeningApplicationRequest): ClubOpeningApplicationDto =
+    override fun toDto(createOpeningApplicationRequest: CreateOpeningApplicationRequest): ClubOpeningApplicationDto =
         ClubOpeningApplicationDto(
-            subject = createClubOpeningApplicationRequest.subject,
-            reason = createClubOpeningApplicationRequest.reason,
-            target = createClubOpeningApplicationRequest.target,
-            effect = createClubOpeningApplicationRequest.effect
+            subject = createOpeningApplicationRequest.subject,
+            reason = createOpeningApplicationRequest.reason,
+            target = createOpeningApplicationRequest.target,
+            effect = createOpeningApplicationRequest.effect
         )
 }
