@@ -1,10 +1,10 @@
 package com.msg.gcms.domain.club.service.impl
 
 import com.msg.gcms.domain.club.domain.entity.OpeningApplication
-import com.msg.gcms.domain.club.domain.repository.ClubOpeningApplicationRepository
+import com.msg.gcms.domain.club.domain.repository.OpeningApplicationRepository
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
-import com.msg.gcms.domain.club.presentation.data.dto.ClubOpeningApplicationDto
+import com.msg.gcms.domain.club.presentation.data.dto.OpeningApplicationDto
 import com.msg.gcms.domain.club.service.CreateOpeningApplicationService
 import com.msg.gcms.domain.club.utils.OpeningApplicationConverter
 import org.springframework.data.repository.findByIdOrNull
@@ -15,20 +15,20 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(rollbackFor = [Exception::class])
 class CreateOpeningApplicationServiceImpl(
     private val clubRepository: ClubRepository,
-    private val clubOpeningApplicationRepository: ClubOpeningApplicationRepository,
+    private val openingApplicationRepository: OpeningApplicationRepository,
     private val openingApplicationConverter: OpeningApplicationConverter
 ) : CreateOpeningApplicationService {
-    override fun execute(clubId: Long, clubOpeningApplicationDto: ClubOpeningApplicationDto) {
+    override fun execute(clubId: Long, openingApplicationDto: OpeningApplicationDto) {
         val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
 
         val openingApplication = OpeningApplication(
-            subject = clubOpeningApplicationDto.subject,
-            reason = clubOpeningApplicationDto.reason,
-            target = clubOpeningApplicationDto.target,
-            effect = clubOpeningApplicationDto.effect
+            subject = openingApplicationDto.subject,
+            reason = openingApplicationDto.reason,
+            target = openingApplicationDto.target,
+            effect = openingApplicationDto.effect
         )
 
-        clubOpeningApplicationRepository.save(openingApplication)
+        openingApplicationRepository.save(openingApplication)
 
         clubRepository.save(openingApplicationConverter.toEntity(openingApplication, club))
     }

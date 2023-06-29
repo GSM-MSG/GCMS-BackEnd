@@ -60,7 +60,7 @@ class Club(
     val operationPlan: OperationPlan? = null,
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "club_opening_application_id")
+    @JoinColumn(name = "opening_application_id")
     val openingApplication: OpeningApplication? = null
 
 )

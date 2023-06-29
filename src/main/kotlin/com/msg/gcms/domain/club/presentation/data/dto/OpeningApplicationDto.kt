@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.club.presentation.data.dto
 
-data class ClubOpeningApplicationDto(
+data class OpeningApplicationDto(
     val subject: String,
 
     val reason: String,

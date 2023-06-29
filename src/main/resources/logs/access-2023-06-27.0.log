@@ -1,0 +1,15 @@
+2023-06-27 14:45:57.281  INFO 34907 --- [http-nio-8080-exec-1] RequestLogFilter                         : client ip = 0:0:0:0:0:0:0:1
+2023-06-27 14:45:57.281  INFO 34907 --- [http-nio-8080-exec-1] RequestLogFilter                         : request method = GET
+2023-06-27 14:45:57.281  INFO 34907 --- [http-nio-8080-exec-1] RequestLogFilter                         : request url = /login/oauth/code/gauth
+2023-06-27 14:45:57.281  INFO 34907 --- [http-nio-8080-exec-1] RequestLogFilter                         : client info = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+2023-06-27 14:45:57.296  INFO 34907 --- [http-nio-8080-exec-1] RequestLogFilter                         : response status = 404
+2023-06-27 14:45:57.347  INFO 34907 --- [http-nio-8080-exec-2] RequestLogFilter                         : client ip = 0:0:0:0:0:0:0:1
+2023-06-27 14:45:57.347  INFO 34907 --- [http-nio-8080-exec-2] RequestLogFilter                         : request method = GET
+2023-06-27 14:45:57.347  INFO 34907 --- [http-nio-8080-exec-2] RequestLogFilter                         : request url = /favicon.ico
+2023-06-27 14:45:57.348  INFO 34907 --- [http-nio-8080-exec-2] RequestLogFilter                         : client info = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+2023-06-27 14:45:57.349  INFO 34907 --- [http-nio-8080-exec-2] RequestLogFilter                         : response status = 404
+2023-06-27 14:46:17.352  INFO 34907 --- [http-nio-8080-exec-4] RequestLogFilter                         : client ip = 0:0:0:0:0:0:0:1
+2023-06-27 14:46:17.353  INFO 34907 --- [http-nio-8080-exec-4] RequestLogFilter                         : request method = POST
+2023-06-27 14:46:17.353  INFO 34907 --- [http-nio-8080-exec-4] RequestLogFilter                         : request url = /auth
+2023-06-27 14:46:17.353  INFO 34907 --- [http-nio-8080-exec-4] RequestLogFilter                         : client info = PostmanRuntime/7.32.3
+2023-06-27 14:46:20.078  INFO 34907 --- [http-nio-8080-exec-4] RequestLogFilter                         : response status = 200

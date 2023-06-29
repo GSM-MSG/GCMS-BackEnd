@@ -88,7 +88,7 @@ class ClubController(
             .let { ResponseEntity(HttpStatus.CREATED) }
 
     @PostMapping("/application/{club_id}")
-    fun createClubOpeningApplication(@PathVariable("club_id") clubId: Long, createOpeningApplicationRequest: CreateOpeningApplicationRequest) : ResponseEntity<Void> =
+    fun createClubOpeningApplication(@PathVariable("club_id") clubId: Long, @RequestBody createOpeningApplicationRequest: CreateOpeningApplicationRequest) : ResponseEntity<Void> =
         openingApplicationConverter.toDto(createOpeningApplicationRequest)
             .let { createOpeningApplicationService.execute(clubId, it) }
             .let { ResponseEntity(HttpStatus.CREATED) }

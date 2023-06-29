@@ -1,7 +1,6 @@
 package com.msg.gcms.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.global.config.FilterConfig
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
@@ -36,51 +35,51 @@ class SecurityConfig(
             .requestMatchers(RequestMatcher { request ->
                 CorsUtils.isPreFlightRequest(request)
             }).permitAll()
-//
-//            .antMatchers(HttpMethod.POST, "/auth").permitAll()
-//            .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
-//            .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
-//
-//            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
-//            .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
-//            .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
-//
-//            .antMatchers(HttpMethod.POST, "/club").hasAnyRole("STUDENT")
-//            .antMatchers(HttpMethod.GET, "/club").permitAll()
-//            .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
-//            .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
-//            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/close").authenticated()
-//            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/open").authenticated()
-//            .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
-//            .antMatchers(HttpMethod.DELETE, "/club/{club_id}").authenticated()
-//            .antMatchers(HttpMethod.POST, "/club/operation/{club_id}").authenticated()
-//
-//            .antMatchers(HttpMethod.GET, "/user").authenticated()
-//            .antMatchers(HttpMethod.GET, "/user/search").authenticated()
-//            .antMatchers(HttpMethod.GET, "/user/profile").authenticated()
-//            .antMatchers(HttpMethod.PATCH, "/user").authenticated()
-//            .antMatchers(HttpMethod.DELETE, "/user").authenticated()
-//
-//            .antMatchers(HttpMethod.GET, "/applicant/{club_id}").authenticated()
-//            .antMatchers(HttpMethod.POST, "/applicant/{club_id}").hasAnyRole("STUDENT")
-//            .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").hasAnyRole("STUDENT")
-//            .antMatchers(HttpMethod.POST, "/applicant/{club_id}/accept").authenticated()
-//            .antMatchers(HttpMethod.POST, "/applicant/{club_id}/reject").authenticated()
-//
-//            .antMatchers(HttpMethod.POST, "/image").authenticated()
-//
-//            .antMatchers(HttpMethod.GET, "/admin/excel/club").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin/excel/club/member").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin/user").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin/user/{uuid}").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.PATCH, "/admin/{club_id}").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.DELETE, "/admin/{club_id}").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin/club/statistics").hasRole("ADMIN")
-//            .antMatchers(HttpMethod.GET, "/admin/hwp/operation/{club_id}").hasRole("ADMIN")
 
-            .anyRequest().permitAll()
+            .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
+
+            .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
+
+            .antMatchers(HttpMethod.POST, "/club").hasAnyRole("STUDENT")
+            .antMatchers(HttpMethod.GET, "/club").permitAll()
+            .antMatchers(HttpMethod.GET, "/club/{club_id}").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/club/{club_id}").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/close").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/club/{club_id}/open").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/club/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/club/operation/{club_id}").authenticated()
+
+            .antMatchers(HttpMethod.GET, "/user").authenticated()
+            .antMatchers(HttpMethod.GET, "/user/search").authenticated()
+            .antMatchers(HttpMethod.GET, "/user/profile").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/user").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/user").authenticated()
+
+            .antMatchers(HttpMethod.GET, "/applicant/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/applicant/{club_id}").hasAnyRole("STUDENT")
+            .antMatchers(HttpMethod.DELETE, "/applicant/{club_id}").hasAnyRole("STUDENT")
+            .antMatchers(HttpMethod.POST, "/applicant/{club_id}/accept").authenticated()
+            .antMatchers(HttpMethod.POST, "/applicant/{club_id}/reject").authenticated()
+
+            .antMatchers(HttpMethod.POST, "/image").authenticated()
+
+            .antMatchers(HttpMethod.GET, "/admin/excel/club").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/excel/club/grade").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/excel/club/member").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/user").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/user/{uuid}").hasRole("ADMIN")
+            .antMatchers(HttpMethod.PATCH, "/admin/{club_id}").hasRole("ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/admin/{club_id}").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/club/statistics").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/hwp/operation/{club_id}").hasRole("ADMIN")
+
+            .anyRequest().denyAll()
             .and()
             .exceptionHandling()
             .authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
