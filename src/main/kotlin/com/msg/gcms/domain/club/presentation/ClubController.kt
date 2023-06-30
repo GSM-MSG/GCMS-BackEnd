@@ -33,6 +33,7 @@ class ClubController(
     private val operationPlanConverter: OperationPlanConverter,
     private val openingApplicationConverter: OpeningApplicationConverter
 ) {
+
     @PostMapping
     fun createClub(@Valid @RequestBody createClubRequest: CreateClubRequest): ResponseEntity<Void> =
         clubConverter.toDto(createClubRequest)
@@ -92,4 +93,5 @@ class ClubController(
         openingApplicationConverter.toDto(createOpeningApplicationRequest)
             .let { createOpeningApplicationService.execute(clubId, it) }
             .let { ResponseEntity(HttpStatus.CREATED) }
+
 }

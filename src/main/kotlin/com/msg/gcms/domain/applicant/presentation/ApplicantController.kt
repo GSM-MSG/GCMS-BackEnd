@@ -56,4 +56,5 @@ class ApplicantController(
         applicantConverter.toDto(rejectRequestDto)
             .let { rejectApplicantService.execute(clubId, it) }
             .run { ResponseEntity.noContent().build() }
+
 }

@@ -19,6 +19,7 @@ class CreateOpeningApplicationServiceImpl(
     private val openingApplicationRepository: OpeningApplicationRepository,
     private val openingApplicationConverter: OpeningApplicationConverter
 ) : CreateOpeningApplicationService {
+
     override fun execute(clubId: Long, openingApplicationDto: OpeningApplicationDto) {
         val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
 
