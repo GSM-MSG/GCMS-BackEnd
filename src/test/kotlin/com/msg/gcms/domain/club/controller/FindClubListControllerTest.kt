@@ -8,6 +8,7 @@ import com.msg.gcms.domain.club.presentation.data.response.ClubListResponseDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.service.impl.UpdateClubServiceImpl
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.domain.club.utils.OpeningApplicationConverter
 import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import com.msg.gcms.domain.club.utils.impl.OperationPlanConverterImpl
@@ -43,6 +44,8 @@ class FindClubListControllerTest : BehaviorSpec({
     val detailClubService = mockk<DetailClubService>()
     val operationPlanConverter = operationPlanConverter()
     val createOperationPlanService = mockk<CreateOperationPlanService>()
+    val createOpeningApplicationService = mockk<CreateOpeningApplicationService>()
+    val openingApplicationConverter = mockk<OpeningApplicationConverter>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -53,8 +56,10 @@ class FindClubListControllerTest : BehaviorSpec({
         deleteClubService,
         detailClubService,
         createOperationPlanService,
+        createOpeningApplicationService,
         clubConverter,
-        operationPlanConverter
+        operationPlanConverter,
+        openingApplicationConverter
     )
 
     given("find club list request") {

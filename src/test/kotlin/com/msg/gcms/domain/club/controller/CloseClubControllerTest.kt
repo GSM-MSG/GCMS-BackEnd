@@ -4,6 +4,7 @@ import com.msg.gcms.domain.club.presentation.ClubController
 import com.msg.gcms.domain.club.presentation.data.dto.ClubStatusDto
 import com.msg.gcms.domain.club.service.*
 import com.msg.gcms.domain.club.utils.ClubConverter
+import com.msg.gcms.domain.club.utils.OpeningApplicationConverter
 import com.msg.gcms.domain.club.utils.OperationPlanConverter
 import com.msg.gcms.domain.club.utils.impl.ClubConverterImpl
 import com.msg.gcms.domain.club.utils.impl.OperationPlanConverterImpl
@@ -37,6 +38,8 @@ class CloseClubControllerTest : BehaviorSpec({
     val detailClubService = mockk<DetailClubService>()
     val operationPlanConverter = operationPlanConverter()
     val createOperationPlanService = mockk<CreateOperationPlanService>()
+    val createOpeningApplicationService = mockk<CreateOpeningApplicationService>()
+    val openingApplicationConverter = mockk<OpeningApplicationConverter>()
     val clubController = ClubController(
         createClubService,
         findClubListService,
@@ -47,8 +50,10 @@ class CloseClubControllerTest : BehaviorSpec({
         deleteClubService,
         detailClubService,
         createOperationPlanService,
+        createOpeningApplicationService,
         clubConverter,
-        operationPlanConverter
+        operationPlanConverter,
+        openingApplicationConverter
     )
 
     given("요청이 들어오면") {
