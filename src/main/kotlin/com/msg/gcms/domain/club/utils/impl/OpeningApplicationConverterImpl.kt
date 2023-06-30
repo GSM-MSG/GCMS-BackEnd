@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 class OpeningApplicationConverterImpl : OpeningApplicationConverter {
     override fun toEntity(openingApplication: OpeningApplication, club: Club): Club =
         Club(
-            id = 0,
+            id = club.id,
             type = club.type,
             name = club.name,
             content = club.content,
