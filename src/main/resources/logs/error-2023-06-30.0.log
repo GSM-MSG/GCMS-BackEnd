@@ -1,1 +1,28 @@
 2023-06-30 11:25:49.113 ERROR 99663 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.msg.gcms.domain.club.presentation.data.request.CreateOpeningApplicationRequest]: Constructor threw exception; nested exception is java.lang.NullPointerException: Parameter specified as non-null is null: method com.msg.gcms.domain.club.presentation.data.request.CreateOpeningApplicationRequest.<init>, parameter subject
+2023-06-30 12:01:57.129 ERROR 974 --- [http-nio-8080-exec-9] GlobalExceptionHandler                   : 해당 동아리가 이미 존재함
+2023-06-30 12:01:57.130 ERROR 974 --- [http-nio-8080-exec-9] GlobalExceptionHandler                   : /club
+2023-06-30 12:07:36.857 ERROR 1469 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.Exception
+2023-06-30 13:42:00.562 ERROR 2830 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : 이미 개설신청서가 제출하였습니다.
+2023-06-30 13:42:00.562 ERROR 2830 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : /club/application/10
+2023-06-30 13:51:51.553 ERROR 3414 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : 이미 개설신청서를 제출하였습니다.
+2023-06-30 13:51:51.554 ERROR 3414 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : /club/application/10
+2023-06-30 13:53:58.700 ERROR 3414 --- [http-nio-8080-exec-5] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:54:51.274 ERROR 3641 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:56:16.808 ERROR 3738 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:56:58.770 ERROR 3811 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:56:59.433 ERROR 3811 --- [http-nio-8080-exec-5] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:58:05.900 ERROR 3895 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:58:06.601 ERROR 3895 --- [http-nio-8080-exec-4] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 13:58:20.069 ERROR 3895 --- [http-nio-8080-exec-6] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 14:00:35.396 ERROR 4040 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 14:00:35.396 ERROR 4040 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is java.lang.NullPointerException
+2023-06-30 14:02:18.579 ERROR 4193 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : 이미 개설신청서를 제출하였습니다.
+2023-06-30 14:02:18.579 ERROR 4193 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : /club/application/10
+2023-06-30 14:02:29.840 ERROR 4193 --- [http-nio-8080-exec-4] GlobalExceptionHandler                   : 이미 개설신청서를 제출하였습니다.
+2023-06-30 14:02:29.841 ERROR 4193 --- [http-nio-8080-exec-4] GlobalExceptionHandler                   : /club/application/10
+2023-06-30 14:06:05.012 ERROR 4553 --- [http-nio-8080-exec-4] GlobalExceptionHandler                   : 이미 개설신청서를 제출하였습니다.
+2023-06-30 14:06:05.012 ERROR 4553 --- [http-nio-8080-exec-4] GlobalExceptionHandler                   : /club/application/10
+2023-06-30 14:06:16.732 ERROR 4553 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : 해당 동아리를 찾을 수 없음
+2023-06-30 14:06:16.733 ERROR 4553 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : /club/application/12
+2023-06-30 14:06:30.868 ERROR 4553 --- [http-nio-8080-exec-7] GlobalExceptionHandler                   : 이미 개설신청서를 제출하였습니다.
+2023-06-30 14:06:30.868 ERROR 4553 --- [http-nio-8080-exec-7] GlobalExceptionHandler                   : /club/application/2
