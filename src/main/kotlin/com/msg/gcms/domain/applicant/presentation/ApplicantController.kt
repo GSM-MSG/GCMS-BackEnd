@@ -29,32 +29,32 @@ class ApplicantController(
     }
 
     @PostMapping("/{club_id}")
-    fun apply(@PathVariable club_id: Long): ResponseEntity<Void> =
-        clubApplyService.execute(club_id)
+    fun apply(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        clubApplyService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
 
     @DeleteMapping("/{club_id}")
-    fun cancelApplication(@PathVariable club_id: Long): ResponseEntity<Void> =
-        cancelApplicationService.execute(club_id)
+    fun cancelApplication(@PathVariable("club_id") clubId: Long): ResponseEntity<Void> =
+        cancelApplicationService.execute(clubId)
             .let { ResponseEntity.noContent().build() }
 
     @PostMapping("/{club_id}/accept")
     fun acceptApplicant(
-        @PathVariable club_id: Long,
+        @PathVariable("club_id") clubId: Long,
         @RequestBody acceptRequestDto: AcceptRequestDto
     ): ResponseEntity<Void> =
         applicantConverter.toDto(acceptRequestDto = acceptRequestDto)
-            .let { acceptApplicantService.execute(club_id, it) }
+            .let { acceptApplicantService.execute(clubId, it) }
             .run { ResponseEntity.status(HttpStatus.CREATED).build() }
 
 
     @PostMapping("/{club_id}/reject")
     fun rejectApplicant(
-        @PathVariable club_id: Long,
+        @PathVariable("club_id") clubId: Long,
         @RequestBody rejectRequestDto: RejectRequestDto
     ): ResponseEntity<Void> =
         applicantConverter.toDto(rejectRequestDto)
-            .let { rejectApplicantService.execute(club_id, it) }
+            .let { rejectApplicantService.execute(clubId, it) }
             .run { ResponseEntity.noContent().build() }
 
 }

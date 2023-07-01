@@ -1,7 +1,6 @@
 package com.msg.gcms.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.global.config.FilterConfig
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
@@ -54,6 +53,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}/exit").authenticated()
             .antMatchers(HttpMethod.DELETE, "/club/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/club/operation/{club_id}").authenticated()
+            .antMatchers(HttpMethod.POST, "/club/application/{club_id}").authenticated()
 
             .antMatchers(HttpMethod.GET, "/user").authenticated()
             .antMatchers(HttpMethod.GET, "/user/search").authenticated()
@@ -90,5 +90,4 @@ class SecurityConfig(
             .and()
             .build()
     }
-
 }
