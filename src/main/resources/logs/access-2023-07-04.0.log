@@ -1,0 +1,12 @@
+2023-07-04 00:00:30.186  INFO 94783 --- [http-nio-8080-exec-3] JwtTokenFilter                           : current user email = s22046@gsm.hs.kr
+2023-07-04 00:00:30.191  INFO 94783 --- [http-nio-8080-exec-3] RequestLogFilter                         : client ip = 0:0:0:0:0:0:0:1
+2023-07-04 00:00:30.192  INFO 94783 --- [http-nio-8080-exec-3] RequestLogFilter                         : request method = POST
+2023-07-04 00:00:30.192  INFO 94783 --- [http-nio-8080-exec-3] RequestLogFilter                         : request url = /club/application/1
+2023-07-04 00:00:30.192  INFO 94783 --- [http-nio-8080-exec-3] RequestLogFilter                         : client info = PostmanRuntime/7.32.3
+2023-07-04 00:00:30.234  INFO 94783 --- [http-nio-8080-exec-3] RequestLogFilter                         : response status = 404
+2023-07-04 00:00:32.276  INFO 94783 --- [http-nio-8080-exec-4] JwtTokenFilter                           : current user email = s22046@gsm.hs.kr
+2023-07-04 00:00:32.278  INFO 94783 --- [http-nio-8080-exec-4] RequestLogFilter                         : client ip = 0:0:0:0:0:0:0:1
+2023-07-04 00:00:32.278  INFO 94783 --- [http-nio-8080-exec-4] RequestLogFilter                         : request method = POST
+2023-07-04 00:00:32.278  INFO 94783 --- [http-nio-8080-exec-4] RequestLogFilter                         : request url = /club/application/2
+2023-07-04 00:00:32.278  INFO 94783 --- [http-nio-8080-exec-4] RequestLogFilter                         : client info = PostmanRuntime/7.32.3
+2023-07-04 00:00:32.304  INFO 94783 --- [http-nio-8080-exec-4] RequestLogFilter                         : response status = 409

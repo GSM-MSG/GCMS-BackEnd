@@ -4,6 +4,9 @@ import javax.validation.constraints.NotBlank
 
 data class CreateOpeningApplicationRequest(
     @field:NotBlank
+    val field: String,
+
+    @field:NotBlank
     val subject: String,
 
     @field:NotBlank

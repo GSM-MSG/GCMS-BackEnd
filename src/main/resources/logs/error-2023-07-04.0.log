@@ -1,0 +1,4 @@
+2023-07-04 00:00:30.227 ERROR 94783 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : 해당 동아리를 찾을 수 없음
+2023-07-04 00:00:30.228 ERROR 94783 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : /club/application/1
+2023-07-04 00:00:32.303 ERROR 94783 --- [http-nio-8080-exec-4] GlobalExceptionHandler                   : 이미 개설신청서를 제출하였습니다.
+2023-07-04 00:00:32.303 ERROR 94783 --- [http-nio-8080-exec-4] GlobalExceptionHandler                   : /club/application/2
