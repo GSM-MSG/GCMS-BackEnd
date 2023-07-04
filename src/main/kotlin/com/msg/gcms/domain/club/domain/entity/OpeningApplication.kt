@@ -11,6 +11,8 @@ class OpeningApplication(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
+    val field: String,
+
     val subject: String,
 
     val reason: String,

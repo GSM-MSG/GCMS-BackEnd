@@ -31,6 +31,7 @@ class OpeningApplicationConverterImpl : OpeningApplicationConverter {
 
     override fun toDto(createOpeningApplicationRequest: CreateOpeningApplicationRequest): OpeningApplicationDto =
         OpeningApplicationDto(
+            field = createOpeningApplicationRequest.field,
             subject = createOpeningApplicationRequest.subject,
             reason = createOpeningApplicationRequest.reason,
             target = createOpeningApplicationRequest.target,

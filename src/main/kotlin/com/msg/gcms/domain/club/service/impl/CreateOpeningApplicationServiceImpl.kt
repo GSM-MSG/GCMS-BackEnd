@@ -27,6 +27,7 @@ class CreateOpeningApplicationServiceImpl(
 
 
         val openingApplication = OpeningApplication(
+            field = openingApplicationDto.field,
             subject = openingApplicationDto.subject,
             reason = openingApplicationDto.reason,
             target = openingApplicationDto.target,
