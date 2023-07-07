@@ -23,7 +23,7 @@ class CustomAuthenticationEntryPoint(
         response: HttpServletResponse,
         authException: AuthenticationException
     ) {
-        log.error("==========Authentication EntryPoint==========")
+        log.warn("==========Authentication EntryPoint==========")
         val errorCode = ErrorCode.UNAUTHORIZED
         val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
         response.characterEncoding = "UTF-8"
