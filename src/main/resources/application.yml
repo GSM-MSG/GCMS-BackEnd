@@ -63,4 +63,5 @@ discord:
 
 hwp:
   file:
-    url: ${HWP_FILE_URL}
+    operation-plan-url: ${OPERATION_PLAN_URL}
+    opening-application-url: ${OPENING_APPLICATION_URL}
