@@ -6,5 +6,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "hwp.file")
 class HwpProperties(
-    val url: String
+    val operationPlanUrl: String,
+    val openingApplicationUrl: String
 )
