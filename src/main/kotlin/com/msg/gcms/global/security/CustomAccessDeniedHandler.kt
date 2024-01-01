@@ -5,26 +5,26 @@ import com.msg.gcms.global.exception.ErrorCode
 import com.msg.gcms.global.exception.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
-import org.springframework.security.core.AuthenticationException
-import org.springframework.security.web.AuthenticationEntryPoint
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class CustomAuthenticationEntryPoint(
+class CustomAccessDeniedHandler(
     private val objectMapper: ObjectMapper
-): AuthenticationEntryPoint {
+): AccessDeniedHandler {
 
-    private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
+    private val logger = LoggerFactory.getLogger(this.javaClass.simpleName)
 
-    override fun commence(
+    override fun handle(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        authException: AuthenticationException
+        accessDeniedException: AccessDeniedException?
     ) {
-        log.warn("==========Authentication EntryPoint==========")
-        val errorCode = ErrorCode.UNAUTHORIZED
+        logger.warn("==========Access Denied==========")
+        val errorCode = ErrorCode.FORBIDDEN
         val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
         response.characterEncoding = "UTF-8"
         response.status = errorCode.status
