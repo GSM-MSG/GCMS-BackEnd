@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.admin.service.impl
 
-import com.msg.gcms.domain.admin.service.ClubOpeningApplicationHwpService
+import com.msg.gcms.domain.admin.service.DownloadClubOpeningApplicationHwpService
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.enums.ClubStatus
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
@@ -11,14 +11,13 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.io.ByteArrayOutputStream
-import javax.servlet.http.HttpServletResponse
 
 @Service
 @Transactional(readOnly = true)
-class ClubOpeningApplicationHwpServiceImpl(
+class DownloadDownloadClubOpeningApplicationHwpServiceImpl(
     private val clubRepository: ClubRepository,
     private val hwpUtil: HwpUtil
-) : ClubOpeningApplicationHwpService {
+) : DownloadClubOpeningApplicationHwpService {
     override fun execute(clubId: Long): ByteArray{
         val openingApplicationForm = hwpUtil.readOpeningApplication()
 
