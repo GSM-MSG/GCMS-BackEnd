@@ -19,7 +19,7 @@ class ClubOpeningApplicationHwpServiceImpl(
     private val clubRepository: ClubRepository,
     private val hwpUtil: HwpUtil
 ) : ClubOpeningApplicationHwpService {
-    override fun execute(clubId: Long, response: HttpServletResponse): ByteArray{
+    override fun execute(clubId: Long): ByteArray{
         val openingApplicationForm = hwpUtil.readOpeningApplication()
 
         val club = clubRepository.findByIdOrNull(clubId)

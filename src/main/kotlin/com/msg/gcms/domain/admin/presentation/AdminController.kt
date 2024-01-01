@@ -94,6 +94,6 @@ class AdminController(
     @GetMapping("/hwp/application/{club_id}")
     fun getOpeningApplication(@PathVariable("club_id") clubId: Long, response: HttpServletResponse): ByteArray {
         response.setHeader("Content-Disposition", "attachment; filename=opening_application.hwp")
-        return clubOpeningApplicationHwpService.execute(clubId, response)
+        return clubOpeningApplicationHwpService.execute(clubId)
     }
 }
