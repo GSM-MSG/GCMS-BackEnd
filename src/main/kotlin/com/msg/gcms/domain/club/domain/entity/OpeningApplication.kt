@@ -14,7 +14,7 @@ class OpeningApplication(
     // 연구 분야
     val field: String,
 
-    //연구 주제
+    // 연구 주제
     val subject: String,
 
     // 연구 분야 및 주제 선정 이유
