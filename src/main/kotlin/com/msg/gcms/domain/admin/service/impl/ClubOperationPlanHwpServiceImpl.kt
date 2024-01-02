@@ -23,8 +23,12 @@ class ClubOperationPlanHwpServiceImpl(
     override fun execute(clubId: Long): ByteArray {
         val operationPlanForm = hwpUtil.readOperationPlan()
 
-        val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
-        val operationPlan = operationPlanRepository.findByIdOrNull(clubId) ?: throw OperationPlanNotFoundException()
+        val club = clubRepository.findByIdOrNull(clubId)
+            ?: throw ClubNotFoundException()
+
+        val operationPlan = operationPlanRepository.findByIdOrNull(clubId)
+            ?: throw OperationPlanNotFoundException()
+
         val user: User = club.user
 
         hwpUtil.insertByFieldName(operationPlanForm, "분야", operationPlan.field)
