@@ -18,7 +18,7 @@ class DownloadDownloadClubOpeningApplicationHwpServiceImpl(
     private val clubRepository: ClubRepository,
     private val hwpUtil: HwpUtil
 ) : DownloadClubOpeningApplicationHwpService {
-    override fun execute(clubId: Long): ByteArray{
+    override fun execute(clubId: Long): ByteArray {
         val openingApplicationForm = hwpUtil.readOpeningApplication()
 
         val club = clubRepository.findByIdOrNull(clubId)
