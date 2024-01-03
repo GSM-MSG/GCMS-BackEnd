@@ -16,9 +16,8 @@ services:
     image: mysql:8
     container_name: mysql
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_PORT: 3306
+      DB_URL: ${DB_URL}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
 
   redis:
     image: redis:7.0
