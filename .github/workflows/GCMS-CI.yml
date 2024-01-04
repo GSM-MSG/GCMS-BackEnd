@@ -20,14 +20,14 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_PORT: ${{ secrets.DB_PORT }}
         ports:
-          - ${{ secrets.DB_PORT}}:${{ secrets.DB_PORT }}
+          - 3306:3306
       redis:
         image: redis:latest
         env:
           REDIS_HOST: ${{ secrets.REDIS_HOST }}
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
         ports:
-          - ${{ secrets.REDIS_PORT }}:${{ secrets.REDIS_PORT }}
+          - 6379:6379
 
     steps:
       - uses: actions/checkout@v3
