@@ -61,9 +61,3 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-tasks {
-	val customBootJarName = "testApplication.jar"
-	named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-		archiveFileName.set(customBootJarName)
-	}
-}
