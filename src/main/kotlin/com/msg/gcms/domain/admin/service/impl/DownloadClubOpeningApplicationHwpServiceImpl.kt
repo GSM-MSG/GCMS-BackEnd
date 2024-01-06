@@ -50,10 +50,10 @@ class DownloadClubOpeningApplicationHwpServiceImpl(
             Pair("이름1", clubOwner.nickname),
             Pair("역할1", "부장"),
             Pair("기대 효과", openingApplication.effect),
-            *(2..club.clubMember.size).map {
-                    Pair("학번$it", getStudentInfo(club.clubMember[it - 1].user))
-                    Pair("이름$it", club.clubMember[it - 1].user.nickname)
-                    Pair("역할$it", "")
+            *(2..club.clubMember.size).map {sequence ->
+                    Pair("학번$sequence", getStudentInfo(club.clubMember[sequence - 1].user))
+                    Pair("이름$sequence", club.clubMember[sequence - 1].user.nickname)
+                    Pair("역할$sequence", "")
             }.toTypedArray()
         ).forEach {
             hwpUtil.insertByFieldName(openingApplicationForm, it.key, it.value)
