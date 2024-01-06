@@ -14,7 +14,7 @@ import java.io.ByteArrayOutputStream
 
 @Service
 @Transactional(readOnly = true)
-class DownloadDownloadClubOpeningApplicationHwpServiceImpl(
+class DownloadClubOpeningApplicationHwpServiceImpl(
     private val clubRepository: ClubRepository,
     private val hwpUtil: HwpUtil
 ) : DownloadClubOpeningApplicationHwpService {
