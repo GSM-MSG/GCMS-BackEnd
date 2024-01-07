@@ -79,6 +79,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/admin/{club_id}").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/club/statistics").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/hwp/operation/{club_id}").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/admin/hwp/application/{club_id}").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()

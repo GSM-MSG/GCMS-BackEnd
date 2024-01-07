@@ -7,7 +7,6 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.OperationPlanNotFoundException
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.global.util.HwpUtil
-import com.msg.gcms.global.util.properties.HwpProperties
 import kr.dogfoot.hwplib.writer.HWPWriter
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -19,44 +18,46 @@ import java.io.ByteArrayOutputStream
 class ClubOperationPlanHwpServiceImpl(
     private val clubRepository: ClubRepository,
     private val operationPlanRepository: OperationPlanRepository,
-    private val hwpProperties: HwpProperties,
     private val hwpUtil: HwpUtil
 ) : ClubOperationPlanHwpService {
     override fun execute(clubId: Long): ByteArray {
-        val hwpUrl = hwpProperties.url
-        val hwpFile = hwpUtil.readFile(hwpUrl)
+        val operationPlanForm = hwpUtil.readOperationPlan()
 
-        val club = clubRepository.findByIdOrNull(clubId) ?: throw ClubNotFoundException()
-        val operationPlan = operationPlanRepository.findByIdOrNull(clubId) ?: throw OperationPlanNotFoundException()
+        val club = clubRepository.findByIdOrNull(clubId)
+            ?: throw ClubNotFoundException()
+
+        val operationPlan = operationPlanRepository.findByIdOrNull(clubId)
+            ?: throw OperationPlanNotFoundException()
+
         val user: User = club.user
 
-        hwpUtil.insertByFieldName(hwpFile, "분야", operationPlan.field)
-        hwpUtil.insertByFieldName(hwpFile, "동아리 장소", operationPlan.place)
-        hwpUtil.insertByFieldName(hwpFile, "동아리명", club.name)
-        hwpUtil.insertByFieldName(hwpFile, "지도교사", club.teacher)
+        hwpUtil.insertByFieldName(operationPlanForm, "분야", operationPlan.field)
+        hwpUtil.insertByFieldName(operationPlanForm, "동아리 장소", operationPlan.place)
+        hwpUtil.insertByFieldName(operationPlanForm, "동아리명", club.name)
+        hwpUtil.insertByFieldName(operationPlanForm, "지도교사", club.teacher)
 
-        hwpUtil.insertByFieldName(hwpFile, "학번 이름1", sortNameAndNum(user))
-        hwpUtil.insertByFieldName(hwpFile, "담당역할1", "부장")
+        hwpUtil.insertByFieldName(operationPlanForm, "학번 이름1", sortNameAndNum(user))
+        hwpUtil.insertByFieldName(operationPlanForm, "담당역할1", "부장")
 
-        for(i in 2..12) {
-            hwpUtil.insertByFieldName(hwpFile, "학번 이름${i}", sortNameAndNum(club.clubMember[i - 2].user))
-            hwpUtil.insertByFieldName(hwpFile, "담당역할${i}", "")
+        for(i in 2..club.clubMember.size) {
+            hwpUtil.insertByFieldName(operationPlanForm, "학번 이름${i}", sortNameAndNum(club.clubMember[i - 2].user))
+            hwpUtil.insertByFieldName(operationPlanForm, "담당역할${i}", "")
         }
 
-        hwpUtil.insertByFieldName(hwpFile, "연구주제", operationPlan.subject)
-        hwpUtil.insertByFieldName(hwpFile, "연구내용", operationPlan.content)
-        hwpUtil.insertByFieldName(hwpFile, "동아리 운영 규칙", operationPlan.rule)
+        hwpUtil.insertByFieldName(operationPlanForm, "연구주제", operationPlan.subject)
+        hwpUtil.insertByFieldName(operationPlanForm, "연구내용", operationPlan.content)
+        hwpUtil.insertByFieldName(operationPlanForm, "동아리 운영 규칙", operationPlan.rule)
 
 
         operationPlan.monthlyPlan
             .map {
-                hwpUtil.insertByFieldName(hwpFile, "${it.month}월 개요", it.summaryPlan)
-                hwpUtil.insertByFieldName(hwpFile, "${it.month}월 연구 내용", it.plan)
+                hwpUtil.insertByFieldName(operationPlanForm, "${it.month}월 개요", it.summaryPlan)
+                hwpUtil.insertByFieldName(operationPlanForm, "${it.month}월 연구 내용", it.plan)
         }
 
         val outPutStream = ByteArrayOutputStream()
 
-        HWPWriter.toStream(hwpFile, outPutStream)
+        HWPWriter.toStream(operationPlanForm, outPutStream)
         return outPutStream.toByteArray()
     }
 
