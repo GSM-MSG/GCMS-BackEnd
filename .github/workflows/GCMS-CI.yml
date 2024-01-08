@@ -1,16 +1,33 @@
-name: CI
+name: GCMS-CI
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", "devops" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "develop", "devops" ]
 
 permissions: write-all
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+        ports:
+          - 3306:3306
+      redis:
+        image: redis:latest
+        env:
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+        ports:
+          - 6379:6379
 
     steps:
       - uses: actions/checkout@v3
@@ -19,12 +36,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.4.0
-        with:
-          redis-version: 7
-          redis-port: 6379
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
