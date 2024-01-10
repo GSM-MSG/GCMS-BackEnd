@@ -1,0 +1,31 @@
+version: '3'
+services:
+  app:
+    image: gcms-back:latest
+    environment:
+      - TZ=Asia/Seoul
+    env_file:
+      - ./.env
+    ports:
+      - 80:8080
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      DB_URL: ${DB_URL}
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+
+  redis:
+    image: redis:7.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: 6379
+      REDIS_BIND: 0.0.0.0
