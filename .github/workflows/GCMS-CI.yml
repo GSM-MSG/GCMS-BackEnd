@@ -2,9 +2,9 @@ name: GCMS-CI
 
 on:
   push:
-    branches: [ "develop", "new/build" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "develop", "new/build" ]
+    branches: [ "*" ]
 
 permissions: write-all
 
