@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: gcms-back:latest
+    image: ${ECR_IMAGE}/gcms-back:latest
     environment:
       - TZ=Asia/Seoul
     env_file:
