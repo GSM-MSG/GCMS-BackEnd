@@ -5,6 +5,7 @@ on:
 
 env:
   S3_BUCKET_NAME: gcms-deploy-bucket
+  AWS_REGION: ap-northeast-2
   PROJECT_NAME: Gcms-Sever
 
 jobs:
