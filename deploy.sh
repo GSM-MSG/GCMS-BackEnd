@@ -8,7 +8,7 @@ echo "> Git Pull"
 git pull origin develop
 
 echo "> Project Build"
-../gradlew clean GCMS-Backend:build
+./gradlew clean GCMS-Backend:build
 
 CURRENT_PID=$(lsof -i tcp:80)
 if [ -z "$CURRENT_PID" ]; then
