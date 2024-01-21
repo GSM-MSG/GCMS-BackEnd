@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ec2-user/deploy
+    destination: /home/ec2-user/deploy/
     overwrite: yes
 
 permissions:
@@ -13,6 +13,9 @@ permissions:
     group: ec2-user
 
 hooks:
+  BeforeInstall:
+    - location: deploy-before.sh
+      runas: ec2-user
   ApplicationStart:
     - location: deploy.sh
       timeout: 60
