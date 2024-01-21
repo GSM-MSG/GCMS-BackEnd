@@ -1,7 +1,7 @@
 name: GCMS-CD
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", "codedeploy" ]
 
 env:
   S3_BUCKET_NAME: gcms-deploy-bucket
