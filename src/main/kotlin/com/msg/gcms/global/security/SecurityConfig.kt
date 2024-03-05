@@ -81,6 +81,9 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/admin/hwp/operation/{club_id}").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/admin/hwp/application/{club_id}").hasRole("ADMIN")
 
+            // health
+            .antMatchers(HttpMethod.GET, "/health").permitAll()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
