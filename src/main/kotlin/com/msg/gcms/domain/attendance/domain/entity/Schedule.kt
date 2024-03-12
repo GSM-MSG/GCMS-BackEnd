@@ -16,7 +16,7 @@ class Schedule(
     @Column(columnDefinition = "TIME", name = "date", updatable = false)
     val date: LocalDate,
 
-    @Column(columnDefinition = "VARCHAR(20)", name = "period")
+    @Column(columnDefinition = "VARCHAR(20)", name = "period", updatable = false)
     val period: String,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
