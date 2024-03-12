@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.attendance.domain.entity
 
-import com.msg.gcms.domain.attendance.AttendanceStatus
+import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
 import com.msg.gcms.domain.user.domain.entity.User
 import javax.persistence.*
 
