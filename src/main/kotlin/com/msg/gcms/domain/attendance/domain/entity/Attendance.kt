@@ -15,8 +15,10 @@ class Attendance(
     val attendanceStatus: AttendanceStatus,
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     val user: User,
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id")
     val schedule: Schedule
 )

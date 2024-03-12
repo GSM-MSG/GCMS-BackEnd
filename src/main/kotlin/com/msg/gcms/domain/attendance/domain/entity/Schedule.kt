@@ -20,5 +20,6 @@ class Schedule(
     val period: String,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "club_id")
     val club: Club
 )
