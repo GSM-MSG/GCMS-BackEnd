@@ -10,7 +10,7 @@ data class CreateScheduleRequestDto(
     @field:NotBlank
     val name: String,
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     val date: LocalDate,
 
     @field:NotNull
