@@ -34,6 +34,8 @@ enum class ErrorCode(
     CLUB_NOT_FOUND("해당 동아리를 찾을 수 없음", 404),
     OPERATION_PLAN_NOT_FOUND("해당 운영계획서를 찾을 수 없음", 404),
     DEVICE_TOKEN_NOT_FOUND("디바이스 토큰을 찾을 수 없음", 404),
+    SCHEDULE_NOT_FOUND("출석부를 찾을 수 없음", 404),
+    ATTENDANCE_NOT_FOUND("출석 현황을 찾을 수 없음", 404),
 
     ALREADY_CLUB_EXIST("해당 동아리가 이미 존재함", 409),
     OPENING_APPLICATION_ALREADY_EXIST("이미 개설신청서를 제출하였습니다.", 409),
