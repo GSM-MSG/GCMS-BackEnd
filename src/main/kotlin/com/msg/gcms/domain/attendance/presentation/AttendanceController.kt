@@ -3,13 +3,13 @@ package com.msg.gcms.domain.attendance.presentation
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.attendance.service.CreateScheduleService
 import com.msg.gcms.domain.attendance.util.ScheduleConverter
+import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
-@RestController
-@RequestMapping("/attend")
+@RequestController("/attend")
 class AttendanceController(
     private val createScheduleService: CreateScheduleService,
     private val scheduleConverter: ScheduleConverter
