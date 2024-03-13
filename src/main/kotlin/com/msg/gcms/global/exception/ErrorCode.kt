@@ -26,6 +26,7 @@ enum class ErrorCode(
     CLUB_ALREADY_PENDING("해당하는 클럽이 대기중 상태에 있습니다.", 403),
     NOT_ACCESS_ADMIN("해당 관리자 권한을 가진 사람은 접근할 수 없습니다.", 403),
     CLUB_NOT_OPENING("동아리 신청이 열리지 않았습니다.", 403),
+    HEAD_NOT_SAME("해당 동아리의 부장이 아닙니다", 403),
     ROLE_NOT_EXIST("역할이 존재하지 않는 경우", 404),
 
 
