@@ -40,6 +40,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
+            .antMatchers(HttpMethod.POST, "/attend/{club_id}/club").authenticated()
+
             .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
