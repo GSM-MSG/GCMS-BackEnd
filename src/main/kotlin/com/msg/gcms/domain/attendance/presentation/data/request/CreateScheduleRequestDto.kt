@@ -6,7 +6,7 @@ import java.time.LocalTime
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
-data class CreateScheduleRequestDto (
+data class CreateScheduleRequestDto(
     @NotBlank
     val name: String,
 
