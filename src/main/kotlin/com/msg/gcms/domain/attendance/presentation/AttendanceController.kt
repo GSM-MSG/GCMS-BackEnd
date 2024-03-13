@@ -3,6 +3,7 @@ package com.msg.gcms.domain.attendance.presentation
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.attendance.service.CreateScheduleService
 import com.msg.gcms.domain.attendance.util.ScheduleConverter
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -20,5 +21,5 @@ class AttendanceController(
     ): ResponseEntity<Unit> =
         scheduleConverter.toDto(createScheduleRequestDto)
             .let { createScheduleService.execute(clubId, it) }
-            .let { ResponseEntity.noContent().build() }
+            .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 }
