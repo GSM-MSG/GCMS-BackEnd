@@ -8,6 +8,7 @@ import com.msg.gcms.domain.user.domain.entity.User
 interface AttendanceConverter {
     fun toEntity(
         attendanceStatus: AttendanceStatus = AttendanceStatus.NOT_ATTENDED,
-        user: User, schedule: Schedule
+        user: User,
+        schedule: Schedule
     ): Attendance
 }
