@@ -22,7 +22,8 @@ class ScheduleConverterImpl : ScheduleConverter {
         toEntity(
             club = club,
             scheduleDto = it
-        ) }
+        )
+    }
 
     override fun toDto(scheduleRequestDto: CreateScheduleRequestDto): ScheduleListDto = ScheduleListDto(
         scheduleRequestDto.periods.map {

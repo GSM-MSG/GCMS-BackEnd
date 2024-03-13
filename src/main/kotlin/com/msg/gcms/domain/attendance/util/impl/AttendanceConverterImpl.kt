@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component
 class AttendanceConverterImpl : AttendanceConverter {
     override fun toEntity(
         attendanceStatus: AttendanceStatus,
-        user: User, schedule: Schedule
+        user: User,
+        schedule: Schedule
     ): Attendance = Attendance(
         attendanceStatus = attendanceStatus,
         user = user,
