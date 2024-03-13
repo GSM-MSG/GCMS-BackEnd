@@ -14,7 +14,7 @@ class Schedule(
     @Column(columnDefinition = "VARCHAR(30)", name = "name")
     val name: String,
 
-    @Column(columnDefinition = "TIME", name = "date", updatable = false)
+    @Column(columnDefinition = "DATE", name = "date", updatable = false)
     val date: LocalDate,
 
     @Column(columnDefinition = "TIME", name = "period", updatable = false)
