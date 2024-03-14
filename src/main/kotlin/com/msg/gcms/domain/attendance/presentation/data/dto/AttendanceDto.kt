@@ -7,7 +7,7 @@ data class AttendanceDto(
     val scheduleId: Long,
     val userId: UUID,
     val attendanceStatus: AttendanceStatus
-){
+) {
     data class AttendanceBatchDto(
         val scheduleId: Long,
         val userIds: List<UUID>,
