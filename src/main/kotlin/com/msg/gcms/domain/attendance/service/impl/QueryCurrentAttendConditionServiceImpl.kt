@@ -26,7 +26,7 @@ class QueryCurrentAttendConditionServiceImpl(
     private val attendanceRepository: AttendanceRepository,
     private val attendanceConverter: AttendanceConverter
 ) : QueryCurrentAttendConditionService {
-    override fun execute(searchScheduleDto: SearchScheduleDto): List<UserAttendanceStatusListDto> {
+    override fun execute(searchScheduleDto: SearchScheduleDto): UserAttendanceStatusListDto {
         val user: User = userUtil.fetchCurrentUser()
 
         val club = clubRepository.findByIdOrNull(searchScheduleDto.clubId) ?: throw ClubNotFoundException()
@@ -42,8 +42,8 @@ class QueryCurrentAttendConditionServiceImpl(
         val schedule = scheduleRepository.queryByDateAndPeriod(club, searchScheduleDto.date, searchScheduleDto.period)
             ?: throw ScheduleNotFoundException()
 
-        val attendance = attendanceRepository.findAllBySchedule(schedule)
+        val attendances = attendanceRepository.findAllBySchedule(schedule)
 
-        return attendance.map { attendanceConverter.toDto(it.user, it) }
+        return attendanceConverter.toListDto(attendances)
     }
 }
