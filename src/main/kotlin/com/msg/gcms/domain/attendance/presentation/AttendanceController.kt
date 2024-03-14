@@ -6,6 +6,7 @@ import com.msg.gcms.domain.attendance.service.CreateScheduleService
 import com.msg.gcms.domain.attendance.service.QueryCurrentAttendConditionService
 import com.msg.gcms.domain.attendance.util.ScheduleConverter
 import com.msg.gcms.global.annotation.RequestController
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -32,8 +33,8 @@ class AttendanceController(
     @GetMapping("/{club_id}")
     fun queryCurrentAttendCondition(
         @PathVariable("club_id") clubId: Long,
-        @RequestParam(required = false) date: LocalDate?,
-        @RequestParam(required = false) period: LocalTime?
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate?,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) period: LocalTime?
     ): ResponseEntity<List<UserAttendanceStatusDto>> =
         scheduleConverter.toDto(clubId, date, period)
             .let { queryCurrentAttendConditionService.execute(it) }
