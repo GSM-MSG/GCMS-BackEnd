@@ -10,12 +10,10 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.presentation.data.dto.OperationPlanDto
 import com.msg.gcms.domain.club.service.CreateOperationPlanService
 import com.msg.gcms.domain.club.utils.OperationPlanConverter
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class CreateOperationPlanServiceImpl(
     private val operationPlanRepository: OperationPlanRepository,
     private val monthlyPlanRepository: MonthlyPlanRepository,
