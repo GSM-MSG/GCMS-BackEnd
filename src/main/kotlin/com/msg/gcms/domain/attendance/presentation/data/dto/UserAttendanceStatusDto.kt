@@ -10,4 +10,8 @@ data class UserAttendanceStatusDto(
     val classNum: Int,
     val number: Int,
     val attendanceStatus: AttendanceStatus
-)
+) {
+    data class UserAttendanceStatusListDto(
+        val users: List<UserAttendanceStatusDto>
+    )
+}

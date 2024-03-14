@@ -36,4 +36,9 @@ class AttendanceConverterImpl : AttendanceConverter {
         scheduleId = attendanceStatusDto.scheduleId,
         attendanceStatus = attendanceStatusDto.attendanceStatus
     )
+
+    override fun toListDto(attendances: List<Attendance>): UserAttendanceStatusDto.UserAttendanceStatusListDto =
+        UserAttendanceStatusDto.UserAttendanceStatusListDto(
+            users = attendances.map { toDto(it.user, it) }
+        )
 }

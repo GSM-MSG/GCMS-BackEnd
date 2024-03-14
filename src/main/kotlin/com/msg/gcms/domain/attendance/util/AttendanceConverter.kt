@@ -16,5 +16,6 @@ interface AttendanceConverter {
         schedule: Schedule
     ): Attendance
     fun toDto(user:User, attendance: Attendance): UserAttendanceStatusDto
+    fun toListDto(attendances: List<Attendance>): UserAttendanceStatusDto.UserAttendanceStatusListDto
     fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceStatusDto
 }
