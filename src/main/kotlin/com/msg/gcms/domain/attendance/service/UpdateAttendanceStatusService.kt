@@ -1,8 +1,7 @@
 package com.msg.gcms.domain.attendance.service
 
-import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceStatusDto
-import java.util.UUID
+import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto
 
 interface UpdateAttendanceStatusService {
-    fun execute(userId: UUID, dto: AttendanceStatusDto)
+    fun execute(dto: AttendanceDto)
 }

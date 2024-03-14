@@ -6,8 +6,6 @@ import com.msg.gcms.domain.attendance.presentation.data.dto.ScheduleDto.Schedule
 import com.msg.gcms.domain.attendance.presentation.data.dto.SearchScheduleDto
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.club.domain.entity.Club
-import org.joda.time.DateTime
-import org.joda.time.Period
 import java.time.LocalDate
 import java.time.LocalTime
 

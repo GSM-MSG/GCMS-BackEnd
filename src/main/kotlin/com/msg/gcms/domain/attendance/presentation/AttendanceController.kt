@@ -2,9 +2,11 @@ package com.msg.gcms.domain.attendance.presentation
 
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
+import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.attendance.service.CreateScheduleService
 import com.msg.gcms.domain.attendance.service.QueryCurrentAttendConditionService
+import com.msg.gcms.domain.attendance.service.UpdateAttendanceStatusBatchService
 import com.msg.gcms.domain.attendance.service.UpdateAttendanceStatusService
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.attendance.util.ScheduleConverter
@@ -23,6 +25,7 @@ class AttendanceController(
     private val createScheduleService: CreateScheduleService,
     private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
     private val updateAttendanceStatusService: UpdateAttendanceStatusService,
+    private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
     private val scheduleConverter: ScheduleConverter,
     private val attendanceConverter: AttendanceConverter
 ) {
@@ -50,7 +53,14 @@ class AttendanceController(
         @PathVariable("user_id") userId: UUID,
         @RequestBody @Valid updateAttendanceStatusRequestDto: UpdateAttendanceStatusRequestDto
     ): ResponseEntity<Unit> =
-        attendanceConverter.toDto(updateAttendanceStatusRequestDto)
-            .let { updateAttendanceStatusService.execute(userId, it) }
+        attendanceConverter.toDto(updateAttendanceStatusRequestDto, userId)
+            .let { updateAttendanceStatusService.execute(it) }
+            .let { ResponseEntity.noContent().build() }
+
+
+    @PatchMapping("/batch")
+    fun updateAttendanceStatusBatch(@RequestBody @Valid updateAttendanceStatusBatchRequestDto: UpdateAttendanceStatusBatchRequestDto): ResponseEntity<Unit> =
+        attendanceConverter.toDto(updateAttendanceStatusBatchRequestDto)
+            .let { updateAttendanceStatusBatchService.execute(it) }
             .let { ResponseEntity.noContent().build() }
 }

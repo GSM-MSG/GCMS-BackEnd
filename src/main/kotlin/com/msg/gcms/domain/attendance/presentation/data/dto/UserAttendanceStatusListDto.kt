@@ -1,10 +1,11 @@
 package com.msg.gcms.domain.attendance.presentation.data.dto
 
 import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
+import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto.UserAttendanceStatusDto
 import java.util.*
 
 data class UserAttendanceStatusListDto(
-    val users: List<UserAttendanceStatusListDto.UserAttendanceStatusDto>
+    val users: List<UserAttendanceStatusDto>
 ) {
     data class UserAttendanceStatusDto(
         val id: UUID,

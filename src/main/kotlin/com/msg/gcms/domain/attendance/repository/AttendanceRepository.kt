@@ -10,4 +10,5 @@ interface AttendanceRepository : CrudRepository<Attendance, Long> {
     @EntityGraph(attributePaths = ["user"])
     fun findAllBySchedule(schedule: Schedule): List<Attendance>
     fun findByUserAndSchedule(user: User, schedule: Schedule): Attendance?
+    fun findAllByUserInAndSchedule(users: List<User>, schedule: Schedule): List<Attendance>
 }
