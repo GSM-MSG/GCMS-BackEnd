@@ -10,12 +10,10 @@ import com.msg.gcms.domain.club.service.UpdateClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.SaveClubUtil
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.util.UserUtil
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class UpdateClubServiceImpl(
     private val userUtil: UserUtil,
     private val clubRepository: ClubRepository,

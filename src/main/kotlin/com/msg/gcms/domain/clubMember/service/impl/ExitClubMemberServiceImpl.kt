@@ -11,15 +11,13 @@ import com.msg.gcms.domain.clubMember.exception.ClubMemberExitOneSelfException
 import com.msg.gcms.domain.clubMember.exception.ClubMemberReleaseNotFoundException
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberExitDto
 import com.msg.gcms.domain.clubMember.service.ExitClubMemberService
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class ExitClubMemberServiceImpl(
     private val userUtil: UserUtil,
     private val clubRepository: ClubRepository,

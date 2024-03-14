@@ -13,16 +13,14 @@ import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class AcceptApplicantServiceImpl(
     private val clubRepository: ClubRepository,
     private val applicantRepository: ApplicantRepository,

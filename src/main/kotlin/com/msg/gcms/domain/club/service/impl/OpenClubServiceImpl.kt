@@ -8,13 +8,11 @@ import com.msg.gcms.domain.club.presentation.data.dto.ClubStatusDto
 import com.msg.gcms.domain.club.service.OpenClubService
 import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.impl.UpdateClubStatusUtil
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class OpenClubServiceImpl(
     private val clubRepository: ClubRepository,
     private val updateClubStatusUtil: UpdateClubStatusUtil,

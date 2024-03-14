@@ -8,18 +8,16 @@ import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.presentaion.data.dto.UserDto
 import com.msg.gcms.domain.user.service.FindUserService
 import com.msg.gcms.domain.user.utils.UserConverter
+import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
+@ServiceWithReadOnlyTransaction
 class FindUserServiceImpl(
     private val userUtil: UserUtil,
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
     private val userConverter: UserConverter
 ) : FindUserService {
-    @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun execute(): UserDto {
         val user = userUtil.fetchCurrentUser()
         val clubListDto = getClubListByUser(user)
