@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.repository.CrudRepository
 
 interface AttendanceRepository : CrudRepository<Attendance, Long> {
-    @EntityGraph("user")
+    @EntityGraph(attributePaths = ["user"])
     fun findAllBySchedule(schedule: Schedule): List<Attendance>
 }
