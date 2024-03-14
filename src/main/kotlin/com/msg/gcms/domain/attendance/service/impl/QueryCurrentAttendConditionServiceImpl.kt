@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.attendance.service.impl
 
-import com.msg.gcms.domain.attendance.exception.ScheduleNotFountException
+import com.msg.gcms.domain.attendance.exception.ScheduleNotFoundException
 import com.msg.gcms.domain.attendance.presentation.data.dto.SearchScheduleDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
 import com.msg.gcms.domain.attendance.repository.ScheduleRepository
@@ -15,8 +15,6 @@ import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDate
-import java.time.LocalTime
 
 @Service
 @Transactional(rollbackFor = [Exception::class], readOnly = true)
@@ -35,7 +33,8 @@ class QueryCurrentAttendConditionServiceImpl(
         if (user != club.user)
             throw HeadNotSameException()
 
-        val schedule = scheduleRepository.queryByDateAndPeriod(club, searchScheduleDto.date, searchScheduleDto.period) ?: throw ScheduleNotFountException()
+        val schedule = scheduleRepository.queryByDateAndPeriod(club, searchScheduleDto.date, searchScheduleDto.period)
+            ?: throw ScheduleNotFoundException()
 
         val attendance = attendanceRepository.findAllBySchedule(schedule)
 
