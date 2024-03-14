@@ -4,7 +4,7 @@ import com.msg.gcms.domain.attendance.domain.entity.Attendance
 import com.msg.gcms.domain.attendance.domain.entity.Schedule
 import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
 import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceStatusDto
-import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusDto
+import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.user.domain.entity.User
@@ -23,8 +23,8 @@ class AttendanceConverterImpl : AttendanceConverter {
         user = user,
         schedule = schedule
     )
-    override fun toDto(user: User, attendance: Attendance): UserAttendanceStatusDto =
-        UserAttendanceStatusDto(
+    override fun toDto(user: User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto =
+        UserAttendanceStatusListDto.UserAttendanceStatusDto(
             id = user.id,
             name = user.nickname,
             grade = user.grade,
@@ -37,8 +37,8 @@ class AttendanceConverterImpl : AttendanceConverter {
         attendanceStatus = attendanceStatusDto.attendanceStatus
     )
 
-    override fun toListDto(attendances: List<Attendance>): UserAttendanceStatusDto.UserAttendanceStatusListDto =
-        UserAttendanceStatusDto.UserAttendanceStatusListDto(
+    override fun toListDto(attendances: List<Attendance>): UserAttendanceStatusListDto =
+        UserAttendanceStatusListDto(
             users = attendances.map { toDto(it.user, it) }
         )
 }

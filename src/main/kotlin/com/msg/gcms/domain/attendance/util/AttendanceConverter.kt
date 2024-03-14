@@ -6,7 +6,7 @@ import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
 import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceStatusDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.user.domain.entity.User
-import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusDto
+import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 
 interface AttendanceConverter {
     fun toEntity(
@@ -15,7 +15,7 @@ interface AttendanceConverter {
         user: User,
         schedule: Schedule
     ): Attendance
-    fun toDto(user:User, attendance: Attendance): UserAttendanceStatusDto
-    fun toListDto(attendances: List<Attendance>): UserAttendanceStatusDto.UserAttendanceStatusListDto
+    fun toDto(user:User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto
+    fun toListDto(attendances: List<Attendance>): UserAttendanceStatusListDto
     fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceStatusDto
 }

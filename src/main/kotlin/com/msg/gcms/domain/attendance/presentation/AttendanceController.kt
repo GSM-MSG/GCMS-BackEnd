@@ -1,6 +1,6 @@
 package com.msg.gcms.domain.attendance.presentation
 
-import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusDto
+import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.attendance.service.CreateScheduleService
@@ -40,7 +40,7 @@ class AttendanceController(
         @PathVariable("club_id") clubId: Long,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate?,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) period: LocalTime?
-    ): ResponseEntity<List<UserAttendanceStatusDto>> =
+    ): ResponseEntity<UserAttendanceStatusListDto> =
         scheduleConverter.toDto(clubId, date, period)
             .let { queryCurrentAttendConditionService.execute(it) }
             .let { ResponseEntity.ok(it) }
