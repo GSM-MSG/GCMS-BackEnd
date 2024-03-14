@@ -3,11 +3,12 @@ package com.msg.gcms.domain.attendance.util.impl
 import com.msg.gcms.domain.attendance.domain.entity.Attendance
 import com.msg.gcms.domain.attendance.domain.entity.Schedule
 import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
-import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceStatusDto
+import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 @Component
 class AttendanceConverterImpl : AttendanceConverter {
@@ -23,8 +24,9 @@ class AttendanceConverterImpl : AttendanceConverter {
         schedule = schedule
     )
 
-    override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceStatusDto = AttendanceStatusDto(
+    override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto, userId: UUID): AttendanceDto = AttendanceDto(
         scheduleId = attendanceStatusDto.scheduleId,
-        attendanceStatus = attendanceStatusDto.attendanceStatus
+        attendanceStatus = attendanceStatusDto.attendanceStatus,
+        userId = userId
     )
 }

@@ -2,7 +2,7 @@ package com.msg.gcms.domain.attendance.service.impl
 
 import com.msg.gcms.domain.attendance.exception.AttendanceNotFoundException
 import com.msg.gcms.domain.attendance.exception.ScheduleNotFoundException
-import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceStatusDto
+import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
 import com.msg.gcms.domain.attendance.repository.ScheduleRepository
 import com.msg.gcms.domain.attendance.service.UpdateAttendanceStatusService
@@ -13,7 +13,6 @@ import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import com.msg.gcms.global.annotation.ServiceWithTransaction
 import org.springframework.data.repository.findByIdOrNull
-import java.util.*
 
 @ServiceWithTransaction
 class UpdateAttendanceStatusServiceImpl(
@@ -22,8 +21,8 @@ class UpdateAttendanceStatusServiceImpl(
     private val attendanceRepository: AttendanceRepository,
     private val attendanceConverter: AttendanceConverter
 ) : UpdateAttendanceStatusService {
-    override fun execute(userId: UUID, dto: AttendanceStatusDto) {
-        val user = userRepository.findByIdOrNull(userId)
+    override fun execute(dto: AttendanceDto) {
+        val user = userRepository.findByIdOrNull(dto.userId)
             ?: throw UserNotFoundException()
 
         val schedule = scheduleRepository.findByIdOrNull(dto.scheduleId)
