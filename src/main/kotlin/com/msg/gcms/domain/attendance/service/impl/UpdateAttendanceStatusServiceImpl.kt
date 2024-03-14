@@ -7,6 +7,8 @@ import com.msg.gcms.domain.attendance.repository.AttendanceRepository
 import com.msg.gcms.domain.attendance.repository.ScheduleRepository
 import com.msg.gcms.domain.attendance.service.UpdateAttendanceStatusService
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
+import com.msg.gcms.domain.auth.domain.Role
+import com.msg.gcms.domain.club.exception.HeadNotSameException
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import org.springframework.data.repository.findByIdOrNull
@@ -26,6 +28,9 @@ class UpdateAttendanceStatusServiceImpl(
 
         val schedule = scheduleRepository.findByIdOrNull(dto.scheduleId)
             ?: throw ScheduleNotFoundException()
+
+        if (schedule.club.user != user && user.roles[0] != Role.ROLE_ADMIN)
+            throw HeadNotSameException()
 
         val attendance = attendanceRepository.findByUserAndSchedule(user, schedule)
             ?: throw AttendanceNotFoundException()
