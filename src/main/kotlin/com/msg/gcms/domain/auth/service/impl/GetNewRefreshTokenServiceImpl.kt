@@ -11,12 +11,12 @@ import com.msg.gcms.domain.user.domain.entity.DeviceToken
 import com.msg.gcms.domain.user.domain.repository.DeviceTokenRepository
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.security.exception.InvalidTokenException
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
-import org.springframework.stereotype.Service
 import java.time.ZonedDateTime
 
-@Service
+@ServiceWithTransaction
 class GetNewRefreshTokenServiceImpl(
     private val jwtTokenProvider: JwtTokenProvider,
     private val refreshTokenRepository: RefreshTokenRepository,

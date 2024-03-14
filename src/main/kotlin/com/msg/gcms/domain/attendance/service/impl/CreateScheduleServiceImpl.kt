@@ -10,10 +10,10 @@ import com.msg.gcms.domain.attendance.util.ScheduleConverter
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
 
-@Service
+@ServiceWithTransaction
 class CreateScheduleServiceImpl(
     private val scheduleRepository: ScheduleRepository,
     private val clubMemberRepository: ClubMemberRepository,

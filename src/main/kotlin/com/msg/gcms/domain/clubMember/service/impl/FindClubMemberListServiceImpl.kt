@@ -11,13 +11,11 @@ import com.msg.gcms.domain.clubMember.presentation.data.response.ClubMemberListD
 import com.msg.gcms.domain.clubMember.service.FindClubMemberListService
 import com.msg.gcms.domain.clubMember.util.ClubMemberConverter
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(readOnly = true)
+@ServiceWithReadOnlyTransaction
 class FindClubMemberListServiceImpl(
     private val clubMemberRepository: ClubMemberRepository,
     private val clubRepository: ClubRepository,
@@ -34,7 +32,7 @@ class FindClubMemberListServiceImpl(
                 .map { clubMemberConverter.toDto(it.second, it.first) }.toMutableList()
         val scope: MemberScope = getScopeFromClubMember(user, club)
         getClubHeadInfo(club)
-            ?.let { clubMemberList.add(it) }
+            .let { clubMemberList.add(it) }
         return clubMemberConverter.toListDto(scope, clubMemberList)
     }
 

@@ -15,13 +15,11 @@ import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.club.utils.SaveClubUtil
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
-import com.msg.gcms.global.webhook.util.DiscordUtil
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.util.UserUtil
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+import com.msg.gcms.global.webhook.util.DiscordUtil
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class CreateClubServiceImpl(
     private val userUtil: UserUtil,
     private val saveClubUtil: SaveClubUtil,

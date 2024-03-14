@@ -8,12 +8,12 @@ import com.g3c1.aidboss.domain.image.exception.FailUploadImageException
 import com.msg.gcms.domain.image.presentation.data.dto.ImagesDto
 import com.msg.gcms.domain.image.presentation.data.dto.UploadImagesDto
 import com.msg.gcms.domain.image.service.UploadImageService
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
 import java.io.IOException
 import java.util.*
 
-@Service
+@ServiceWithTransaction
 class UploadImageServiceImpl(
     private val amazonS3: AmazonS3,
 ) : UploadImageService {

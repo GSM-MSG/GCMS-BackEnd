@@ -5,10 +5,10 @@ import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
 import com.msg.gcms.domain.auth.service.LogoutService
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.exception.UserNotFoundException
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.util.UserUtil
-import org.springframework.stereotype.Service
 
-@Service
+@ServiceWithTransaction
 class LogoutServiceImpl(
     private val userUtil: UserUtil,
     private val refreshTokenRepository: RefreshTokenRepository

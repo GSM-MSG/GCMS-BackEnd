@@ -7,19 +7,16 @@ import com.msg.gcms.domain.applicant.util.ApplicantConverter
 import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
-import com.msg.gcms.domain.club.enums.ClubType
 import com.msg.gcms.domain.club.enums.Scope
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.NotClubMemberException
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class ApplicantListServiceImpl(
     private val applicantRepository: ApplicantRepository,
     private val userUtil: UserUtil,

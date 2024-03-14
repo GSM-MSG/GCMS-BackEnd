@@ -5,15 +5,13 @@ import com.msg.gcms.domain.applicant.repository.ApplicantRepository
 import com.msg.gcms.domain.applicant.service.CancelApplicationService
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@ServiceWithTransaction
 class CancelApplicationServiceImpl(
     private val clubRepository: ClubRepository,
     private val applicantRepository: ApplicantRepository,

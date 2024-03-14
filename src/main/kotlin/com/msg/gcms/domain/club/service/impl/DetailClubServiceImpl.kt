@@ -14,11 +14,11 @@ import com.msg.gcms.domain.club.utils.ClubConverter
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.util.UserUtil
-import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Service
+@ServiceWithTransaction
 class DetailClubServiceImpl(
     private val userUtil: UserUtil,
     private val clubRepository: ClubRepository,
@@ -39,8 +39,8 @@ class DetailClubServiceImpl(
             .map { clubConverter.toDto(it.user) }
         val activityImgs = activityImgRepository.findAllByClub(club)
             .map { it.image }
-        val scope = if(user == null) Scope.OTHER else getScope(user!!, club)
-        val isApplied = if(user == null) false else applicantRepository.existsByUserAndClub(user!!, club)
+        val scope = if(user == null) Scope.OTHER else getScope(user, club)
+        val isApplied = if(user == null) false else applicantRepository.existsByUserAndClub(user, club)
 
         return clubConverter.toDto(club, clubMember, activityImgs, scope, isApplied)
 

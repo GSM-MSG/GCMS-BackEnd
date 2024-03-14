@@ -1,0 +1,22 @@
+2024-03-14 11:02:20.388 ERROR 19820 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is com.querydsl.core.NonUniqueResultException: javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+2024-03-14 12:21:27.943 ERROR 20886 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : 해당 동아리를 찾을 수 없음
+2024-03-14 12:21:27.944 ERROR 20886 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : /attend/3
+2024-03-14 12:21:30.308 ERROR 20886 --- [http-nio-8080-exec-7] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 12:21:30.309 ERROR 20886 --- [http-nio-8080-exec-7] GlobalExceptionHandler                   : /attend/2
+2024-03-14 12:26:55.345 ERROR 20886 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 12:26:55.346 ERROR 20886 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : /attend/2
+2024-03-14 13:36:14.444 ERROR 21124 --- [http-nio-8080-exec-3] ExceptionFilter                          : Request processing failed; nested exception is gauth.exception.GAuthException: 401
+2024-03-14 13:37:06.396 ERROR 21124 --- [http-nio-8080-exec-6] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 13:37:06.397 ERROR 21124 --- [http-nio-8080-exec-6] GlobalExceptionHandler                   : /attend/2
+2024-03-14 13:51:29.997 ERROR 21124 --- [http-nio-8080-exec-8] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 13:51:29.998 ERROR 21124 --- [http-nio-8080-exec-8] GlobalExceptionHandler                   : /attend/2
+2024-03-14 13:53:53.325 ERROR 21507 --- [http-nio-8080-exec-1] ExceptionFilter                          : Request processing failed; nested exception is com.querydsl.core.NonUniqueResultException: javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+2024-03-14 14:02:19.203 ERROR 21507 --- [http-nio-8080-exec-4] ExceptionFilter                          : Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: The given JpaEntityGraph [name=user, type=FETCH, attributePaths=[]] is not dynamic!; nested exception is java.lang.IllegalArgumentException: The given JpaEntityGraph [name=user, type=FETCH, attributePaths=[]] is not dynamic!
+2024-03-14 14:02:37.968 ERROR 21633 --- [http-nio-8080-exec-1] ExceptionFilter                          : Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: The given JpaEntityGraph [name=user, type=FETCH, attributePaths=[]] is not dynamic!; nested exception is java.lang.IllegalArgumentException: The given JpaEntityGraph [name=user, type=FETCH, attributePaths=[]] is not dynamic!
+2024-03-14 14:03:15.510 ERROR 21689 --- [http-nio-8080-exec-2] ExceptionFilter                          : Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: The given JpaEntityGraph [name=user_id, type=FETCH, attributePaths=[]] is not dynamic!; nested exception is java.lang.IllegalArgumentException: The given JpaEntityGraph [name=user_id, type=FETCH, attributePaths=[]] is not dynamic!
+2024-03-14 14:04:00.766 ERROR 21705 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 14:04:00.766 ERROR 21705 --- [http-nio-8080-exec-3] GlobalExceptionHandler                   : /attend/2
+2024-03-14 14:08:44.525 ERROR 21705 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 14:08:44.526 ERROR 21705 --- [http-nio-8080-exec-5] GlobalExceptionHandler                   : /attend/2
+2024-03-14 14:08:51.471 ERROR 21705 --- [http-nio-8080-exec-7] GlobalExceptionHandler                   : 해당 스케줄을 찾을 수 없습니다
+2024-03-14 14:08:51.472 ERROR 21705 --- [http-nio-8080-exec-7] GlobalExceptionHandler                   : /attend/2

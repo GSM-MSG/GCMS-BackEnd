@@ -5,19 +5,18 @@ import com.msg.gcms.domain.auth.exception.RoleNotExistException
 import com.msg.gcms.domain.auth.presentation.data.dto.SignInDto
 import com.msg.gcms.domain.auth.presentation.data.response.SignInResponseDto
 import com.msg.gcms.domain.auth.service.SignInService
-import com.msg.gcms.domain.auth.util.AuthConverter
 import com.msg.gcms.domain.auth.util.AuthUtil
 import com.msg.gcms.domain.user.domain.repository.UserRepository
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import com.msg.gcms.global.gauth.properties.GAuthProperties
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
 import gauth.GAuth
 import gauth.GAuthToken
 import gauth.GAuthUserInfo
-import org.springframework.stereotype.Service
 import java.time.ZonedDateTime
 
 
-@Service
+@ServiceWithTransaction
 class SignInServiceImpl(
     private val gAuthProperties: GAuthProperties,
     private val userRepository: UserRepository,
