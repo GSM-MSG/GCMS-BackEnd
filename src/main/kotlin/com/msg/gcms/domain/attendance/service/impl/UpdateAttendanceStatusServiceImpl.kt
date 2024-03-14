@@ -12,6 +12,7 @@ import com.msg.gcms.domain.club.exception.HeadNotSameException
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
 
 @ServiceWithTransaction
@@ -19,17 +20,20 @@ class UpdateAttendanceStatusServiceImpl(
     private val userRepository: UserRepository,
     private val scheduleRepository: ScheduleRepository,
     private val attendanceRepository: AttendanceRepository,
-    private val attendanceConverter: AttendanceConverter
+    private val attendanceConverter: AttendanceConverter,
+    private val userUtil: UserUtil
 ) : UpdateAttendanceStatusService {
     override fun execute(dto: AttendanceDto) {
-        val user = userRepository.findByIdOrNull(dto.userId)
-            ?: throw UserNotFoundException()
+        val currentUser = userUtil.fetchCurrentUser()
 
         val schedule = scheduleRepository.findByIdOrNull(dto.scheduleId)
             ?: throw ScheduleNotFoundException()
 
-        if (schedule.club.user != user && user.roles[0] != Role.ROLE_ADMIN)
+        if (schedule.club.user != currentUser && currentUser.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
+
+        val user = userRepository.findByIdOrNull(dto.userId)
+            ?: throw UserNotFoundException()
 
         val attendance = attendanceRepository.findByUserAndSchedule(user, schedule)
             ?: throw AttendanceNotFoundException()
