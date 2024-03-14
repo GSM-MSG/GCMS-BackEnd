@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface AttendanceRepository : CrudRepository<Attendance, Long> {
     fun findByUserAndSchedule(user: User, schedule: Schedule): Attendance?
+    fun findAllByUserInAndSchedule(users: List<User>, schedule: Schedule): List<Attendance>
 }
