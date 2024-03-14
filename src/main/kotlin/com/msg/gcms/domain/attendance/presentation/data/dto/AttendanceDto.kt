@@ -8,7 +8,9 @@ data class AttendanceDto(
     val userId: UUID,
     val attendanceStatus: AttendanceStatus
 ){
-    data class AttendanceListDto(
-        val attendances: List<AttendanceDto>
+    data class AttendanceBatchDto(
+        val scheduleId: Long,
+        val userIds: List<UUID>,
+        val attendanceStatus: AttendanceStatus
     )
 }

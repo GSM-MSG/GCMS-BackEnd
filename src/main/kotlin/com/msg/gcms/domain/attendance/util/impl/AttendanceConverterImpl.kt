@@ -4,7 +4,7 @@ import com.msg.gcms.domain.attendance.domain.entity.Attendance
 import com.msg.gcms.domain.attendance.domain.entity.Schedule
 import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
 import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto
-import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto.AttendanceListDto
+import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto.AttendanceBatchDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
@@ -32,11 +32,9 @@ class AttendanceConverterImpl : AttendanceConverter {
         userId = userId
     )
 
-    override fun toDto(attendanceStatusDto: UpdateAttendanceStatusBatchRequestDto): AttendanceListDto = attendanceStatusDto.userIds.map {
-        AttendanceDto(
-            scheduleId = attendanceStatusDto.scheduleId,
-            attendanceStatus = attendanceStatusDto.attendanceStatus,
-            userId = it
-        )
-    }.let { AttendanceListDto(it) }
+    override fun toDto(attendanceStatusDto: UpdateAttendanceStatusBatchRequestDto): AttendanceBatchDto = AttendanceBatchDto(
+        scheduleId = attendanceStatusDto.scheduleId,
+        attendanceStatus = attendanceStatusDto.attendanceStatus,
+        userIds = attendanceStatusDto.userIds
+    )
 }
