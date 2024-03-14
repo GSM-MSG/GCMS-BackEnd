@@ -21,9 +21,14 @@ class UpdateAttendanceStatusServiceImpl(
     private val attendanceConverter: AttendanceConverter
 ) : UpdateAttendanceStatusService {
     override fun execute(userId: UUID, dto: AttendanceStatusDto) {
-        val user = userRepository.findByIdOrNull(userId) ?: throw UserNotFoundException()
-        val schedule = scheduleRepository.findByIdOrNull(dto.scheduleId) ?: throw ScheduleNotFoundException()
-        val attendance = attendanceRepository.findByUserAndSchedule(user, schedule) ?: throw AttendanceNotFoundException()
+        val user = userRepository.findByIdOrNull(userId)
+            ?: throw UserNotFoundException()
+
+        val schedule = scheduleRepository.findByIdOrNull(dto.scheduleId)
+            ?: throw ScheduleNotFoundException()
+
+        val attendance = attendanceRepository.findByUserAndSchedule(user, schedule)
+            ?: throw AttendanceNotFoundException()
 
         attendanceConverter.toEntity(
             id = attendance.id,
