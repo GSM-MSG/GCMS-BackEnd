@@ -11,6 +11,7 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.HeadNotSameException
 import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusDto
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -30,8 +31,13 @@ class QueryCurrentAttendConditionServiceImpl(
 
         val club = clubRepository.findByIdOrNull(searchScheduleDto.clubId) ?: throw ClubNotFoundException()
 
-        if (user != club.user)
-            throw HeadNotSameException()
+        when(user.roles) {
+            listOf(Role.ROLE_STUDENT) -> {
+                if (user != club.user)
+                    throw HeadNotSameException()
+            }
+            listOf(Role.ROLE_ADMIN) -> {}
+        }
 
         val schedule = scheduleRepository.queryByDateAndPeriod(club, searchScheduleDto.date, searchScheduleDto.period)
             ?: throw ScheduleNotFoundException()
