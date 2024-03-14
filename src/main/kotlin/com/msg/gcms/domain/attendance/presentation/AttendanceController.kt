@@ -24,7 +24,7 @@ class AttendanceController(
     private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
     private val updateAttendanceStatusService: UpdateAttendanceStatusService,
     private val scheduleConverter: ScheduleConverter,
-    private val attendanceConverter: AttendanceConverter,
+    private val attendanceConverter: AttendanceConverter
 ) {
     @PostMapping("/{club_id}/club")
     fun createSchedule(
