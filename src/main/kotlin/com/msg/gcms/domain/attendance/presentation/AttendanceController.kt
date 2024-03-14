@@ -37,5 +37,5 @@ class AttendanceController(
     ): ResponseEntity<List<UserAttendanceStatusDto>> =
         scheduleConverter.toDto(clubId, date, period)
             .let { queryCurrentAttendConditionService.execute(it) }
-            .let { ResponseEntity.ok(it)
+            .let { ResponseEntity.ok(it) }
 }
