@@ -11,11 +11,11 @@ import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.club.exception.HeadNotSameException
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
+import com.msg.gcms.global.annotation.ServiceWithTransaction
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
+@ServiceWithTransaction
 class UpdateAttendanceStatusServiceImpl(
     private val userRepository: UserRepository,
     private val scheduleRepository: ScheduleRepository,
