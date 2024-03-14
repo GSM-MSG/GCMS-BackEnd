@@ -21,10 +21,10 @@ class CustomScheduleRepositoryImpl(
             ).fetchOne()
     }
 
-    private fun dateEq(date: LocalDate?): BooleanExpression? =
-        if(date != null) schedule.date.eq(date) else null
+    private fun dateEq(date: LocalDate?): BooleanExpression =
+        schedule.date.eq(date ?: LocalDate.now())
 
-    private fun periodEq(period: LocalTime?): BooleanExpression? =
-        if(period != null) schedule.period.eq(period) else null
+    private fun periodEq(period: LocalTime?): BooleanExpression =
+        if(period != null) schedule.period.eq(period) else schedule.period.between(LocalTime.now().minusHours(1), LocalTime.now())
 
 }
