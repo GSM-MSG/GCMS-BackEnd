@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull
 
 data class UpdateAttendanceStatusRequestDto(
     @field:NotNull
-    val scheduleId: Long,
+    val attendanceId: Long,
 
     @field:NotNull
     @Enumerated(EnumType.STRING)
