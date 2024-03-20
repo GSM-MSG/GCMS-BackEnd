@@ -12,5 +12,5 @@ data class UpdateAttendanceStatusBatchRequestDto(
     val attendanceStatus: AttendanceStatus,
 
     @field:NotNull
-    val attendanceIds: List<UUID>
+    val attendanceIds: List<Long>
 )
