@@ -48,23 +48,21 @@ class AttendanceController(
             .let { queryCurrentAttendConditionService.execute(it) }
             .let { ResponseEntity.ok(it) }
 
-    @PatchMapping("/{club_id}/{user_id}")
+    @PatchMapping("/{user_id}")
     fun updateAttendanceStatus(
-        @PathVariable("club_id") clubId: Long,
         @PathVariable("user_id") userId: UUID,
         @RequestBody @Valid updateAttendanceStatusRequestDto: UpdateAttendanceStatusRequestDto
     ): ResponseEntity<Unit> =
         attendanceConverter.toDto(updateAttendanceStatusRequestDto, userId)
-            .let { updateAttendanceStatusService.execute(it, clubId) }
+            .let { updateAttendanceStatusService.execute(it) }
             .let { ResponseEntity.noContent().build() }
 
 
-    @PatchMapping("/{club_id}/batch")
+    @PatchMapping("/batch")
     fun updateAttendanceStatusBatch(
-        @PathVariable("club_id") clubId: Long,
         @RequestBody @Valid updateAttendanceStatusBatchRequestDto: UpdateAttendanceStatusBatchRequestDto
     ): ResponseEntity<Unit> =
         attendanceConverter.toDto(updateAttendanceStatusBatchRequestDto)
-            .let { updateAttendanceStatusBatchService.execute(it, clubId) }
+            .let { updateAttendanceStatusBatchService.execute(it) }
             .let { ResponseEntity.noContent().build() }
 }
