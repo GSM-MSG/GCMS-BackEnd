@@ -7,7 +7,7 @@ data class AttendanceDto(
     val attendanceStatus: AttendanceStatus
 ) {
     data class AttendanceBatchDto(
-        val ids: List<Long> = mutableListOf(),
+        val ids: List<Long> = listOf(),
         val attendanceStatus: AttendanceStatus
     )
 }
