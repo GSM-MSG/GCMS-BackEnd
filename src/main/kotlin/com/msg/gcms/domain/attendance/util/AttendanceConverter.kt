@@ -10,7 +10,6 @@ import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendance
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.user.domain.entity.User
 import java.time.LocalTime
-import java.util.*
 
 interface AttendanceConverter {
     fun toEntity(
@@ -20,7 +19,7 @@ interface AttendanceConverter {
         schedule: Schedule,
         period: LocalTime
     ): Attendance
-    fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto, userId: UUID): AttendanceDto
+    fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceDto
     fun toDto(attendanceStatusDto: UpdateAttendanceStatusBatchRequestDto): AttendanceBatchDto
     fun toDto(user:User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto
     fun toListDto(attendances: List<Attendance>): UserAttendanceStatusListDto

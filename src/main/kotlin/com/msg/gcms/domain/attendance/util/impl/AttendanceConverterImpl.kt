@@ -5,14 +5,13 @@ import com.msg.gcms.domain.attendance.domain.entity.Schedule
 import com.msg.gcms.domain.attendance.domain.enums.AttendanceStatus
 import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto
 import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto.AttendanceBatchDto
-import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
+import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
 import java.time.LocalTime
-import java.util.UUID
 
 @Component
 class AttendanceConverterImpl : AttendanceConverter {
@@ -40,8 +39,7 @@ class AttendanceConverterImpl : AttendanceConverter {
             number = user.number,
             attendanceStatus = attendance.attendanceStatus
         )
-    override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto, userId: UUID): AttendanceDto = AttendanceDto(
-        id = attendanceStatusDto.attendanceId,
+    override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceDto = AttendanceDto(
         attendanceStatus = attendanceStatusDto.attendanceStatus
     )
 
