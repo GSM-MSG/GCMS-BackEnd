@@ -17,25 +17,15 @@ class ScheduleConverterImpl : ScheduleConverter {
         id = 0L,
         name = scheduleDto.name,
         date = scheduleDto.date,
-        period = scheduleDto.period,
         club = club,
     )
 
-    override fun toEntities(club: Club, scheduleDto: ScheduleListDto): List<Schedule> = scheduleDto.schedules.map {
-        toEntity(
-            club = club,
-            scheduleDto = it
-        )
-    }
-
     override fun toDto(scheduleRequestDto: CreateScheduleRequestDto): ScheduleListDto = ScheduleListDto(
-        scheduleRequestDto.periods.map {
-            ScheduleDto(
-                name = scheduleRequestDto.name,
-                date = scheduleRequestDto.date,
-                period = it
-            )
-        }
+        schedule = ScheduleDto(
+            name = scheduleRequestDto.name,
+            date = scheduleRequestDto.date
+        ),
+        period = scheduleRequestDto.periods
     )
 
     override fun toDto(clubId: Long, date: LocalDate?, period: LocalTime?): SearchScheduleDto = SearchScheduleDto(

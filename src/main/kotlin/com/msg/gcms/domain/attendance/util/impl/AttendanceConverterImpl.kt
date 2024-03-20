@@ -11,6 +11,7 @@ import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendance
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
+import java.time.LocalTime
 import java.util.UUID
 
 @Component
@@ -19,17 +20,20 @@ class AttendanceConverterImpl : AttendanceConverter {
         id: Long,
         attendanceStatus: AttendanceStatus,
         user: User,
-        schedule: Schedule
+        schedule: Schedule,
+        period: LocalTime
     ): Attendance = Attendance(
         id = id,
         attendanceStatus = attendanceStatus,
         user = user,
+        period = period,
         schedule = schedule
     )
 
     override fun toDto(user: User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto =
         UserAttendanceStatusListDto.UserAttendanceStatusDto(
             id = user.id,
+            attendanceId = attendance.id,
             name = user.nickname,
             grade = user.grade,
             classNum = user.classNum,
@@ -37,15 +41,13 @@ class AttendanceConverterImpl : AttendanceConverter {
             attendanceStatus = attendance.attendanceStatus
         )
     override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto, userId: UUID): AttendanceDto = AttendanceDto(
-        scheduleId = attendanceStatusDto.scheduleId,
-        attendanceStatus = attendanceStatusDto.attendanceStatus,
-        userId = userId
+        id = attendanceStatusDto.attendanceId,
+        attendanceStatus = attendanceStatusDto.attendanceStatus
     )
 
     override fun toDto(attendanceStatusDto: UpdateAttendanceStatusBatchRequestDto): AttendanceBatchDto = AttendanceBatchDto(
-        scheduleId = attendanceStatusDto.scheduleId,
+        ids = attendanceStatusDto.attendanceIds,
         attendanceStatus = attendanceStatusDto.attendanceStatus,
-        userIds = attendanceStatusDto.userIds
     )
 
     override fun toListDto(attendances: List<Attendance>): UserAttendanceStatusListDto =
