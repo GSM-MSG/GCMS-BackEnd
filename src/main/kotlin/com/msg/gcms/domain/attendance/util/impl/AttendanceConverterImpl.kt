@@ -40,6 +40,7 @@ class AttendanceConverterImpl : AttendanceConverter {
             attendanceStatus = attendance.attendanceStatus
         )
     override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceDto = AttendanceDto(
+        id = attendanceStatusDto.attendanceId,
         attendanceStatus = attendanceStatusDto.attendanceStatus
     )
 
