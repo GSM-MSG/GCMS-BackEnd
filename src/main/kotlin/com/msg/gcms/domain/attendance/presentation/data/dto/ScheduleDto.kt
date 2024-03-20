@@ -5,10 +5,10 @@ import java.time.LocalTime
 
 data class ScheduleDto(
     val name: String,
-    val date: LocalDate,
-    val period: LocalTime,
+    val date: LocalDate
 ) {
     data class ScheduleListDto(
-        val schedules: List<ScheduleDto>
+        val schedule: ScheduleDto,
+        val period: List<LocalTime>
     )
 }
