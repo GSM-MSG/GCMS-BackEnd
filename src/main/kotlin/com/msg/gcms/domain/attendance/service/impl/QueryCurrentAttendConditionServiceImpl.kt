@@ -44,7 +44,7 @@ class QueryCurrentAttendConditionServiceImpl(
 
         val period = searchScheduleDto.period ?: getCurrentPeriod()
 
-        val attendances = attendanceRepository.queryAllByPeriod(schedule, period)
+        val attendances = attendanceRepository.findAllByScheduleAndPeriod(schedule, period)
 
         return attendanceConverter.toListDto(attendances)
     }
