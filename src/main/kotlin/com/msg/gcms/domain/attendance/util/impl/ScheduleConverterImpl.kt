@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.attendance.util.impl
 
 import com.msg.gcms.domain.attendance.domain.entity.Schedule
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import com.msg.gcms.domain.attendance.presentation.data.dto.ScheduleDto
 import com.msg.gcms.domain.attendance.presentation.data.dto.ScheduleDto.ScheduleListDto
 import com.msg.gcms.domain.attendance.presentation.data.dto.SearchScheduleDto
@@ -9,7 +10,6 @@ import com.msg.gcms.domain.attendance.util.ScheduleConverter
 import com.msg.gcms.domain.club.domain.entity.Club
 import org.springframework.stereotype.Component
 import java.time.LocalDate
-import java.time.LocalTime
 
 @Component
 class ScheduleConverterImpl : ScheduleConverter {
@@ -28,7 +28,7 @@ class ScheduleConverterImpl : ScheduleConverter {
         period = scheduleRequestDto.periods
     )
 
-    override fun toDto(clubId: Long, date: LocalDate?, period: LocalTime?): SearchScheduleDto = SearchScheduleDto(
+    override fun toDto(clubId: Long, date: LocalDate?, period: Period?): SearchScheduleDto = SearchScheduleDto(
         clubId = clubId,
         date = date,
         period = period
