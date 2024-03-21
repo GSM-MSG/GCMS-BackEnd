@@ -1,10 +1,10 @@
 package com.msg.gcms.domain.attendance.presentation.data.dto
 
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import java.time.LocalDate
-import java.time.LocalTime
 
 data class SearchScheduleDto(
     val clubId: Long,
     val date: LocalDate?,
-    val period: LocalTime?
+    val period: Period?
 )

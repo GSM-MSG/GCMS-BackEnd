@@ -1,8 +1,8 @@
 package com.msg.gcms.domain.attendance.presentation.data.request
 
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import java.time.LocalDate
-import java.time.LocalTime
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
@@ -14,5 +14,5 @@ data class CreateScheduleRequestDto(
     val date: LocalDate,
 
     @field:NotNull
-    val periods: List<LocalTime>
+    val periods: List<Period>
 )

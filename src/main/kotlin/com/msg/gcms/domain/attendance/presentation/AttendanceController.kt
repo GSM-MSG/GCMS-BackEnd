@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.attendance.presentation
 
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
@@ -16,7 +17,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
-import java.time.LocalTime
 import java.util.*
 import javax.validation.Valid
 
@@ -42,7 +42,7 @@ class AttendanceController(
     fun queryCurrentAttendCondition(
         @PathVariable("club_id") clubId: Long,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate?,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) period: LocalTime?
+        @RequestParam(required = false) period: Period?
     ): ResponseEntity<UserAttendanceStatusListDto> =
         scheduleConverter.toDto(clubId, date, period)
             .let { queryCurrentAttendConditionService.execute(it) }

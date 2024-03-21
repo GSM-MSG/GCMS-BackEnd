@@ -1,7 +1,7 @@
 package com.msg.gcms.domain.attendance.presentation.data.dto
 
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import java.time.LocalDate
-import java.time.LocalTime
 
 data class ScheduleDto(
     val name: String,
@@ -9,6 +9,6 @@ data class ScheduleDto(
 ) {
     data class ScheduleListDto(
         val schedule: ScheduleDto,
-        val period: List<LocalTime>
+        val period: List<Period>
     )
 }

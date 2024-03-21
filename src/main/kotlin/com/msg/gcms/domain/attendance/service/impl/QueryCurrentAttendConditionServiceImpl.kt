@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.attendance.service.impl
 
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import com.msg.gcms.domain.attendance.exception.ScheduleNotFoundException
 import com.msg.gcms.domain.attendance.presentation.data.dto.SearchScheduleDto
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
@@ -15,6 +16,7 @@ import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
+import java.time.LocalTime
 
 @ServiceWithReadOnlyTransaction
 class QueryCurrentAttendConditionServiceImpl(
@@ -40,8 +42,22 @@ class QueryCurrentAttendConditionServiceImpl(
         val schedule = scheduleRepository.queryByDate(club, searchScheduleDto.date)
             ?: throw ScheduleNotFoundException()
 
-        val attendances = attendanceRepository.queryAllByPeriod(schedule, searchScheduleDto.period)
+        val period = searchScheduleDto.period ?: getCurrentPeriod()
+
+        val attendances = attendanceRepository.queryAllByPeriod(schedule, period)
 
         return attendanceConverter.toListDto(attendances)
     }
+
+    fun getCurrentPeriod(): Period {
+        val currentTime = LocalTime.now()
+
+        Period.values().reversed().map {
+            if(currentTime.isAfter(it.time))
+                return it
+        }
+
+        return Period.ELEVENTH
+    }
+
 }
