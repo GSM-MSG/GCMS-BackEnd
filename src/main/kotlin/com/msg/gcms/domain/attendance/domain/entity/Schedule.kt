@@ -2,7 +2,6 @@ package com.msg.gcms.domain.attendance.domain.entity
 
 import com.msg.gcms.domain.club.domain.entity.Club
 import java.time.LocalDate
-import java.time.LocalTime
 import javax.persistence.*
 
 @Entity
@@ -16,9 +15,6 @@ class Schedule(
 
     @Column(columnDefinition = "DATE", name = "date", updatable = false)
     val date: LocalDate,
-
-    @Column(columnDefinition = "TIME", name = "period", updatable = false)
-    val period: LocalTime,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "club_id")

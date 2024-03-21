@@ -48,18 +48,19 @@ class AttendanceController(
             .let { queryCurrentAttendConditionService.execute(it) }
             .let { ResponseEntity.ok(it) }
 
-    @PatchMapping("/{user_id}")
+    @PatchMapping()
     fun updateAttendanceStatus(
-        @PathVariable("user_id") userId: UUID,
         @RequestBody @Valid updateAttendanceStatusRequestDto: UpdateAttendanceStatusRequestDto
     ): ResponseEntity<Unit> =
-        attendanceConverter.toDto(updateAttendanceStatusRequestDto, userId)
+        attendanceConverter.toDto(updateAttendanceStatusRequestDto)
             .let { updateAttendanceStatusService.execute(it) }
             .let { ResponseEntity.noContent().build() }
 
 
     @PatchMapping("/batch")
-    fun updateAttendanceStatusBatch(@RequestBody @Valid updateAttendanceStatusBatchRequestDto: UpdateAttendanceStatusBatchRequestDto): ResponseEntity<Unit> =
+    fun updateAttendanceStatusBatch(
+        @RequestBody @Valid updateAttendanceStatusBatchRequestDto: UpdateAttendanceStatusBatchRequestDto
+    ): ResponseEntity<Unit> =
         attendanceConverter.toDto(updateAttendanceStatusBatchRequestDto)
             .let { updateAttendanceStatusBatchService.execute(it) }
             .let { ResponseEntity.noContent().build() }

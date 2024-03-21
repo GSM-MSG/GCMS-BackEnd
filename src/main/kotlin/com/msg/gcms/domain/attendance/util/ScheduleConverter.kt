@@ -11,7 +11,6 @@ import java.time.LocalTime
 
 interface ScheduleConverter {
     fun toEntity(club: Club, scheduleDto: ScheduleDto): Schedule
-    fun toEntities(club: Club, scheduleDto: ScheduleListDto): List<Schedule>
     fun toDto(scheduleRequestDto: CreateScheduleRequestDto): ScheduleListDto
     fun toDto(clubId: Long, date: LocalDate?, period: LocalTime?): SearchScheduleDto
 }

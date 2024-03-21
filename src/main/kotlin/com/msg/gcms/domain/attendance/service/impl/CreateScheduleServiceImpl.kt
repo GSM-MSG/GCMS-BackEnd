@@ -1,6 +1,5 @@
 package com.msg.gcms.domain.attendance.service.impl
 
-import com.msg.gcms.domain.attendance.domain.entity.Attendance
 import com.msg.gcms.domain.attendance.presentation.data.dto.ScheduleDto.ScheduleListDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
 import com.msg.gcms.domain.attendance.repository.ScheduleRepository
@@ -28,14 +27,15 @@ class CreateScheduleServiceImpl(
 
         val members = clubMemberRepository.findByClub(club)
 
-        val schedules = scheduleConverter.toEntities(club, dto)
-            .let { scheduleRepository.saveAll(it) }
+        val schedule = scheduleConverter.toEntity(club, dto.schedule)
+            .let { scheduleRepository.save(it) }
 
-        val attendances: List<Attendance> = schedules.flatMap { schedule ->
+        val attendances = dto.period.flatMap { period ->
             members.map { member ->
                 attendanceConverter.toEntity(
                     schedule = schedule,
-                    user = member.user
+                    user = member.user,
+                    period = period
                 )
             }
         }

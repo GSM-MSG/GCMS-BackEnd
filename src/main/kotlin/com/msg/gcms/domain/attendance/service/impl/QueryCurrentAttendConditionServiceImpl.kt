@@ -37,10 +37,10 @@ class QueryCurrentAttendConditionServiceImpl(
             listOf(Role.ROLE_ADMIN) -> {}
         }
 
-        val schedule = scheduleRepository.queryByDateAndPeriod(club, searchScheduleDto.date, searchScheduleDto.period)
+        val schedule = scheduleRepository.queryByDate(club, searchScheduleDto.date)
             ?: throw ScheduleNotFoundException()
 
-        val attendances = attendanceRepository.findAllBySchedule(schedule)
+        val attendances = attendanceRepository.queryAllByPeriod(schedule, searchScheduleDto.period)
 
         return attendanceConverter.toListDto(attendances)
     }
