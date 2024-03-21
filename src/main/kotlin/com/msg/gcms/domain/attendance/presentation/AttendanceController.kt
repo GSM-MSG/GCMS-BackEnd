@@ -5,10 +5,7 @@ import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatus
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
-import com.msg.gcms.domain.attendance.service.CreateScheduleService
-import com.msg.gcms.domain.attendance.service.QueryCurrentAttendConditionService
-import com.msg.gcms.domain.attendance.service.UpdateAttendanceStatusBatchService
-import com.msg.gcms.domain.attendance.service.UpdateAttendanceStatusService
+import com.msg.gcms.domain.attendance.service.*
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.attendance.util.ScheduleConverter
 import com.msg.gcms.global.annotation.RequestController
@@ -18,6 +15,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.util.*
+import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 
 @RequestController("/attend")
@@ -26,6 +24,7 @@ class AttendanceController(
     private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
     private val updateAttendanceStatusService: UpdateAttendanceStatusService,
     private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
+    private val clubAttendanceStatusExcelService: ClubAttendanceStatusExcelService,
     private val scheduleConverter: ScheduleConverter,
     private val attendanceConverter: AttendanceConverter
 ) {
@@ -64,4 +63,12 @@ class AttendanceController(
         attendanceConverter.toDto(updateAttendanceStatusBatchRequestDto)
             .let { updateAttendanceStatusBatchService.execute(it) }
             .let { ResponseEntity.noContent().build() }
+
+    @GetMapping("/excel")
+    fun clubAttendanceStatusExcel(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) currentDate: LocalDate, response: HttpServletResponse): ByteArray {
+        response.setHeader("Content-Disposition", "attachment; filename=attendance_status.xlsx")
+        return clubAttendanceStatusExcelService.execute(currentDate)
+    }
+
+
 }
