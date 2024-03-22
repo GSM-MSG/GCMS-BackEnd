@@ -13,6 +13,8 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URL
+import java.net.URLEncoder
 import java.time.LocalDate
 import java.util.*
 import javax.servlet.http.HttpServletResponse
@@ -66,7 +68,7 @@ class AttendanceController(
 
     @GetMapping("/excel")
     fun clubAttendanceStatusExcel(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) currentDate: LocalDate, response: HttpServletResponse): ByteArray {
-        response.setHeader("Content-Disposition", "attachment; filename=$currentDate attendance book.xlsx")
+        response.setHeader("Content-Disposition", "attachment; filename=${URLEncoder.encode("$currentDate 출석부", "UTF-8").replace("+", "%20")}.xlsx")
         return clubAttendanceStatusExcelService.execute(currentDate)
     }
 
