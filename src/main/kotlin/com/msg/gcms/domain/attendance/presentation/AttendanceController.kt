@@ -71,6 +71,4 @@ class AttendanceController(
         response.setHeader("Content-Disposition", "attachment; filename=${URLEncoder.encode("$currentDate 출석부", "UTF-8").replace("+", "%20")}.xlsx")
         return clubAttendanceStatusExcelService.execute(currentDate)
     }
-
-
 }
