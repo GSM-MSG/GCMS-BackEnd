@@ -33,7 +33,7 @@ class ClubAttendanceStatusExcelServiceImpl(
         schedule.map {
             var rowNum = 1
 
-            val sheet = workBook.createHeaderRow(font)
+            val sheet = workBook.createHeaderRow(font, it.club.name)
 
             val attendances = attendanceRepository.findAllBySchedule(it)
 
@@ -66,8 +66,8 @@ class ClubAttendanceStatusExcelServiceImpl(
     }
 
     // 출석부의 헤더 열을 만들고 엑셀 시트를 만들어 반환하는 함수
-    private fun XSSFWorkbook.createHeaderRow(font: Font): XSSFSheet {
-        val sheet = createSheet()
+    private fun XSSFWorkbook.createHeaderRow(font: Font, name: String): XSSFSheet {
+        val sheet = createSheet(name)
         val headerRow = sheet.createRow(0)
 
         listOf(
