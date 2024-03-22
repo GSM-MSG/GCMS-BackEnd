@@ -18,8 +18,6 @@ import java.time.LocalDate
 class ClubAttendanceStatusExcelServiceImpl(
     private val scheduleRepository: ScheduleRepository,
     private val attendanceRepository: AttendanceRepository
-
-
 ): ClubAttendanceStatusExcelService {
     override fun execute(currentDate: LocalDate): ByteArray {
         val schedule = scheduleRepository.findAllByDate(currentDate)
