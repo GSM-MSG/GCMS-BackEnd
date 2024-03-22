@@ -66,7 +66,7 @@ class AttendanceController(
 
     @GetMapping("/excel")
     fun clubAttendanceStatusExcel(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) currentDate: LocalDate, response: HttpServletResponse): ByteArray {
-        response.setHeader("Content-Disposition", "attachment; filename=attendance_status.xlsx")
+        response.setHeader("Content-Disposition", "attachment; filename=$currentDate attendance book.xlsx")
         return clubAttendanceStatusExcelService.execute(currentDate)
     }
 
