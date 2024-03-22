@@ -28,7 +28,7 @@ class ClubAttendanceStatusExcelServiceImpl(
         font.fontName = "Arial"
         font.fontHeightInPoints = 11
 
-        schedule.map {
+        schedule.forEach {
             var rowNum = 1
 
             val sheet = workBook.createHeaderRow(font, it.club.name)
