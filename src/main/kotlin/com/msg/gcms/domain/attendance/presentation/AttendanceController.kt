@@ -49,7 +49,7 @@ class AttendanceController(
             .let { queryCurrentAttendConditionService.execute(it) }
             .let { ResponseEntity.ok(it) }
 
-    @PatchMapping()
+    @PatchMapping
     fun updateAttendanceStatus(
         @RequestBody @Valid updateAttendanceStatusRequestDto: UpdateAttendanceStatusRequestDto
     ): ResponseEntity<Unit> =
