@@ -6,8 +6,8 @@ import com.msg.gcms.domain.notice.utils.NoticeConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import javax.validation.Valid
 
@@ -16,7 +16,7 @@ class NoticeController(
     private val createNoticeService: CreateNoticeService,
     private val noticeConverter: NoticeConverter
 ) {
-    @GetMapping("/{club_id}")
+    @PostMapping("/{club_id}")
     fun createNotice(
         @PathVariable("club_id") clubId: Long,
         @RequestBody @Valid requestDto: CreateNoticeRequestDto
