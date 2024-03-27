@@ -46,6 +46,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/attend/").authenticated()
             .antMatchers(HttpMethod.GET, "/attend/excel").hasRole("ADMIN")
 
+            .antMatchers(HttpMethod.POST, "/notification/{club_id}").authenticated()
+
             .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/club-member/{club_id}").authenticated()
