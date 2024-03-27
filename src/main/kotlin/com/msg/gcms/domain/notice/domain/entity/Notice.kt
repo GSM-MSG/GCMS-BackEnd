@@ -2,6 +2,8 @@ package com.msg.gcms.domain.notice.domain.entity
 
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.msg.gcms.domain.user.domain.entity.User
+import org.springframework.data.annotation.CreatedDate
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -22,5 +24,9 @@ class Notice (
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    val user: User
+    val user: User,
+
+    @CreatedDate
+    @Column(columnDefinition = "DATETIME(6)")
+    val createdAt: LocalDateTime
 )
