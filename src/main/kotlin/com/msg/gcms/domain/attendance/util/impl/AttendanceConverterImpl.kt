@@ -31,7 +31,7 @@ class AttendanceConverterImpl : AttendanceConverter {
 
     override fun toDto(user: User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto =
         UserAttendanceStatusListDto.UserAttendanceStatusDto(
-            id = user.id,
+            uuid = user.id,
             attendanceId = attendance.id,
             name = user.nickname,
             grade = user.grade,
