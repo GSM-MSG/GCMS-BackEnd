@@ -25,12 +25,8 @@ class CreateNoticeServiceImpl(
         val club = clubRepository.findByIdOrNull(clubId)
             ?: throw ClubNotFoundException()
 
-        when(user.roles) {
-            listOf(Role.ROLE_ADMIN) -> {}
-            listOf(Role.ROLE_STUDENT) -> {
-                if (user != club.user)
-                    throw HeadNotSameException()
-            }
+        if(user.roles.contains(Role.ROLE_STUDENT)) {
+            if (user != club.user) throw HeadNotSameException()
         }
 
         noticeConverter.toEntity(dto, user, club)
