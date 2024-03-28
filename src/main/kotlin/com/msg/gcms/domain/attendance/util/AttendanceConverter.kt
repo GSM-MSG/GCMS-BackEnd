@@ -21,6 +21,6 @@ interface AttendanceConverter {
     ): Attendance
     fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceDto
     fun toDto(attendanceStatusDto: UpdateAttendanceStatusBatchRequestDto): AttendanceBatchDto
-    fun toDto(user:User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto
+    fun toDto(user: User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto
     fun toListDto(attendances: List<Attendance>): UserAttendanceStatusListDto
 }

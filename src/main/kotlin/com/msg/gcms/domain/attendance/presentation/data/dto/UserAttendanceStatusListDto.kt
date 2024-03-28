@@ -7,7 +7,7 @@ data class UserAttendanceStatusListDto(
     val users: List<UserAttendanceStatusDto>
 ) {
     data class UserAttendanceStatusDto(
-        val id: UUID,
+        val uuid: UUID,
         val attendanceId: Long,
         val name: String,
         val grade: Int,
