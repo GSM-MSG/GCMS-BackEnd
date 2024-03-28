@@ -1,6 +1,6 @@
 REPOSITORY=/home/ec2-user
-PROJECT_NAME=Gcms-Sever
-JAR_PATH=$REPOSITORY/$PROJECT_NAME/GCMS-Backend/build/libs/gcms-0.0.1-SNAPSHOT.jar
+PROJECT_NAME=GCMS-Backend
+JAR_PATH=$REPOSITORY/GCMS-Backend/build/libs/gcms-0.0.1-SNAPSHOT.jar
 
 cd $REPOSITORY/$PROJECT_NAME/
 
@@ -10,7 +10,7 @@ git pull origin develop
 echo "> Project Build"
 ./gradlew clean GCMS-Backend:build
 
-CURRENT_PID=$(lsof -i tcp:80)
+CURRENT_PID=$(lsof -i tcp:8080)
 if [ -z "$CURRENT_PID" ]; then
     echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
 else
