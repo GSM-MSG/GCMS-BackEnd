@@ -1,7 +1,7 @@
 name: GCMS-CD
 on:
   push:
-    branches: [ "develop", "Ops-codedeploy" ]
+    branches: [ "develop" ]
 
 env:
   S3_BUCKET_NAME: gcms-deploy-bucket
@@ -52,9 +52,9 @@ jobs:
       - name: Deploy
         run: |
           aws deploy create-deployment \
-          --application-name gcms-cd \
+          --application-name gcms-codedeploy \
           --deployment-config-name CodeDeployDefault.OneAtATime \
-          --deployment-group-name gcms-back-dev \
+          --deployment-group-name gcms-deploy-group \
           --file-exists-behavior OVERWRITE \
           --s3-location bucket=gcms-deploy-bucket,bundleType=zip,key=Gcms-Sever/$GITHUB_SHA.zip \
           --region ap-northeast-2 \
