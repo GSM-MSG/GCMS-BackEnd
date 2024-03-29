@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ec2-user/build/
+    destination: /home/ec2-user/GCMS-Backend/
     overwrite: yes
 permissions:
   - object: /home/ec2-user
