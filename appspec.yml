@@ -6,7 +6,7 @@ files:
     destination: /home/ec2-user/build/
     overwrite: yes
 permissions:
-  - object: /
+  - object: /home/ec2-user
     pattern: "**"
     owner: ec2-user
     group: ec2-user
@@ -14,6 +14,6 @@ permissions:
 
 hooks:
   AfterInstall:
-    - location: start.sh
+    - location: deploy.sh
       timeout: 300
       runas: ec2-user
