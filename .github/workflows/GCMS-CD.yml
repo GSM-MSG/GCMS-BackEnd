@@ -28,7 +28,7 @@ jobs:
       - name: Create application.yml on dev
         run: |
           touch ./src/main/resources/application.yml
-          echo "${{ secrets.APPLICATION_YML }}" >> ./src/main/resources/application.yml
+          echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
         shell: bash
 
       - name: Build with Gradle
