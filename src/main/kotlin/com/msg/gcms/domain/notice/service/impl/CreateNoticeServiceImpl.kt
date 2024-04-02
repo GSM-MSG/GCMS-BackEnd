@@ -9,12 +9,15 @@ import com.msg.gcms.domain.notice.presentation.data.dto.NoticeDto
 import com.msg.gcms.domain.notice.service.CreateNoticeService
 import com.msg.gcms.domain.notice.utils.NoticeConverter
 import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.fcm.enums.SendType
+import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
 
 @ServiceWithTransaction
 class CreateNoticeServiceImpl(
     private val userUtil: UserUtil,
+    private val messageSendUtil: MessageSendUtil,
     private val clubRepository: ClubRepository,
     private val noticeConverter: NoticeConverter,
     private val noticeRepository: NoticeRepository
@@ -31,5 +34,9 @@ class CreateNoticeServiceImpl(
 
         noticeConverter.toEntity(dto, user, club)
             .let { noticeRepository.save(it) }
+
+        club.clubMember.map {
+            messageSendUtil.send(it.user, "새로운 공지사항", "${club.name}에 새로운 공지사항이 올라왔어요.", SendType.NOTICE)
+        }
     }
 }
