@@ -16,9 +16,11 @@ class DeleteNoticeServiceImpl(
 ): DeleteNoticeService {
     override fun execute(id: Long) {
         val user = userUtil.fetchCurrentUser()
+        val notice = noticeRepository.findByIdOrNull(id)
+                ?: throw NoticeNotFoundException()
 
         if (user.roles.contains(Role.ROLE_STUDENT)) {
-            throw HeadNotSameException()
+            if(notice.club.user != user) throw HeadNotSameException()
         }
 
         noticeRepository.deleteById(id)
