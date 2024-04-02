@@ -21,9 +21,6 @@ class DeleteNoticeServiceImpl(
             throw HeadNotSameException()
         }
 
-        val notice = noticeRepository.findByIdOrNull(id)
-                ?: throw NoticeNotFoundException()
-
-        noticeRepository.delete(notice)
+        noticeRepository.deleteById(id)
     }
 }
