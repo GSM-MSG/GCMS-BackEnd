@@ -30,7 +30,7 @@ class NoticeController(
 
     @DeleteMapping("/{id}")
     fun deleteNotice(
-            @PathVariable("id") id: Long
+            @PathVariable id: Long
     ): ResponseEntity<Unit> =
         deleteNoticeService.execute(id)
              .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
