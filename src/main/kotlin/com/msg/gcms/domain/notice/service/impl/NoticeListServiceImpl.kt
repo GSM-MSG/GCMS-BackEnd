@@ -20,9 +20,9 @@ class NoticeListServiceImpl(
         private val userUtil: UserUtil
 ) : NoticeListService {
     override fun execute(clubId: Long): NoticeListDto {
+        val user = userUtil.fetchCurrentUser()
         val club = clubRepository.findByIdOrNull(clubId)
                 ?: throw ClubNotFoundException()
-        val user = userUtil.fetchCurrentUser()
 
         if (user.roles.contains(Role.ROLE_STUDENT)){
             if (!user.club.contains(club)) {
