@@ -24,7 +24,7 @@ class NoticeListServiceImpl(
         val club = clubRepository.findByIdOrNull(clubId)
                 ?: throw ClubNotFoundException()
 
-        if (user.roles.contains(Role.ROLE_STUDENT)){
+        if (user.roles[0] == Role.ROLE_STUDENT) {
             if (!user.club.contains(club)) {
                 throw NotClubMemberException()
             }
