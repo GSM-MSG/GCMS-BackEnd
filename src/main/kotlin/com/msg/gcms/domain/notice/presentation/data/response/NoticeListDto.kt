@@ -9,6 +9,6 @@ data class NoticeListDto(
             val id: Long,
             val title: String,
             val username: String,
-            val createAt: LocalDateTime
+            val createdAt: LocalDateTime
     )
 }

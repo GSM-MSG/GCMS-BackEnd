@@ -8,11 +8,11 @@ import com.msg.gcms.domain.notice.domain.repository.NoticeRepository
 import com.msg.gcms.domain.notice.presentation.data.response.NoticeListDto
 import com.msg.gcms.domain.notice.service.NoticeListService
 import com.msg.gcms.domain.notice.utils.NoticeConverter
-import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
 
-@ServiceWithTransaction
+@ServiceWithReadOnlyTransaction
 class NoticeListServiceImpl(
         private val noticeRepository: NoticeRepository,
         private val clubRepository: ClubRepository,
