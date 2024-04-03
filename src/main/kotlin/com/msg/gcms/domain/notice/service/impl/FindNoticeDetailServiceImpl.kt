@@ -25,6 +25,6 @@ class FindNoticeDetailServiceImpl(
         if (notice.club.user != currentUser && currentUser.roles[0] != Role.ROLE_ADMIN)
             throw HeadNotSameException()
 
-        return noticeConverter.toDto(notice)
+        return noticeConverter.toResponse(notice)
     }
 }

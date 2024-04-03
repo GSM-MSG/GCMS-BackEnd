@@ -16,7 +16,7 @@ class NoticeConverterImpl : NoticeConverter {
         content = requestDto.content
     )
 
-    override fun toDto(notice: Notice): FindNoticeDetailResponseDto = FindNoticeDetailResponseDto(
+    override fun toResponse(notice: Notice): FindNoticeDetailResponseDto = FindNoticeDetailResponseDto(
         title = notice.title,
         content = notice.content,
         username = notice.user.nickname,
