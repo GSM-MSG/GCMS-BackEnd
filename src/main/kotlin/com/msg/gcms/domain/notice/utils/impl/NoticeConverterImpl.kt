@@ -21,7 +21,7 @@ class NoticeConverterImpl : NoticeConverter {
         id = entity.id,
         title = entity.title,
         username = entity.user.nickname,
-        createAt = entity.createdAt
+        createdAt = entity.createdAt
     )
 
     override fun toEntity(dto: NoticeDto, user: User, club: Club): Notice = Notice(
