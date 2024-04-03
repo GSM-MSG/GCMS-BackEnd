@@ -48,6 +48,7 @@ class SecurityConfig(
 
             .antMatchers(HttpMethod.POST, "/notification/{club_id}").authenticated()
             .antMatchers(HttpMethod.DELETE, "/notification/{id}").authenticated()
+            .antMatchers(HttpMethod.GET, "/notification/{club_id}/all").authenticated()
 
             .antMatchers(HttpMethod.GET, "/club-member/{club_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/club-member/{club_id}").authenticated()
