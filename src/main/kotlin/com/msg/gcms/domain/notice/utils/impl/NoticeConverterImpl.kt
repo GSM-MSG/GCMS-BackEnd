@@ -5,6 +5,8 @@ import com.msg.gcms.domain.notice.domain.entity.Notice
 import com.msg.gcms.domain.notice.presentation.data.dto.NoticeDto
 import com.msg.gcms.domain.notice.presentation.data.request.CreateNoticeRequestDto
 import com.msg.gcms.domain.notice.presentation.data.response.FindNoticeDetailResponseDto
+import com.msg.gcms.domain.notice.presentation.data.response.NoticeListDto
+import com.msg.gcms.domain.notice.presentation.data.response.NoticeListResponseDto
 import com.msg.gcms.domain.notice.utils.NoticeConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
@@ -24,6 +26,13 @@ class NoticeConverterImpl : NoticeConverter {
         createdAt = notice.createdAt
     )
 
+    override fun toDto(entity: Notice): NoticeListDto.NoticeResponseDto = NoticeListDto.NoticeResponseDto(
+        id = entity.id,
+        title = entity.title,
+        username = entity.user.nickname,
+        createdAt = entity.createdAt
+    )
+
     override fun toEntity(dto: NoticeDto, user: User, club: Club): Notice = Notice(
         id = dto.id,
         title = dto.title,
@@ -32,4 +41,14 @@ class NoticeConverterImpl : NoticeConverter {
         user = user,
         club = club
     )
+
+    override fun toListDto(dto: List<NoticeListDto.NoticeResponseDto>): NoticeListDto =
+         NoticeListDto(
+            notices = dto
+    )
+
+    override fun toResponse(dto: NoticeListDto): NoticeListResponseDto =
+            NoticeListResponseDto(
+                    notices = dto.notices
+            )
 }
