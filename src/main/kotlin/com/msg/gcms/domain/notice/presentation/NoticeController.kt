@@ -1,12 +1,10 @@
 package com.msg.gcms.domain.notice.presentation
 
 import com.msg.gcms.domain.notice.presentation.data.request.CreateNoticeRequestDto
+import com.msg.gcms.domain.notice.presentation.data.request.UpdateNoticeRequestDto
 import com.msg.gcms.domain.notice.presentation.data.response.FindNoticeDetailResponseDto
 import com.msg.gcms.domain.notice.presentation.data.response.NoticeListResponseDto
-import com.msg.gcms.domain.notice.service.CreateNoticeService
-import com.msg.gcms.domain.notice.service.DeleteNoticeService
-import com.msg.gcms.domain.notice.service.FindNoticeDetailService
-import com.msg.gcms.domain.notice.service.NoticeListService
+import com.msg.gcms.domain.notice.service.*
 import com.msg.gcms.domain.notice.utils.NoticeConverter
 import com.msg.gcms.global.annotation.RequestController
 import org.springframework.http.HttpStatus
@@ -20,7 +18,8 @@ class NoticeController(
     private val noticeConverter: NoticeConverter,
     private val deleteNoticeService: DeleteNoticeService,
     private val findNoticeDetailService: FindNoticeDetailService,
-    private val noticeListService: NoticeListService
+    private val noticeListService: NoticeListService,
+    private val updateNoticeService: UpdateNoticeService
 ) {
     @PostMapping("/{club_id}")
     fun createNotice(
@@ -51,4 +50,13 @@ class NoticeController(
     ): ResponseEntity<NoticeListResponseDto> =
         noticeListService.execute(clubId)
             .let { ResponseEntity.ok().body(noticeConverter.toResponse(it)) }
+
+    @PatchMapping("/{id}")
+    fun updateNotice(
+        @PathVariable id: Long,
+        @RequestBody @Valid updateNoticeRequestDto: UpdateNoticeRequestDto
+    ) : ResponseEntity<Unit> =
+        noticeConverter.toDto(updateNoticeRequestDto)
+            .let { updateNoticeService.execute(id, it) }
+            .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
 }
