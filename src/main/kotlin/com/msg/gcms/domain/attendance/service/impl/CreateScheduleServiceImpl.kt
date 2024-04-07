@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.attendance.service.impl
 
+import com.msg.gcms.domain.attendance.exception.AlreadyScheduleExistException
 import com.msg.gcms.domain.attendance.presentation.data.dto.ScheduleDto.ScheduleListDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
 import com.msg.gcms.domain.attendance.repository.ScheduleRepository
@@ -31,6 +32,9 @@ class CreateScheduleServiceImpl(
             .let { scheduleRepository.save(it) }
 
         val attendances = dto.period.flatMap { period ->
+            if(scheduleRepository.existByDateAndPeriod(dto.schedule.date, period))
+                throw AlreadyScheduleExistException()
+
             members.map { member ->
                 attendanceConverter.toEntity(
                     schedule = schedule,
