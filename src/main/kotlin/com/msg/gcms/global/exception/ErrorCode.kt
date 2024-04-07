@@ -40,6 +40,7 @@ enum class ErrorCode(
     NOTICE_NOT_FOUND("해당 공지를 찾을 수 없음", 404),
 
     ALREADY_CLUB_EXIST("해당 동아리가 이미 존재함", 409),
+    ALREADY_SCHEDULE_EXIST("같은 날짜와 교시에 해당하는 스케쥴이 이미 존재함", 409),
     OPENING_APPLICATION_ALREADY_EXIST("이미 개설신청서를 제출하였습니다.", 409),
 
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500),
