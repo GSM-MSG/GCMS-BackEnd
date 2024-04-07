@@ -1,7 +1,9 @@
 package com.msg.gcms.domain.attendance.repository.impl
 
+import com.msg.gcms.domain.attendance.domain.entity.QAttendance.attendance
 import com.msg.gcms.domain.attendance.domain.entity.QSchedule.schedule
 import com.msg.gcms.domain.attendance.domain.entity.Schedule
+import com.msg.gcms.domain.attendance.domain.enums.Period
 import com.msg.gcms.domain.attendance.repository.CustomScheduleRepository
 import com.msg.gcms.domain.club.domain.entity.Club
 import com.querydsl.core.types.dsl.BooleanExpression
@@ -18,6 +20,19 @@ class CustomScheduleRepositoryImpl(
                 dateEq(date)
             ).fetchOne()
     }
+
+    override fun existByDateAndPeriod(date: LocalDate, period: Period): Boolean {
+        return jpaQueryFactory.selectOne()
+            .from(attendance)
+            .where(
+                attendance.schedule.date.eq(date),
+                attendance.period.eq(period)
+            )
+            .fetchFirst() != null
+    }
+
+
+
 
     private fun dateEq(date: LocalDate?): BooleanExpression =
         schedule.date.eq(date ?: LocalDate.now())
