@@ -7,5 +7,5 @@ import java.time.LocalDate
 
 interface CustomScheduleRepository {
     fun queryByDate(club: Club, date: LocalDate?): Schedule?
-    fun existByDateAndPeriod(date: LocalDate, period: Period): Boolean
+    fun existByDateAndPeriods(date: LocalDate, period: List<Period>): Boolean
 }

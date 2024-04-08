@@ -31,9 +31,10 @@ class CreateScheduleServiceImpl(
         val schedule = scheduleConverter.toEntity(club, dto.schedule)
             .let { scheduleRepository.save(it) }
 
+        if(scheduleRepository.existByDateAndPeriods(dto.schedule.date, dto.period))
+            throw AlreadyScheduleExistException()
+
         val attendances = dto.period.flatMap { period ->
-            if(scheduleRepository.existByDateAndPeriod(dto.schedule.date, period))
-                throw AlreadyScheduleExistException()
 
             members.map { member ->
                 attendanceConverter.toEntity(

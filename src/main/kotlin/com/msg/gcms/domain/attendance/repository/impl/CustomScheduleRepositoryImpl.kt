@@ -21,12 +21,12 @@ class CustomScheduleRepositoryImpl(
             ).fetchOne()
     }
 
-    override fun existByDateAndPeriod(date: LocalDate, period: Period): Boolean {
+    override fun existByDateAndPeriods(date: LocalDate, period: List<Period>): Boolean {
         return jpaQueryFactory.selectOne()
             .from(attendance)
             .where(
                 attendance.schedule.date.eq(date),
-                attendance.period.eq(period)
+                attendance.period.`in`(period)
             )
             .fetchFirst() != null
     }
