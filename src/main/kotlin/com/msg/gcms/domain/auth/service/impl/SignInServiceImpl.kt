@@ -34,7 +34,7 @@ class SignInServiceImpl(
         )
         val gAuthUserInfo: GAuthUserInfo = gAuth.getUserInfo(gAuthToken.accessToken)
         val role = getRoleByGAuthInfo(gAuthUserInfo.role, gAuthUserInfo.email)
-        val token = signInDto.token
+        val token = signInDto.token ?: ""
 
         val accessToken: String = jwtTokenProvider.generateAccessToken(gAuthUserInfo.email, role)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(gAuthUserInfo.email, role)
@@ -63,7 +63,7 @@ class SignInServiceImpl(
         return Role.ROLE_STUDENT
     }
 
-    private fun createUserByRoleOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?, role: Role) {
+    private fun createUserByRoleOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String, role: Role) {
         val userInfo = userRepository.findByEmail(gAuthUserInfo.email)
             ?: authUtil.saveNewUser(gAuthUserInfo, refreshToken, token, role)
 

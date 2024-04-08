@@ -8,6 +8,6 @@ import gauth.GAuthUserInfo
 
 interface AuthUtil {
 
-    fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?, role: Role): User
-    fun saveRefreshToken(userInfo: User, refreshToken: String, token: String?): RefreshToken
+    fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String, role: Role): User
+    fun saveRefreshToken(userInfo: User, refreshToken: String, token: String): RefreshToken
 }

@@ -20,20 +20,19 @@ class AuthUtilImpl(
     private val deviceTokenRepository: DeviceTokenRepository
 ) : AuthUtil {
 
-    override fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?, role: Role): User {
-
+    override fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String, role: Role): User {
         val user = authConverter.toEntity(gAuthUserInfo, role)
             .let { userRepository.save(it) }
 
         return user
     }
 
-    override fun saveRefreshToken(userInfo: User, refreshToken: String, token: String?): RefreshToken {
+    override fun saveRefreshToken(userInfo: User, refreshToken: String, token: String): RefreshToken {
         deviceTokenRepository.save(
             DeviceToken(
                userId = userInfo.id,
                user = userInfo, 
-               token = token ?: ""
+               token = token
            )
        )
         return authConverter.toEntity(userInfo, refreshToken)
