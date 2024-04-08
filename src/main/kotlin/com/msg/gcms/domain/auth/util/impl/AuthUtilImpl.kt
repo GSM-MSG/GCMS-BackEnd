@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.auth.util.impl
 
+import com.msg.gcms.domain.auth.domain.Role
 import com.msg.gcms.domain.auth.domain.entity.RefreshToken
 import com.msg.gcms.domain.auth.domain.repository.RefreshTokenRepository
 import com.msg.gcms.domain.auth.util.AuthConverter
@@ -19,19 +20,15 @@ class AuthUtilImpl(
     private val deviceTokenRepository: DeviceTokenRepository
 ) : AuthUtil {
 
-    override fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?) {
-        val signInUserInfo: User = authConverter.toEntity(gAuthUserInfo)
+    override fun saveNewUser(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?, role: Role): User {
+
+        val user = authConverter.toEntity(gAuthUserInfo, role)
             .let { userRepository.save(it) }
-        saveNewRefreshToken(signInUserInfo, refreshToken, token)
+
+        return user
     }
 
-    override fun saveNewAdmin(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?) {
-        val signInAdminInfo: User = authConverter.toAdminEntity(gAuthUserInfo)
-            .let { userRepository.save(it) }
-        saveNewRefreshToken(signInAdminInfo, refreshToken, token)
-    }
-
-    override fun saveNewRefreshToken(userInfo: User, refreshToken: String, token: String?): RefreshToken {
+    override fun saveRefreshToken(userInfo: User, refreshToken: String, token: String?): RefreshToken {
         deviceTokenRepository.save(DeviceToken(userInfo.id, userInfo, token ?: ""))
         return authConverter.toEntity(userInfo, refreshToken)
             .let { refreshTokenRepository.save(it) }
