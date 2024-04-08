@@ -24,6 +24,7 @@ class CustomScheduleRepositoryImpl(
     override fun existByDateAndPeriods(date: LocalDate, period: List<Period>): Boolean {
         return jpaQueryFactory.selectOne()
             .from(attendance)
+            .leftJoin(attendance.schedule, schedule)
             .where(
                 attendance.schedule.date.eq(date),
                 attendance.period.`in`(period)
