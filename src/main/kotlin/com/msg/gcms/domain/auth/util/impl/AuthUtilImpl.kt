@@ -29,7 +29,13 @@ class AuthUtilImpl(
     }
 
     override fun saveRefreshToken(userInfo: User, refreshToken: String, token: String?): RefreshToken {
-        deviceTokenRepository.save(DeviceToken(userInfo.id, userInfo, token ?: ""))
+        deviceTokenRepository.save(
+            DeviceToken(
+               userId = userInfo.id,
+               user = userInfo, 
+               token = token ?: ""
+           )
+       )
         return authConverter.toEntity(userInfo, refreshToken)
             .let { refreshTokenRepository.save(it) }
     }
