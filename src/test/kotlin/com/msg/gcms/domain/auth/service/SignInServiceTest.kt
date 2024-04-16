@@ -13,7 +13,6 @@ import com.msg.gcms.domain.user.domain.repository.DeviceTokenRepository
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.gauth.properties.GAuthProperties
 import com.msg.gcms.global.security.jwt.JwtTokenProvider
-import com.msg.gcms.global.util.MessageSendUtil
 import gauth.GAuth
 import gauth.GAuthToken
 import gauth.GAuthUserInfo
@@ -102,7 +101,7 @@ class SignInServiceTest : BehaviorSpec({
         )
 
         every {
-            authUtil.saveNewRefreshToken(userInfo = user, refreshToken = refreshToken, "")
+            authUtil.saveRefreshToken(userInfo = user, refreshToken = refreshToken, "")
         } returns refreshTokenEntity
 
         val signInDto = SignInDto(
@@ -128,10 +127,6 @@ class SignInServiceTest : BehaviorSpec({
         every {
             tokenProvider.refreshExpiredTime
         } returns refreshExp
-
-        every {
-            authConverter.toEntity(gAuthUserInfo)
-        } returns user
 
         every {
             authConverter.toEntity(user, refreshToken)

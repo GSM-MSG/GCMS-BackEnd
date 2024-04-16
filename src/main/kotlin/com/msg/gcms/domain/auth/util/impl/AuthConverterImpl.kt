@@ -23,28 +23,15 @@ class AuthConverterImpl : AuthConverter {
     override fun toDto(deviceTokenRequest: DeviceTokenRequest): DeviceTokenDto =
         DeviceTokenDto(deviceTokenRequest.token)
 
-
-    override fun toEntity(gAuthUserInfo: GAuthUserInfo): User =
+    override fun toEntity(gAuthUserInfo: GAuthUserInfo, role: Role): User =
         User(
             id = UUID.randomUUID(),
             email = gAuthUserInfo.email,
             nickname = gAuthUserInfo.name,
-            grade = gAuthUserInfo.grade,
-            classNum = gAuthUserInfo.classNum,
-            number = gAuthUserInfo.num,
-            roles = mutableListOf(Role.ROLE_STUDENT),
-            profileImg = gAuthUserInfo.profileUrl,
-        )
-
-    override fun toAdminEntity(gAuthUserInfo: GAuthUserInfo): User =
-        User(
-            id = UUID.randomUUID(),
-            email = gAuthUserInfo.email,
-            nickname = gAuthUserInfo.name,
-            grade = 0,
-            classNum = 0,
-            number = 0,
-            roles = mutableListOf(Role.ROLE_ADMIN),
+            grade = gAuthUserInfo.grade ?: 0,
+            classNum = gAuthUserInfo.classNum ?: 0,
+            number = gAuthUserInfo.num ?: 0,
+            roles = mutableListOf(role),
             profileImg = gAuthUserInfo.profileUrl,
         )
 

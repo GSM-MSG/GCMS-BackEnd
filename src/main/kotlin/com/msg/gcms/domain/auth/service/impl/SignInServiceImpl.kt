@@ -25,7 +25,6 @@ class SignInServiceImpl(
     private val authUtil: AuthUtil,
 ) : SignInService {
 
-
     override fun execute(signInDto: SignInDto): SignInResponseDto {
         val gAuthToken: GAuthToken = gAuth.generateToken(
             signInDto.code,
@@ -34,19 +33,15 @@ class SignInServiceImpl(
             gAuthProperties.redirectUri
         )
         val gAuthUserInfo: GAuthUserInfo = gAuth.getUserInfo(gAuthToken.accessToken)
-        val role = getRoleByGauthInfo(gAuthUserInfo.role, gAuthUserInfo.email)
-        val token = signInDto.token
+        val role = getRoleByGAuthInfo(gAuthUserInfo.role, gAuthUserInfo.email)
+        val token = signInDto.token ?: ""
 
         val accessToken: String = jwtTokenProvider.generateAccessToken(gAuthUserInfo.email, role)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(gAuthUserInfo.email, role)
         val accessExp: ZonedDateTime = jwtTokenProvider.accessExpiredTime
         val refreshExp: ZonedDateTime = jwtTokenProvider.refreshExpiredTime
 
-        if(role == Role.ROLE_ADMIN) {
-            createAdminOrRefreshToken(gAuthUserInfo, refreshToken, token)
-        } else {
-            createUserOrRefreshToken(gAuthUserInfo, refreshToken, token)
-        }
+        createUserByRoleOrRefreshToken(gAuthUserInfo, refreshToken, token, role)
 
         return SignInResponseDto(
             accessToken = accessToken,
@@ -56,7 +51,7 @@ class SignInServiceImpl(
         )
     }
 
-    private fun getRoleByGauthInfo(role: String, email: String): Role {
+    private fun getRoleByGAuthInfo(role: String, email: String): Role {
         val user = userRepository.findByEmail(email) ?:
         return when (role) {
             "ROLE_STUDENT" -> Role.ROLE_STUDENT
@@ -68,22 +63,10 @@ class SignInServiceImpl(
         return Role.ROLE_STUDENT
     }
 
-    private fun createUserOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?) {
+    private fun createUserByRoleOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String, role: Role) {
         val userInfo = userRepository.findByEmail(gAuthUserInfo.email)
-        if (userInfo == null) {
-            authUtil.saveNewUser(gAuthUserInfo, refreshToken, token)
-        } else {
-            authUtil.saveNewRefreshToken(userInfo, refreshToken, token)
-        }
-    }
+            ?: authUtil.saveNewUser(gAuthUserInfo, refreshToken, token, role)
 
-    private fun createAdminOrRefreshToken(gAuthUserInfo: GAuthUserInfo, refreshToken: String, token: String?) {
-        val adminInfo = userRepository.findByEmail(gAuthUserInfo.email)
-        if (adminInfo == null) {
-            authUtil.saveNewAdmin(gAuthUserInfo, refreshToken, token)
-        } else {
-            authUtil.saveNewRefreshToken(adminInfo, refreshToken, token)
-        }
+        authUtil.saveRefreshToken(userInfo, refreshToken, token)
     }
-
 }
