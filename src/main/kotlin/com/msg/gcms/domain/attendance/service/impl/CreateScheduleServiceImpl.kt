@@ -33,7 +33,7 @@ class CreateScheduleServiceImpl(
 
         scheduleRepository.save(schedule)
 
-        if(scheduleRepository.existByDateAndPeriods(dto.schedule.date, dto.period))
+        if(scheduleRepository.existByDateAndPeriodsAndClub(dto.schedule.date, dto.period, club))
             throw AlreadyScheduleExistException()
 
         val attendances = dto.period.flatMap { period ->
