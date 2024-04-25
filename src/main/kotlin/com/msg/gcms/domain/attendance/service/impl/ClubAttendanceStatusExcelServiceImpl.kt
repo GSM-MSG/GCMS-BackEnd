@@ -53,8 +53,8 @@ class ClubAttendanceStatusExcelServiceImpl(
                             setFont(font)
                         }
                     }
+                    rowNum++
                 }
-                rowNum++
             }
 
         ByteArrayOutputStream().use { stream ->
