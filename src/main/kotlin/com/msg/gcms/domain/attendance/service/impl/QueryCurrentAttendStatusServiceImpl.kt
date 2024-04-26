@@ -1,6 +1,7 @@
 package com.msg.gcms.domain.attendance.service.impl
 
 import com.msg.gcms.domain.attendance.domain.enums.Period
+import com.msg.gcms.domain.attendance.exception.AttendanceNotFoundException
 import com.msg.gcms.domain.attendance.exception.ScheduleNotFoundException
 import com.msg.gcms.domain.attendance.presentation.data.response.AttendSelfCheckResponseDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
@@ -37,10 +38,11 @@ class QueryCurrentAttendStatusServiceImpl (
 
         val period = getCurrentPeriod()
 
-        scheduleRepository.findByClubAndDate(club, LocalDate.now())?.let {
-            val attend = attendanceRepository.findByPeriodAndUser(period, user)
-            return attendanceConverter.toDto(attend)
-        } ?: throw ScheduleNotFoundException()
+        val schedule = scheduleRepository.findByClubAndDate(club, LocalDate.now()) ?: throw ScheduleNotFoundException()
+
+        val attend = attendanceRepository.findByScheduleAndPeriodAndUser(schedule, period, user) ?: throw AttendanceNotFoundException()
+
+        return attendanceConverter.toDto(attend);
     }
 
     fun getCurrentPeriod(): Period {

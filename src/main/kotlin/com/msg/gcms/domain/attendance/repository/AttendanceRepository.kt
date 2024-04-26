@@ -14,5 +14,5 @@ interface AttendanceRepository : CrudRepository<Attendance, Long>, CustomAttenda
     @EntityGraph(attributePaths = ["user"])
     fun findAllBySchedule(schedule: Schedule): List<Attendance>
 
-    fun findByPeriodAndUser (period: Period, user: User): Attendance
+    fun findByScheduleAndPeriodAndUser (schedule: Schedule, period: Period, user: User): Attendance?
 }
