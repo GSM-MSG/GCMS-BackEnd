@@ -38,9 +38,11 @@ class QueryCurrentAttendStatusServiceImpl (
 
         val period = getCurrentPeriod()
 
-        val schedule = scheduleRepository.findByClubAndDate(club, LocalDate.now()) ?: throw ScheduleNotFoundException()
+        val schedule = scheduleRepository.findByClubAndDate(club, LocalDate.now())
+                ?: throw ScheduleNotFoundException()
 
-        val attend = attendanceRepository.findByScheduleAndPeriodAndUser(schedule, period, user) ?: throw AttendanceNotFoundException()
+        val attend = attendanceRepository.findByScheduleAndPeriodAndUser(schedule, period, user)
+                ?: throw AttendanceNotFoundException()
 
         return attendanceConverter.toDto(attend);
     }
