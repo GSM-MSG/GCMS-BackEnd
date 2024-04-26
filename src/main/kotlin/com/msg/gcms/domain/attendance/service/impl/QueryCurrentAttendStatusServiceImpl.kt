@@ -31,7 +31,7 @@ class QueryCurrentAttendStatusServiceImpl (
         val club = clubRepository.findByIdOrNull(id)
                 ?: throw ClubNotFoundException()
 
-        if (clubMemberRepository.existsByUserAndClub(user, club)) {
+        if (!clubMemberRepository.existsByUserAndClub(user, club)) {
             throw NotClubMemberException()
         }
 
