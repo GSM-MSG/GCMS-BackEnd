@@ -42,7 +42,7 @@ class AttendanceConverterImpl : AttendanceConverter {
         )
 
     override fun toDto(attendance: Attendance): AttendSelfCheckResponseDto = AttendSelfCheckResponseDto(
-            attendanceStatus = attendance.attendanceStatus
+        attendanceStatus = attendance.attendanceStatus
     )
 
     override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceDto = AttendanceDto(

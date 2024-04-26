@@ -19,12 +19,12 @@ import java.time.LocalTime
 
 @ServiceWithReadOnlyTransaction
 class FindAttendSelfCheckServiceImpl (
-        private val userUtil: UserUtil,
-        private val attendanceRepository: AttendanceRepository,
-        private val clubRepository: ClubRepository,
-        private val attendanceConverter: AttendanceConverter,
-        private val clubMemberRepository: ClubMemberRepository,
-        private val scheduleRepository: ScheduleRepository
+    private val userUtil: UserUtil,
+    private val attendanceRepository: AttendanceRepository,
+    private val clubRepository: ClubRepository,
+    private val attendanceConverter: AttendanceConverter,
+    private val clubMemberRepository: ClubMemberRepository,
+    private val scheduleRepository: ScheduleRepository
 ): FindAttendSelfCheckService {
     override fun execute(id: Long): AttendSelfCheckResponseDto {
         val user = userUtil.fetchCurrentUser()
