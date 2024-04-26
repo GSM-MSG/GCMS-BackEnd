@@ -35,13 +35,10 @@ class FindAttendSelfCheckServiceImpl (
     }
 
     fun getCurrentPeriod(): Period {
-        val currentTime = java.time.LocalTime.now()
-
-        Period.values().reversed().map {
-            if(currentTime.isAfter(it.time))
+        Period.values().reversed().forEach {
+            if (LocalTime.now().isAfter(it.time))
                 return it
-        }
-
+        }   
         return Period.ELEVENTH
     }
 
