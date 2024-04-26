@@ -1,8 +1,10 @@
 package com.msg.gcms.domain.attendance.service.impl
 
 import com.msg.gcms.domain.attendance.domain.enums.Period
+import com.msg.gcms.domain.attendance.exception.ScheduleNotFoundException
 import com.msg.gcms.domain.attendance.presentation.data.response.AttendSelfCheckResponseDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
+import com.msg.gcms.domain.attendance.repository.ScheduleRepository
 import com.msg.gcms.domain.attendance.service.FindAttendSelfCheckService
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
@@ -12,6 +14,7 @@ import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
+import java.time.LocalDate
 import java.time.LocalTime
 
 @ServiceWithReadOnlyTransaction
@@ -20,7 +23,8 @@ class FindAttendSelfCheckServiceImpl (
         private val attendanceRepository: AttendanceRepository,
         private val clubRepository: ClubRepository,
         private val attendanceConverter: AttendanceConverter,
-        private val clubMemberRepository: ClubMemberRepository
+        private val clubMemberRepository: ClubMemberRepository,
+        private val scheduleRepository: ScheduleRepository
 ): FindAttendSelfCheckService {
     override fun execute(id: Long): AttendSelfCheckResponseDto {
         val user = userUtil.fetchCurrentUser()
@@ -31,9 +35,11 @@ class FindAttendSelfCheckServiceImpl (
                 ?: throw NotClubMemberException()
 
         val period = getCurrentPeriod()
-        val attend = attendanceRepository.findByPeriodAndUser(period, user)
 
-        return attendanceConverter.toDto(attend)
+        scheduleRepository.findByClubAndDate(club, LocalDate.now())?.let {
+            val attend = attendanceRepository.findByPeriodAndUser(period, user)
+            return attendanceConverter.toDto(attend)
+        } ?: throw ScheduleNotFoundException()
     }
 
     fun getCurrentPeriod(): Period {
