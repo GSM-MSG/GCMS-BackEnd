@@ -9,6 +9,7 @@ import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto.Attend
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
+import com.msg.gcms.domain.attendance.presentation.data.response.AttendSelfCheckResponseDto
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.user.domain.entity.User
 import org.springframework.stereotype.Component
@@ -39,6 +40,11 @@ class AttendanceConverterImpl : AttendanceConverter {
             number = user.number,
             attendanceStatus = attendance.attendanceStatus
         )
+
+    override fun toDto(attendance: Attendance): AttendSelfCheckResponseDto = AttendSelfCheckResponseDto(
+            attendanceStatus = attendance.attendanceStatus
+    )
+
     override fun toDto(attendanceStatusDto: UpdateAttendanceStatusRequestDto): AttendanceDto = AttendanceDto(
         id = attendanceStatusDto.attendanceId,
         attendanceStatus = attendanceStatusDto.attendanceStatus
