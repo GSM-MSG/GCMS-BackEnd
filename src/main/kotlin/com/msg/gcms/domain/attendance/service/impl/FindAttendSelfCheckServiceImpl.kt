@@ -11,6 +11,7 @@ import com.msg.gcms.domain.club.exception.NotClubMemberException
 import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
+import java.time.LocalTime
 
 @ServiceWithReadOnlyTransaction
 class FindAttendSelfCheckServiceImpl (
