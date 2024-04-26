@@ -9,6 +9,7 @@ import com.msg.gcms.domain.attendance.presentation.data.dto.AttendanceDto.Attend
 import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatusListDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
+import com.msg.gcms.domain.attendance.presentation.data.response.AttendSelfCheckResponseDto
 import com.msg.gcms.domain.user.domain.entity.User
 
 interface AttendanceConverter {
@@ -23,4 +24,6 @@ interface AttendanceConverter {
     fun toDto(attendanceStatusDto: UpdateAttendanceStatusBatchRequestDto): AttendanceBatchDto
     fun toDto(user: User, attendance: Attendance): UserAttendanceStatusListDto.UserAttendanceStatusDto
     fun toListDto(attendances: List<Attendance>): UserAttendanceStatusListDto
+
+    fun toDto(attendance: Attendance): AttendSelfCheckResponseDto
 }

@@ -5,6 +5,7 @@ import com.msg.gcms.domain.attendance.presentation.data.dto.UserAttendanceStatus
 import com.msg.gcms.domain.attendance.presentation.data.request.CreateScheduleRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusBatchRequestDto
 import com.msg.gcms.domain.attendance.presentation.data.request.UpdateAttendanceStatusRequestDto
+import com.msg.gcms.domain.attendance.presentation.data.response.AttendSelfCheckResponseDto
 import com.msg.gcms.domain.attendance.service.*
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.attendance.util.ScheduleConverter
@@ -13,22 +14,21 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.net.URL
 import java.net.URLEncoder
 import java.time.LocalDate
-import java.util.*
 import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 
 @RequestController("/attend")
 class AttendanceController(
-    private val createScheduleService: CreateScheduleService,
-    private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
-    private val updateAttendanceStatusService: UpdateAttendanceStatusService,
-    private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
-    private val clubAttendanceStatusExcelService: ClubAttendanceStatusExcelService,
-    private val scheduleConverter: ScheduleConverter,
-    private val attendanceConverter: AttendanceConverter
+        private val createScheduleService: CreateScheduleService,
+        private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
+        private val updateAttendanceStatusService: UpdateAttendanceStatusService,
+        private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
+        private val clubAttendanceStatusExcelService: ClubAttendanceStatusExcelService,
+        private val queryCurrentAttendStatusService: QueryCurrentAttendStatusService,
+        private val scheduleConverter: ScheduleConverter,
+        private val attendanceConverter: AttendanceConverter
 ) {
     @PostMapping("/{club_id}/club")
     fun createSchedule(
@@ -71,4 +71,9 @@ class AttendanceController(
         response.setHeader("Content-Disposition", "attachment; filename=${URLEncoder.encode("$currentDate 출석부", "UTF-8").replace("+", "%20")}.xlsx")
         return clubAttendanceStatusExcelService.execute(currentDate)
     }
+
+    @GetMapping("/{club_id}/my")
+    fun findAttendSelfCheck(@PathVariable("club_id") clubId: Long): ResponseEntity<AttendSelfCheckResponseDto> =
+        queryCurrentAttendStatusService.execute(clubId)
+            .let { ResponseEntity.ok(it) }
 }
