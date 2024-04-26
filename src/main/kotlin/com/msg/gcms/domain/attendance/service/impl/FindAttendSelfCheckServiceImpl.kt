@@ -8,6 +8,7 @@ import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.NotClubMemberException
+import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.global.annotation.ServiceWithReadOnlyTransaction
 import com.msg.gcms.global.util.UserUtil
 import org.springframework.data.repository.findByIdOrNull
@@ -18,16 +19,16 @@ class FindAttendSelfCheckServiceImpl (
         private val userUtil: UserUtil,
         private val attendanceRepository: AttendanceRepository,
         private val clubRepository: ClubRepository,
-        private val attendanceConverter: AttendanceConverter
+        private val attendanceConverter: AttendanceConverter,
+        private val clubMemberRepository: ClubMemberRepository
 ): FindAttendSelfCheckService {
     override fun execute(id: Long): AttendSelfCheckResponseDto {
         val user = userUtil.fetchCurrentUser()
         val club = clubRepository.findByIdOrNull(id)
                 ?: throw ClubNotFoundException()
 
-        if (club.user != user) {
-            throw NotClubMemberException()
-        }
+        clubMemberRepository.findByUserAndClub(user, club)
+                ?: throw NotClubMemberException()
 
         val period = getCurrentPeriod()
         val attend = attendanceRepository.findByPeriodAndUser(period, user)
