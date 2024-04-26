@@ -31,8 +31,9 @@ class FindCurrentAttendStautsServiceImpl (
         val club = clubRepository.findByIdOrNull(id)
                 ?: throw ClubNotFoundException()
 
-        clubMemberRepository.findByUserAndClub(user, club)
-                ?: throw NotClubMemberException()
+        if (clubMemberRepository.existsByUserAndClub(user, club)) {
+            throw NotClubMemberException()
+        }
 
         val period = getCurrentPeriod()
 
