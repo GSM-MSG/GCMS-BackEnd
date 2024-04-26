@@ -75,7 +75,7 @@ class AttendanceController(
     }
 
     @GetMapping("/{club_id}/my")
-    fun findAttendSelfCheck(@PathVariable("club_id") id: Long): ResponseEntity<AttendSelfCheckResponseDto> =
+    fun findAttendSelfCheck(@PathVariable("club_id") clubId: Long): ResponseEntity<AttendSelfCheckResponseDto> =
         findAttendSelfCheckService.execute(id)
             .let { ResponseEntity.ok(it) }
 }
