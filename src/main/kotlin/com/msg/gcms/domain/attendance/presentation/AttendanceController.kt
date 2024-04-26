@@ -14,23 +14,21 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.net.URL
 import java.net.URLEncoder
 import java.time.LocalDate
-import java.util.*
 import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 
 @RequestController("/attend")
 class AttendanceController(
-    private val createScheduleService: CreateScheduleService,
-    private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
-    private val updateAttendanceStatusService: UpdateAttendanceStatusService,
-    private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
-    private val clubAttendanceStatusExcelService: ClubAttendanceStatusExcelService,
-    private val findAttendSelfCheckService: FindAttendSelfCheckService,
-    private val scheduleConverter: ScheduleConverter,
-    private val attendanceConverter: AttendanceConverter
+        private val createScheduleService: CreateScheduleService,
+        private val queryCurrentAttendConditionService: QueryCurrentAttendConditionService,
+        private val updateAttendanceStatusService: UpdateAttendanceStatusService,
+        private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
+        private val clubAttendanceStatusExcelService: ClubAttendanceStatusExcelService,
+        private val findCurrentAttendSelfCheckService: FindCurrentAttendStautsService,
+        private val scheduleConverter: ScheduleConverter,
+        private val attendanceConverter: AttendanceConverter
 ) {
     @PostMapping("/{club_id}/club")
     fun createSchedule(
@@ -76,6 +74,6 @@ class AttendanceController(
 
     @GetMapping("/{club_id}/my")
     fun findAttendSelfCheck(@PathVariable("club_id") clubId: Long): ResponseEntity<AttendSelfCheckResponseDto> =
-        findAttendSelfCheckService.execute(clubId)
+        findCurrentAttendSelfCheckService.execute(clubId)
             .let { ResponseEntity.ok(it) }
 }

@@ -5,7 +5,7 @@ import com.msg.gcms.domain.attendance.exception.ScheduleNotFoundException
 import com.msg.gcms.domain.attendance.presentation.data.response.AttendSelfCheckResponseDto
 import com.msg.gcms.domain.attendance.repository.AttendanceRepository
 import com.msg.gcms.domain.attendance.repository.ScheduleRepository
-import com.msg.gcms.domain.attendance.service.FindAttendSelfCheckService
+import com.msg.gcms.domain.attendance.service.FindCurrentAttendStautsService
 import com.msg.gcms.domain.attendance.util.AttendanceConverter
 import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.club.exception.ClubNotFoundException
@@ -18,14 +18,14 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 @ServiceWithReadOnlyTransaction
-class FindAttendSelfCheckServiceImpl (
+class FindCurrentAttendStautsServiceImpl (
     private val userUtil: UserUtil,
     private val attendanceRepository: AttendanceRepository,
     private val clubRepository: ClubRepository,
     private val attendanceConverter: AttendanceConverter,
     private val clubMemberRepository: ClubMemberRepository,
     private val scheduleRepository: ScheduleRepository
-): FindAttendSelfCheckService {
+): FindCurrentAttendStautsService {
     override fun execute(id: Long): AttendSelfCheckResponseDto {
         val user = userUtil.fetchCurrentUser()
         val club = clubRepository.findByIdOrNull(id)
