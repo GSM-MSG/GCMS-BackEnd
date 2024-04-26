@@ -26,7 +26,7 @@ class AttendanceController(
         private val updateAttendanceStatusService: UpdateAttendanceStatusService,
         private val updateAttendanceStatusBatchService: UpdateAttendanceStatusBatchService,
         private val clubAttendanceStatusExcelService: ClubAttendanceStatusExcelService,
-        private val findCurrentAttendSelfCheckService: FindCurrentAttendStautsService,
+        private val queryCurrentAttendStatusService: QueryCurrentAttendStatusService,
         private val scheduleConverter: ScheduleConverter,
         private val attendanceConverter: AttendanceConverter
 ) {
@@ -74,6 +74,6 @@ class AttendanceController(
 
     @GetMapping("/{club_id}/my")
     fun findAttendSelfCheck(@PathVariable("club_id") clubId: Long): ResponseEntity<AttendSelfCheckResponseDto> =
-        findCurrentAttendSelfCheckService.execute(clubId)
+        queryCurrentAttendStatusService.execute(clubId)
             .let { ResponseEntity.ok(it) }
 }
