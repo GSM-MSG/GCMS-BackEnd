@@ -12,9 +12,10 @@ import com.msg.gcms.domain.clubMember.exception.ClubMemberReleaseNotFoundExcepti
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberExitDto
 import com.msg.gcms.domain.clubMember.service.ExitClubMemberService
 import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.event.SendMessageEvent
 import com.msg.gcms.global.fcm.enums.SendType
-import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 
 @ServiceWithTransaction
@@ -22,7 +23,7 @@ class ExitClubMemberServiceImpl(
     private val userUtil: UserUtil,
     private val clubRepository: ClubRepository,
     private val clubMemberRepository: ClubMemberRepository,
-    private val messageSendUtil: MessageSendUtil
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) : ExitClubMemberService {
     override fun execute(clubMemberExitDto: ClubMemberExitDto) {
         val user = userUtil.fetchCurrentUser()
@@ -36,7 +37,15 @@ class ExitClubMemberServiceImpl(
         }
         val memberRelease: ClubMember = getClubMemberToRelease(club, clubMemberExitDto.uuid)
         clubMemberRepository.delete(memberRelease)
-        messageSendUtil.send(memberRelease.user, "동아리 방출", "${club.name}에서 방출당했습니다.", SendType.CLUB)
+
+        applicationEventPublisher.publishEvent(
+            SendMessageEvent(
+                user = memberRelease.user,
+                title = "동아리 방출",
+                content = "${club.name}에서 방출당했습니다.",
+                type = SendType.CLUB
+            )
+        )
     }
 
     private fun getClubMemberToRelease(club: Club, uuid: String): ClubMember =
