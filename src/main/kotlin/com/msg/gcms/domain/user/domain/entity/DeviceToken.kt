@@ -19,5 +19,5 @@ class DeviceToken (
     @JoinColumn(name = "user_id", columnDefinition = "BINARY(16)")
     val user: User,
 
-    val token: String,
+    val token: String?,
 )
