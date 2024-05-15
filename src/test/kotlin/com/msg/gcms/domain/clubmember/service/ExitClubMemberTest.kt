@@ -7,22 +7,23 @@ import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.clubMember.exception.ClubMemberExitOneSelfException
 import com.msg.gcms.domain.clubMember.presentation.data.dto.ClubMemberExitDto
 import com.msg.gcms.domain.clubMember.service.impl.ExitClubMemberServiceImpl
-import com.msg.gcms.global.util.MessageSendUtil
+import com.msg.gcms.global.event.SendMessageEvent
+import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 
 class ExitClubMemberTest : BehaviorSpec({
     val userUtil = mockk<UserUtil>()
     val clubRepository = mockk<ClubRepository>()
     val clubMemberRepository = mockk<ClubMemberRepository>()
-    val messageSendUtil = mockk<MessageSendUtil>()
-    val exitClubMemberService = ExitClubMemberServiceImpl(userUtil, clubRepository, clubMemberRepository, messageSendUtil)
+    val applicationEventPublisher = mockk<ApplicationEventPublisher>()
+
+    val exitClubMemberService = ExitClubMemberServiceImpl(userUtil, clubRepository, clubMemberRepository, applicationEventPublisher)
 
     Given("clubMemberExitDto 주어졌을때") {
         val user = (1..2)
@@ -32,10 +33,21 @@ class ExitClubMemberTest : BehaviorSpec({
             .map { TestUtils.data().clubMember().entity(club, it) }
         var clubMemberExitDto = ClubMemberExitDto(clubId = club.id, user[0].id.toString())
         every { userUtil.fetchCurrentUser() } returns club.user
+
         When("해당 동아리에 멤버를 삭제 할 때") {
             every { clubRepository.findByIdOrNull(club.id) } returns club
             every { clubMemberRepository.findByClub(club) } returns clubMember
             every { clubMemberRepository.delete(clubMember[0]) } returns Unit
+            every {
+                applicationEventPublisher.publishEvent(
+                    SendMessageEvent(
+                        user = clubMember[0].user,
+                        title = "동아리 방출",
+                        content = "${club.name}에서 방출당했습니다.",
+                        type = SendType.CLUB
+                    )
+                )
+            } just Runs
             exitClubMemberService.execute(clubMemberExitDto)
             Then("그때 delete쿼리가 실행되어야함"){
                 verify(exactly = 1){ clubMemberRepository.delete(clubMember[0]) }

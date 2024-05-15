@@ -9,13 +9,13 @@ import com.msg.gcms.domain.club.domain.repository.ClubRepository
 import com.msg.gcms.domain.clubMember.domain.entity.ClubMember
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.user.domain.repository.UserRepository
-import com.msg.gcms.global.util.MessageSendUtil
+import com.msg.gcms.global.event.SendMessageEvent
+import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import java.util.*
 
@@ -26,14 +26,14 @@ class RejectApplicantServiceTest : BehaviorSpec({
     val userRepository = mockk<UserRepository>()
     val applicantConverter = mockk<ApplicantConverter>()
     val userUtil = mockk<UserUtil>()
-    val messageSendUtil = mockk<MessageSendUtil>()
+    val applicationEventPublisher = mockk<ApplicationEventPublisher>()
 
     val rejectApplicantService = RejectApplicantServiceImpl(
         clubRepository = clubRepository,
         applicantRepository = applicantRepository,
         userRepository = userRepository,
         userUtil = userUtil,
-        messageSendUtil = messageSendUtil
+        applicationEventPublisher = applicationEventPublisher
     )
 
     given("동아리 ID와 유저가 주어졌을때") {
@@ -65,6 +65,17 @@ class RejectApplicantServiceTest : BehaviorSpec({
         } returns applicant
 
         every { applicantRepository.delete(applicant) } returns Unit
+
+        every {
+            applicationEventPublisher.publishEvent(
+                SendMessageEvent(
+                    user = user,
+                    title = "동아리 신청 거절",
+                    content = "${club.name}에 거절되셨습니다.",
+                    type = SendType.CLUB
+                )
+            )
+        } just Runs
 
         `when`("서비스를 실행하면") {
             rejectApplicantService.execute(1, rejectDto)
