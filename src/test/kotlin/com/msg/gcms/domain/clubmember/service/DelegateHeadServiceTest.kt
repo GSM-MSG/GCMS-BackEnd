@@ -11,7 +11,6 @@ import com.msg.gcms.domain.clubMember.util.UpdateClubHeadUtil
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.global.event.SendMessageEvent
 import com.msg.gcms.global.fcm.enums.SendType
-import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
