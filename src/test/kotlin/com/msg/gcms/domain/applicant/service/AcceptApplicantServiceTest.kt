@@ -72,7 +72,7 @@ class AcceptApplicantServiceTest : BehaviorSpec({
                     user = user,
                     title = "동아리 신청 수락",
                     content = "${club.name}에 수락되셨습니다.",
-                    SendType.CLUB
+                    type = SendType.CLUB
                 )
             )
         } just Runs
