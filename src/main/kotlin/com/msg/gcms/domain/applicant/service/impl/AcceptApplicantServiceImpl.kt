@@ -58,7 +58,7 @@ class AcceptApplicantServiceImpl(
                 user = applicantUser,
                 title = "동아리 신청 수락",
                 content = "${clubInfo.name}에 수락되셨습니다.",
-                SendType.CLUB
+                type = SendType.CLUB
             )
         )
     }
