@@ -13,9 +13,10 @@ import com.msg.gcms.domain.club.exception.ClubNotFoundException
 import com.msg.gcms.domain.club.exception.ClubNotOpeningException
 import com.msg.gcms.domain.clubMember.domain.repository.ClubMemberRepository
 import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.event.SendMessageEvent
 import com.msg.gcms.global.fcm.enums.SendType
-import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 
 @ServiceWithTransaction
@@ -25,7 +26,7 @@ class ClubApplyServiceImpl(
     private val clubMemberRepository: ClubMemberRepository,
     private val applicantSaveUtil: ApplicantSaveUtil,
     private val applicantRepository: ApplicantRepository,
-    private val messageSendUtil: MessageSendUtil
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) : ClubApplyService {
     override fun execute(clubId: Long): ClubApplyDto {
         val club = clubRepository.findByIdOrNull(clubId)
@@ -46,7 +47,16 @@ class ClubApplyServiceImpl(
                 throw DuplicateClubTypeApplicantException()
 
         val applicant = applicantSaveUtil.saveApplicant(club, user)
-        messageSendUtil.send(club.user, "동아리 신청 요청", "${user.nickname}님이 ${club.name}에 신청했습니다.", SendType.CLUB)
+
+        applicationEventPublisher.publishEvent(
+            SendMessageEvent(
+                user = club.user,
+                title = "동아리 신청 요청",
+                content = "${user.nickname}님이 ${club.name}에 신청했습니다.",
+                type = SendType.CLUB
+            )
+        )
+
         return ClubApplyDto(applicant)
     }
 

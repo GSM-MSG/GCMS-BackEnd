@@ -9,13 +9,17 @@ import com.msg.gcms.domain.clubMember.presentation.data.dto.DelegateHeadDto
 import com.msg.gcms.domain.clubMember.service.impl.DelegateHeadServiceImpl
 import com.msg.gcms.domain.clubMember.util.UpdateClubHeadUtil
 import com.msg.gcms.domain.user.domain.repository.UserRepository
-import com.msg.gcms.global.util.MessageSendUtil
+import com.msg.gcms.global.event.SendMessageEvent
+import com.msg.gcms.global.fcm.enums.SendType
 import com.msg.gcms.global.util.UserUtil
 import com.msg.gcms.testUtils.TestUtils
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 
 class DelegateHeadServiceTest : BehaviorSpec({
@@ -24,8 +28,10 @@ class DelegateHeadServiceTest : BehaviorSpec({
     val userRepository = mockk<UserRepository>()
     val clubMemberRepository = mockk<ClubMemberRepository>()
     val updateClubHeadUtil = mockk<UpdateClubHeadUtil>()
-    val messageSendUtil = mockk<MessageSendUtil>()
-    val delegateHeadServiceImpl = DelegateHeadServiceImpl(clubRepository, clubMemberRepository, userRepository, updateClubHeadUtil, userUtil, messageSendUtil)
+    val applicationEventPublisher = mockk<ApplicationEventPublisher>()
+
+    val delegateHeadServiceImpl = DelegateHeadServiceImpl(clubRepository, clubMemberRepository, userRepository, updateClubHeadUtil, userUtil, applicationEventPublisher)
+
     given("동아리, 부장, 동아리 멤버가 주어지고"){
         val head = TestUtils.data().user().entity()
         val member = TestUtils.data().user().entity()
@@ -68,6 +74,16 @@ class DelegateHeadServiceTest : BehaviorSpec({
         every { userRepository.existsById(member.id) } returns true
         every { clubMemberRepository.findAllByClub(club) } returns listOf(clubMember)
         every { updateClubHeadUtil.updateClubHead(club, clubMember, head) } returns club
+        every {
+            applicationEventPublisher.publishEvent(
+                SendMessageEvent(
+                    user = clubMember.user,
+                    title = "부장 위임",
+                    content = "${club.name}의 부장으로 위임되셨습니다.",
+                    type = SendType.CLUB
+                )
+            )
+        } just Runs
         val request = DelegateHeadDto(uuid = member.id)
         `when`("서비스를 실행하면"){
             val response = delegateHeadServiceImpl.execute(1, request)

@@ -14,9 +14,10 @@ import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.event.SendMessageEvent
 import com.msg.gcms.global.fcm.enums.SendType
-import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import java.util.*
 
@@ -28,7 +29,7 @@ class AcceptApplicantServiceImpl(
     private val userRepository: UserRepository,
     private val applicantConverter: ApplicantConverter,
     private val userUtil: UserUtil,
-    private val messageSendUtil: MessageSendUtil
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) : AcceptApplicantService {
 
     override fun execute(clubId: Long, acceptDto: AcceptDto) {
@@ -52,6 +53,13 @@ class AcceptApplicantServiceImpl(
         val clubMember = applicantConverter.toEntity(clubInfo, applicantUser)
         clubMemberRepository.save(clubMember)
 
-        messageSendUtil.send(applicantUser, "동아리 신청 수락", "${clubInfo.name}에 수락되셨습니다.", SendType.CLUB)
+        applicationEventPublisher.publishEvent(
+            SendMessageEvent(
+                user = applicantUser,
+                title = "동아리 신청 수락",
+                content = "${clubInfo.name}에 수락되셨습니다.",
+                type = SendType.CLUB
+            )
+        )
     }
 }

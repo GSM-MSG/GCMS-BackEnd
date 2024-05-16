@@ -13,9 +13,10 @@ import com.msg.gcms.domain.user.domain.entity.User
 import com.msg.gcms.domain.user.domain.repository.UserRepository
 import com.msg.gcms.domain.user.exception.UserNotFoundException
 import com.msg.gcms.global.annotation.ServiceWithTransaction
+import com.msg.gcms.global.event.SendMessageEvent
 import com.msg.gcms.global.fcm.enums.SendType
-import com.msg.gcms.global.util.MessageSendUtil
 import com.msg.gcms.global.util.UserUtil
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import java.util.*
 
@@ -25,7 +26,7 @@ class RejectApplicantServiceImpl(
     private val userRepository: UserRepository,
     private val applicantRepository: ApplicantRepository,
     private val userUtil: UserUtil,
-    private val messageSendUtil: MessageSendUtil
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) : RejectApplicantService {
     override fun execute(clubId: Long, rejectDto: RejectDto) {
         val clubInfo: Club = clubRepository.findByIdOrNull(clubId)
@@ -44,6 +45,13 @@ class RejectApplicantServiceImpl(
 
         applicantRepository.delete(applicant)
 
-        messageSendUtil.send(applicantUser, "동아리 신청 거절", "${clubInfo.name}에 거절되셨습니다.", SendType.CLUB)
+        applicationEventPublisher.publishEvent(
+            SendMessageEvent(
+                user = applicantUser,
+                title = "동아리 신청 거절",
+                content = "${clubInfo.name}에 거절되셨습니다.",
+                type = SendType.CLUB
+            )
+        )
     }
 }

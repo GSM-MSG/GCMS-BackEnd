@@ -93,7 +93,7 @@ object ClubDataUtil {
         teacher = teacher(),
         contact = contact(),
         type = ClubType.values().random(),
-        isOpened = nextBoolean(),
+        isOpened = true,
         user = user,
         activityImg = listOf(),
         applicant = listOf(),
